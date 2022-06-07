@@ -3,11 +3,11 @@
 # Date: 07/06/022
 # Description: RPG battle simulator which teaches dental hygiene.
 
-print()
-health = 100
+
 class user():
     def __init__(self, health, weapon):
         self.health = health
+        self.weapon = weapon
         self.dollars = 0
 
 class enemy():
@@ -16,9 +16,6 @@ class enemy():
         self.health = health
         self.base_dmg = base_dmg
 
-plaque = enemy("Plaque", 100, 15)
-tartar = enemy("Tartar", 100, 15)
-tooth_decay = enemy("Tooth Decay", 100, 15)
 
 def weapon_selection():
     weaken_weapons = [
@@ -39,12 +36,16 @@ def weapon_selection():
             print("    Sorry, that is not a valid choice.")
 
 
+mc = user(100, weapon_selection())
+plaque = enemy("Plaque", 100, 15)
+tartar = enemy("Tartar", 100, 15)
+tooth_decay = enemy("Tooth Decay", 100, 15)
 
 
 
-current_attack = user(health, weapon_selection())
+
 # variable.parameter is format for accessing
-print(plaque.base_dmg)
+print(mc.weapon)
 
 
 # Time checker
