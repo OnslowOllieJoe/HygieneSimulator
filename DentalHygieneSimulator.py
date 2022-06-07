@@ -3,6 +3,8 @@
 # Date: 07/06/022
 # Description: RPG battle simulator which teaches dental hygiene.
 
+# Constants
+max_hp = 100
 
 class user():
     def __init__(self, health, weapon):
@@ -42,16 +44,19 @@ plaque = enemy("Plaque", 100, 15)
 tartar = enemy("Tartar", 100, 15)
 tooth_decay = enemy("Tooth Decay", 100, 15)
 
-
+enemy_list = [
+              plaque, 
+              tartar, 
+              tooth_decay
+              ]
 
 
 # variable.parameter is format for accessing
-print(mc.weapon)
 
 
-# Time checker
-import datetime
-start_time = datetime.datetime.now()
-end_time = datetime.datetime.now()
-print(end_time - start_time)
-
+def fight():
+    print("Enemies:")
+    for i in enemy_list:
+        print(i)
+        print(f"    {i[0].type} {str(i[0].health)}/ {max_hp}")
+fight()
