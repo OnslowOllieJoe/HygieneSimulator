@@ -10,6 +10,7 @@ class user():
         self.weapon = weapon
         self.dollars = 0
 
+
 class enemy():
     def __init__(self, type, health, base_dmg):
         self.type = type
