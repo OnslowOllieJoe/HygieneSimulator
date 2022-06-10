@@ -44,7 +44,7 @@ plaque = enemy("Plaque", 100, 15)
 tartar = enemy("Tartar", 100, 15)
 tooth_decay = enemy("Tooth Decay", 100, 15)
 
-enemy_list = [
+current_enemy_list = [
               plaque, 
               tartar, 
               tooth_decay
@@ -53,10 +53,14 @@ enemy_list = [
 
 # variable.parameter is format for accessing
 
-
+SPACE_LENGTH = 15
 def fight():
-    print("Enemies:")
-    for i in enemy_list:
-        print(i)
-        print(f"    {i[0].type} {str(i[0].health)}/ {max_hp}")
+    print("""\n---------------------------------
+          Enemies:
+---------------------------------""")
+    for i in range(len(current_enemy_list)):
+        print(f"    {current_enemy_list[i].type}: " +
+              (" " * (SPACE_LENGTH - (len(current_enemy_list[i].type)))) +
+              f"{str(current_enemy_list[i].health)}/{max_hp}")
+    print("---------------------------------")
 fight()
