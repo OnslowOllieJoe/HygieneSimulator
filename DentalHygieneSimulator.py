@@ -4,13 +4,15 @@
 # Description: RPG battle simulator which teaches dental hygiene.
 
 # Constants
-max_hp = 100
+MAX_HP = 100
+SEPERATOR = "---------------------------------"
+SPACE_LENGTH = 15
 
 class user():
-    def __init__(self, health, weapon):
-        self.health = health
+    def __init__(self, weapon):
         self.weapon = weapon
-        self.dollars = 0
+        self.health = 100
+        self.money = 0
 
 
 class enemy():
@@ -20,26 +22,30 @@ class enemy():
         self.base_dmg = base_dmg
 
 
-def weapon_selection():
-    weaken_weapons = [
-               ["Tooth Brush", 15],
-               ["Dental Floss", 15],
-               ["Mouthwash", 15]
-               ]
-    print("Available Weapons:")
-    count = 1
-    for i in weaken_weapons:
-        print(f"    {count}: " + i[0])
-        count += 1
-    while True:
-        try:
-            chosen_weapon = int(input("Pick your weapons number: ")) - 1
-            return weaken_weapons[chosen_weapon][0]
-        except:
-            print("    Sorry, that is not a valid choice.")
+# def weapon_selection():
+#     weaken_weapons = [
+#                ["Tooth Brush", 15],
+#                ["Dental Floss", 15],
+#                ["Mouthwash", 15]
+#                ]
+#     print(f"""{SEPERATOR}
+# \n     Available Weapons:\n
+# {SEPERATOR}""")
+#     count = 1
+#     for i in weaken_weapons:
+#         print(f"    {count}: " + i[0])
+#         count += 1
+#     while True:
+#         try:
+#             print(SEPERATOR)
+#             chosen_weapon = int(input("\nPick your weapons number: ")) - 1
+#             print(f"\nYou have chosen {weaken_weapons[chosen_weapon][0]}")
+#             return weaken_weapons[chosen_weapon][0]
+#         except:
+#             print("    Sorry, that is not a valid choice.")
 
 
-mc = user(100, weapon_selection())
+mc = user("knife") #weapon_selection())
 plaque = enemy("Plaque", 100, 15)
 tartar = enemy("Tartar", 100, 15)
 tooth_decay = enemy("Tooth Decay", 100, 15)
@@ -52,15 +58,15 @@ current_enemy_list = [
 
 
 # variable.parameter is format for accessing
-
-SPACE_LENGTH = 15
 def fight():
-    print("""\n---------------------------------
-          Enemies:
----------------------------------""")
+    print(f"""\n{SEPERATOR}\n
+            Enemies:\n
+{SEPERATOR}""")
     for i in range(len(current_enemy_list)):
         print(f"    {current_enemy_list[i].type}: " +
               (" " * (SPACE_LENGTH - (len(current_enemy_list[i].type)))) +
-              f"{str(current_enemy_list[i].health)}/{max_hp}")
-    print("---------------------------------")
+              f"{str(current_enemy_list[i].health)}/{MAX_HP}")
+    print(f"{SEPERATOR}\n")
+    print(f"    Your health:     {mc.health}/{MAX_HP}")
+    print(f"    Your wallet:     ${mc.money}")
 fight()
