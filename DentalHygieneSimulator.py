@@ -24,10 +24,8 @@ def weapon_selection():
                ["Mouthwash", 15]
                ]
     print(SEPARATOR)
-    count = 1
-    for i in weaken_weapons:
-        print(f"    {count}: " + i[0])
-        count += 1
+    for count, value in enumerate(weaken_weapons, start=1):
+        print(f"    {count}: " + value[0])
     while True:
         try:
             print(SEPARATOR)
