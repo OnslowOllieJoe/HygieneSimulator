@@ -48,7 +48,7 @@ def weapon_selection():
             if chosen_weapon in range(1, len(weaken_weapons) + 1):
                 print(f"You have chosen {weaken_weapons[chosen_weapon - 1][0]}!")
                 print("\n" +SEPARATOR)
-                return weaken_weapons[chosen_weapon - 1][0]
+                return chosen_weapon - 1
             else:
                 print("Please enter a number from {} to {}."
                 .format(1, len(weaken_weapons)))
