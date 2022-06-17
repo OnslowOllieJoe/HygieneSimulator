@@ -3,6 +3,8 @@
 # Date: 07/06/022
 # Description: RPG battle simulator which teaches dental hygiene.
 
+import random
+
 # Constants
 MAX_HP = 100
 SEPARATOR = "---------------------------------"
@@ -12,6 +14,10 @@ weaken_weapons = [
                ["Dental Floss", 15],
                ["Mouthwash", 15]
                ]
+kill_weapons = [
+             ["Dental Scaler", 1],
+             ["Filling", 1],
+             ]
 
 
 class characters():
@@ -71,7 +77,6 @@ mc.base_dmg = weapon_selection()
 ######
 ######
 ######
-for i in range(5):
-    user_and_enemy_info()
-    mc.base_dmg = weapon_selection()
-    
+random_multiplier = 1 + (random.randint(0, 9) * 0.1) + (random.randint(0, 9) * 0.01)
+current_attack = int(weaken_weapons[mc.base_dmg][1] * random_multiplier)
+print(f"DMG: {current_attack}")
