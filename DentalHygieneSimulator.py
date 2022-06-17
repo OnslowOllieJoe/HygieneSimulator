@@ -77,6 +77,7 @@ mc.base_dmg = weapon_selection()
 ######
 ######
 ######
-random_multiplier = 1 + (random.randint(0, 9) * 0.1) + (random.randint(0, 9) * 0.01)
-current_attack = int(weaken_weapons[mc.base_dmg][1] * random_multiplier)
-print(f"DMG: {current_attack}")
+
+critical_hit = int(10 * (2 + random.randint(0, 9) * 0.1) if random.randint(1, 3) == 1 else 0)
+current_attack = weaken_weapons[mc.base_dmg][1] + critical_hit
+print(current_attack)
