@@ -35,8 +35,9 @@ def user_and_enemy_info():
     print(f"    Wallet:          ${mc.money}")
     print(f"""\n{SEPARATOR}\n
             Enemies:\n""")
-    for i in range(len(current_enemy_list)):
-        print(f"    {current_enemy_list[i].type}: " +
+    #for i in range(len(current_enemy_list)):
+    for count, i in enumerate(range(len(current_enemy_list)), start=1):
+        print(f"    {count}: {current_enemy_list[i].type}: " +
               (" " * (SPACE_LENGTH - (len(current_enemy_list[i].type)))) +
               f"({str(current_enemy_list[i].health)}/{MAX_HP})HP")
     
@@ -73,11 +74,14 @@ current_enemy_list = [
               ]
 user_and_enemy_info()
 mc.base_dmg = weapon_selection()
-######
-######
-######
-######
+
 
 critical_hit = int(10 * (random.randint(1,2) + (random.randint(0, 9) * 0.1)) if random.randint(1, 3) == 1 else 0)
 current_attack = weaken_weapons[mc.base_dmg][1] + critical_hit
 print(current_attack)
+
+target_enemy = int(input("Select an enemy's number: "))
+if target_enemy in range(1, len(current_enemy_list) + 1):
+    print("You have chosen enemy {target_enemy}, {current_enemy_list[target_enemy].type}")
+else:
+    print(f"Please enter a number from {1} to {len(current_enemy_list)},")
