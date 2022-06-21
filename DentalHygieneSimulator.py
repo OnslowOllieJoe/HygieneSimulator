@@ -7,7 +7,7 @@ import random
 
 # Constants
 MAX_HP = 100
-SEPARATOR = "---------------------------------"
+SEPARATOR = "-" * 40
 SPACE_LENGTH = 13
 weaken_weapons = [
                ["Toothbrush", 15],
@@ -33,9 +33,12 @@ def user_and_enemy_info():
     print("            Player:\n")
     print(f"    Health:           ({mc.health}/{MAX_HP})HP")
     print(f"    Wallet:           ${mc.money}")
-    print("\n    Weapons:")
+    print("\n    Weapons that weaken the enemy:")
     for count, value in enumerate(weaken_weapons, start=1):
-        print(f"    {count}: " + value[0])
+        print(f"      {count}: " + value[0])
+    print("\n    Weapons that kill the enemy:")
+    for count, value in enumerate(kill_weapons, start=1):
+        print(f"      {count}: " + value[0])
     print(f"""\n{SEPARATOR}\n
             Enemies:\n""")
     for count, i in enumerate(range(len(current_enemy_list)), start=1):
@@ -71,7 +74,7 @@ def chosen_enemy():
         print(SEPARATOR)
         target_enemy = int(input("\nSelect an enemy's number: "))
         if target_enemy in range(1, len(current_enemy_list) + 1):
-            print(f"You have chosen enemy {target_enemy-1}, " +
+            print(f"You have chosen enemy {target_enemy}, " +
                   f"{current_enemy_list[target_enemy-1].type}!")
             return target_enemy - 1
         else:
