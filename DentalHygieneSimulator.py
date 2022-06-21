@@ -51,6 +51,7 @@ def weapon_selection():
             print("\n    Weapons:")
             for count, value in enumerate(weaken_weapons, start=1):
                 print(f"    {count}: " + value[0])
+            print("\n" + SEPARATOR)
             chosen_weapon = int(input("\nEnter a number " +
                                       "to select a weapon : "))
             if chosen_weapon in range(1, len(weaken_weapons) + 1):
@@ -70,8 +71,8 @@ def chosen_enemy():
         print(SEPARATOR)
         target_enemy = int(input("\nSelect an enemy's number: "))
         if target_enemy in range(1, len(current_enemy_list) + 1):
-            print(f"You have chosen enemy {target_enemy}, " +
-                  f"{current_enemy_list[target_enemy].type}!")
+            print(f"You have chosen enemy {target_enemy-1}, " +
+                  f"{current_enemy_list[target_enemy-1].type}!")
             return target_enemy - 1
         else:
             print(f"Please enter a number from {1} to " +
