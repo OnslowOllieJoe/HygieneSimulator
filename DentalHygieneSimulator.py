@@ -35,12 +35,10 @@ def user_and_enemy_info():
     print(f"    Wallet:          ${mc.money}")
     print(f"""\n{SEPARATOR}\n
             Enemies:\n""")
-    #for i in range(len(current_enemy_list)):
     for count, i in enumerate(range(len(current_enemy_list)), start=1):
         print(f"    {count}: {current_enemy_list[i].type}: " +
               (" " * (SPACE_LENGTH - (len(current_enemy_list[i].type)))) +
               f"({str(current_enemy_list[i].health)}/{MAX_HP})HP")
-    
 
 
 def weapon_selection():
@@ -68,8 +66,8 @@ plaque = characters("Plaque", 100, 15, 0)
 tartar = characters("Tartar", 100, 15, 0)
 tooth_decay = characters("Tooth Decay", 100, 15, 0)
 current_enemy_list = [
-              plaque, 
-              tartar, 
+              plaque,
+              tartar,
               tooth_decay
               ]
 user_and_enemy_info()
