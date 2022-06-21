@@ -33,6 +33,9 @@ def user_and_enemy_info():
     print("            Player:\n")
     print(f"    Health:           ({mc.health}/{MAX_HP})HP")
     print(f"    Wallet:           ${mc.money}")
+    print("\n    Weapons:")
+    for count, value in enumerate(weaken_weapons, start=1):
+        print(f"    {count}: " + value[0])
     print(f"""\n{SEPARATOR}\n
             Enemies:\n""")
     for count, i in enumerate(range(len(current_enemy_list)), start=1):
@@ -43,12 +46,11 @@ def user_and_enemy_info():
 
 def weapon_selection():
     print("\n" + SEPARATOR)
-    print("\n            Weapons:\n")
-    for count, value in enumerate(weaken_weapons, start=1):
-        print(f"    {count}: " + value[0])
     while True:
         try:
-            print("\n" + SEPARATOR)
+            print("\n    Weapons:")
+            for count, value in enumerate(weaken_weapons, start=1):
+                print(f"    {count}: " + value[0])
             chosen_weapon = int(input("\nEnter a number " +
                                       "to select a weapon : "))
             if chosen_weapon in range(1, len(weaken_weapons) + 1):
@@ -63,6 +65,19 @@ def weapon_selection():
             print("Sorry, that is not a valid choice.")
 
 
+def chosen_enemy():
+    while True:
+        print(SEPARATOR)
+        target_enemy = int(input("\nSelect an enemy's number: "))
+        if target_enemy in range(1, len(current_enemy_list) + 1):
+            print(f"You have chosen enemy {target_enemy}, " +
+                  f"{current_enemy_list[target_enemy].type}!")
+            return target_enemy - 1
+        else:
+            print(f"Please enter a number from {1} to " +
+                  f"{len(current_enemy_list)},")
+
+
 mc = characters("Player", 100, 0, 0)
 plaque = characters("Plaque", 100, 15, 0)
 tartar = characters("Tartar", 100, 15, 0)
@@ -73,6 +88,7 @@ current_enemy_list = [
               tooth_decay
               ]
 user_and_enemy_info()
+enemy = chosen_enemy()
 mc.base_dmg = weapon_selection()
 
 
@@ -80,15 +96,3 @@ critical_hit = int(10 * (random.randint(1, 2) + (random.randint(0, 9) * 0.1))
                    if random.randint(1, 3) == 1 else 0)
 current_attack = weaken_weapons[mc.base_dmg][1] + critical_hit
 print(current_attack)
-
-
-def chosen_enemy():
-    while True:
-        target_enemy = int(input("Select an enemy's number: "))
-        if target_enemy in range(1, len(current_enemy_list) + 1):
-            print(f"You have chosen enemy {target_enemy}, " +
-                  f"{current_enemy_list[target_enemy].type}!")
-            return target_enemy - 1
-        else:
-            print(f"Please enter a number from {1} to " +
-                  f"{len(current_enemy_list)},")
