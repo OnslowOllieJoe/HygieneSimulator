@@ -4,6 +4,7 @@
 # Description: RPG battle simulator which teaches dental hygiene.
 
 import random
+from time import sleep
 
 # Constants
 MAX_HP = 100
@@ -30,8 +31,8 @@ class characters():
 
 def user_info():
     print(f"{SEPARATOR}\n")
-    print("            Player:\n")
-    print(f"    Health:           ({mc.health}/{MAX_HP})HP")
+    print("              Player:\n")
+    print(f"    Health:           {mc.health}/{MAX_HP} HP")
     print(f"    Wallet:           ${mc.money}")
     print("\n    Main Weapons:")
     for count, value in enumerate(weaken_weapons, start=1):
@@ -42,20 +43,24 @@ def user_info():
 
 
 def enemy_info():
-    print(f"""\n{SEPARATOR}\n
-            Enemies:\n""")
+    print(f"\n{SEPARATOR}\n")
+    sleep(0.5)
+    print("              Enemies:\n")
     for count, i in enumerate(range(len(current_enemy_list)), start=1):
+        sleep(0.5)
         print(f"    {count}: {current_enemy_list[i].type}: " +
               (" " * (SPACE_LENGTH - (len(current_enemy_list[i].type)))) +
-              f"({str(current_enemy_list[i].health)}/{MAX_HP})HP")
+              f"{str(current_enemy_list[i].health)}/{MAX_HP} HP")
+    sleep(0.5)
     print(SEPARATOR + "\n")
 
 
 def weapon_selection():
     print("\n" + SEPARATOR)
     while True:
+        sleep(0.5)
         try:
-            print("\n    Weapons:")
+            print("\n    Main Weapons:")
             for count, value in enumerate(weaken_weapons, start=1):
                 print(f"    {count}: " + value[0])
             print("\n" + SEPARATOR)
@@ -74,6 +79,7 @@ def weapon_selection():
 
 
 def chosen_enemy():
+    print(f"              ROUND {round}!")
     while True:
         try:
             target_enemy = int(input("Select an enemy's number to attack: "))
@@ -95,18 +101,24 @@ mc = characters("Player", 100, 0, 0)
 plaque = characters("Plaque", 100, 15, 0)
 tartar = characters("Tartar", 100, 15, 0)
 tooth_decay = characters("Tooth Decay", 100, 15, 0)
-current_enemy_list = [
-              plaque,
-              tartar,
-              tooth_decay
-              ]
-user_info()
-enemy_info()
-enemy = chosen_enemy()
-mc.base_dmg = weapon_selection()
-
+enemies_list = [plaque,
+                tartar,
+                tooth_decay]
+current_enemy_list = []
+for i in range(3):
+    current_enemy_list.append(enemies_list[random.randint(0, 2)])
 
 critical_hit = int(10 * (random.randint(1, 2) + (random.randint(0, 9) * 0.1))
                    if random.randint(1, 3) == 1 else 0)
 current_attack = weaken_weapons[mc.base_dmg][1] + critical_hit
-print(current_attack)
+
+
+round = 1
+if len(current_enemy_list) != 0 and round <= 5:
+    user_info()
+    enemy_info()
+    enemy = chosen_enemy()
+    mc.base_dmg = weapon_selection()
+    round += 1
+elif round == 6:
+    print("")
