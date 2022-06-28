@@ -28,23 +28,27 @@ class characters():
         self.money = money
 
 
-def user_and_enemy_info():
+def user_info():
     print(f"{SEPARATOR}\n")
     print("            Player:\n")
     print(f"    Health:           ({mc.health}/{MAX_HP})HP")
     print(f"    Wallet:           ${mc.money}")
-    print("\n    Weapons that weaken the enemy:")
+    print("\n    Main Weapons:")
     for count, value in enumerate(weaken_weapons, start=1):
         print(f"      {count}: " + value[0])
-    print("\n    Weapons that kill the enemy:")
+    print("\n    Finishing Weapons:")
     for count, value in enumerate(kill_weapons, start=1):
         print(f"      {count}: " + value[0])
+
+
+def enemy_info():
     print(f"""\n{SEPARATOR}\n
             Enemies:\n""")
     for count, i in enumerate(range(len(current_enemy_list)), start=1):
         print(f"    {count}: {current_enemy_list[i].type}: " +
               (" " * (SPACE_LENGTH - (len(current_enemy_list[i].type)))) +
               f"({str(current_enemy_list[i].health)}/{MAX_HP})HP")
+    print(SEPARATOR + "\n")
 
 
 def weapon_selection():
@@ -71,15 +75,20 @@ def weapon_selection():
 
 def chosen_enemy():
     while True:
-        print(SEPARATOR)
-        target_enemy = int(input("\nSelect an enemy's number: "))
-        if target_enemy in range(1, len(current_enemy_list) + 1):
-            print(f"You have chosen enemy {target_enemy}, " +
-                  f"{current_enemy_list[target_enemy-1].type}!")
-            return target_enemy - 1
-        else:
+        try:
+            target_enemy = int(input("Select an enemy's number to attack: "))
+            if target_enemy in range(1, len(current_enemy_list) + 1):
+                print(f"You have chosen enemy {target_enemy}, " +
+                      f"{current_enemy_list[target_enemy-1].type}!")
+                return target_enemy - 1
+            else:
+                enemy_info()
+                print(f"Please enter a number from {1} to " +
+                      f"{len(current_enemy_list)}.")
+        except ValueError:
+            enemy_info()
             print(f"Please enter a number from {1} to " +
-                  f"{len(current_enemy_list)},")
+                  f"{len(current_enemy_list)}.")
 
 
 mc = characters("Player", 100, 0, 0)
@@ -91,7 +100,8 @@ current_enemy_list = [
               tartar,
               tooth_decay
               ]
-user_and_enemy_info()
+user_info()
+enemy_info()
 enemy = chosen_enemy()
 mc.base_dmg = weapon_selection()
 
