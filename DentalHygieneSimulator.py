@@ -36,23 +36,25 @@ def user_info():
     print(f"    Wallet:           ${mc.money}")
     print("\n    Main Weapons:")
     for count, value in enumerate(weaken_weapons, start=1):
+        sleep(0.2)
         print(f"      {count}: " + value[0])
+    sleep(0.5)
     print("\n    Finishing Weapons:")
     for count, value in enumerate(kill_weapons, start=1):
+        sleep(0.2)
         print(f"      {count}: " + value[0])
 
 
 def enemy_info():
     print(f"\n{SEPARATOR}\n")
-    sleep(0.5)
+    sleep(1)
     print("              Enemies:\n")
-    for count, i in enumerate(range(len(current_enemy_list)), start=1):
+    for count, i in enumerate(range(len(enemies_list)), start=1):
         sleep(0.5)
-        print(f"    {count}: {current_enemy_list[i].type}: " +
-              (" " * (SPACE_LENGTH - (len(current_enemy_list[i].type)))) +
-              f"{str(current_enemy_list[i].health)}/{MAX_HP} HP")
-    sleep(0.5)
-    print(SEPARATOR + "\n")
+        print(f"    {count}: {enemies_list[i].type}: " +
+              (" " * (SPACE_LENGTH - (len(enemies_list[i].type)))) +
+              f"{str(enemies_list[i].health)}/{MAX_HP} HP")
+    print("\n" + SEPARATOR + "\n")
 
 
 def weapon_selection():
@@ -79,22 +81,22 @@ def weapon_selection():
 
 
 def chosen_enemy():
-    print(f"              ROUND {round}!")
+    sleep(0.5)
     while True:
         try:
             target_enemy = int(input("Select an enemy's number to attack: "))
-            if target_enemy in range(1, len(current_enemy_list) + 1):
+            if target_enemy in range(1, len(enemies_list) + 1):
                 print(f"You have chosen enemy {target_enemy}, " +
-                      f"{current_enemy_list[target_enemy-1].type}!")
+                      f"{enemies_list[target_enemy-1].type}!")
                 return target_enemy - 1
             else:
                 enemy_info()
                 print(f"Please enter a number from {1} to " +
-                      f"{len(current_enemy_list)}.")
+                      f"{len(enemies_list)}.")
         except ValueError:
             enemy_info()
             print(f"Please enter a number from {1} to " +
-                  f"{len(current_enemy_list)}.")
+                  f"{len(enemies_list)}.")
 
 
 mc = characters("Player", 100, 0, 0)
@@ -104,21 +106,29 @@ tooth_decay = characters("Tooth Decay", 100, 15, 0)
 enemies_list = [plaque,
                 tartar,
                 tooth_decay]
-current_enemy_list = []
 for i in range(3):
-    current_enemy_list.append(enemies_list[random.randint(0, 2)])
+    enemies_list.append(enemies_list[random.randint(0, 2)])
+enemies_list = enemies_list[-3:]
+
 
 critical_hit = int(10 * (random.randint(1, 2) + (random.randint(0, 9) * 0.1))
                    if random.randint(1, 3) == 1 else 0)
 current_attack = weaken_weapons[mc.base_dmg][1] + critical_hit
 
 
-round = 1
-if len(current_enemy_list) != 0 and round <= 5:
-    user_info()
-    enemy_info()
-    enemy = chosen_enemy()
-    mc.base_dmg = weapon_selection()
-    round += 1
-elif round == 6:
-    print("")
+def battle():
+    round = 1
+    if len(enemies_list) != 0 and round <= 5:
+        user_info()
+        sleep(1)
+        print(f"\n{SEPARATOR}\n")
+        print(f"              ROUND {round}!")
+        enemy_info()
+        enemy = chosen_enemy()
+        mc.base_dmg = weapon_selection()
+        round += 1
+    elif round == 6:
+        print("")
+
+
+battle()
