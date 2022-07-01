@@ -111,6 +111,14 @@ for i in range(3):
 enemies_list = enemies_list[-3:]
 
 
+enemy_critical_hit = int(10 * (random.randint(1, 2) +
+                         (random.randint(0, 9) * 0.1))
+                         if random.randint(1, 3) == 1 else 0)
+current_attack = plaque.base_dmg + enemy_critical_hit
+
+print(current_attack)
+
+
 # PLAYER RANDOM DAMAGE MULTIPLIER.
 # critical_hit = int(10 * (random.randint(1, 2) + (random.randint(0, 9) * 0.1))
 #                    if random.randint(1, 3) == 1 else 0)
