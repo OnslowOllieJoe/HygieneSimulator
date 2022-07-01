@@ -32,8 +32,8 @@ class characters():
 def user_info():
     print(f"{SEPARATOR}\n")
     print("              Player:\n")
-    print(f"    Health:           {mc.health}/{MAX_HP} HP")
-    print(f"    Wallet:           ${mc.money}")
+    print(f"    Health:           {player.health}/{MAX_HP} HP")
+    print(f"    Wallet:           ${player.money}")
     print("\n    Main Weapons:")
     for count, value in enumerate(weaken_weapons, start=1):
         sleep(0.2)
@@ -99,10 +99,10 @@ def chosen_enemy():
             enemy_info()
 
 
-mc = characters("Player", 100, 0, 0)
-plaque = characters("Plaque", 100, 15, 0)
-tartar = characters("Tartar", 100, 15, 0)
-tooth_decay = characters("Tooth Decay", 100, 15, 0)
+player = characters("Player", 100, 0, 0)
+plaque = characters("Plaque", 100, 5, 0)
+tartar = characters("Tartar", 100, 5, 0)
+tooth_decay = characters("Tooth Decay", 100, 5, 0)
 enemies_list = [plaque,
                 tartar,
                 tooth_decay]
@@ -111,9 +111,10 @@ for i in range(3):
 enemies_list = enemies_list[-3:]
 
 
-critical_hit = int(10 * (random.randint(1, 2) + (random.randint(0, 9) * 0.1))
-                   if random.randint(1, 3) == 1 else 0)
-current_attack = weaken_weapons[mc.base_dmg][1] + critical_hit
+# PLAYER RANDOM DAMAGE MULTIPLIER.
+# critical_hit = int(10 * (random.randint(1, 2) + (random.randint(0, 9) * 0.1))
+#                    if random.randint(1, 3) == 1 else 0)
+# current_attack = weaken_weapons[player.base_dmg][1] + critical_hit
 
 
 def battle():
@@ -125,7 +126,7 @@ def battle():
         print(f"              ROUND {round}!")
         enemy_info()
         enemy = chosen_enemy()
-        mc.base_dmg = weapon_selection()
+        player.base_dmg = weapon_selection()
         round += 1
     elif round == 6:
         print("")
