@@ -90,13 +90,13 @@ def chosen_enemy():
                       f"{enemies_list[target_enemy-1].type}!")
                 return target_enemy - 1
             else:
-                enemy_info()
                 print(f"Please enter a number from {1} to " +
                       f"{len(enemies_list)}.")
+                enemy_info()
         except ValueError:
-            enemy_info()
             print(f"Please enter a number from {1} to " +
                   f"{len(enemies_list)}.")
+            enemy_info()
 
 
 mc = characters("Player", 100, 0, 0)
