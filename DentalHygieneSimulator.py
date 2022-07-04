@@ -54,6 +54,7 @@ def enemy_info():
         print(f"    {count}: {enemies_list[i].type}: " +
               (" " * (SPACE_LENGTH - (len(enemies_list[i].type)))) +
               f"{str(enemies_list[i].health)}/{MAX_HP} HP")
+    sleep(0.5)
     print("\n" + SEPARATOR + "\n")
 
 
@@ -76,8 +77,10 @@ def weapon_selection():
             else:
                 print("Please enter a number from {} to {}."
                       .format(1, len(weaken_weapons)))
+                print("Sorry, that is not a valid choice.")
         except Exception:
             print("Sorry, that is not a valid choice.")
+            print("\n" + SEPARATOR + "\n")
 
 
 def chosen_enemy():
