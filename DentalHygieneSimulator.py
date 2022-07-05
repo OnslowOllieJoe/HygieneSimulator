@@ -111,29 +111,19 @@ enemies_list = [plaque,
                 tooth_decay]
 for i in range(3):
     enemies_list.append(enemies_list[random.randint(0, 2)])
-enemies_list = enemies_list[-3:]
+    enemies_list = enemies_list[-3:]
 
-# enemy_critical_hit = int(10 * (random.randint(1, 2) +
-#                          (random.randint(0, 9) * 0.1))
-#                          if random.randint(1, 3) == 1 else 0)
-# current_attack = enemies_list[enemy].base_dmg + enemy_critical_hit
-
-# print(current_attack)
-
-
-# enemy_attack = 20
-
+player_defense = 0
+enemy = 2
 # # PLAYER RANDOM DAMAGE MULTIPLIER.
 # # critical_hit = int(10 * (random.randint(1, 2) + (random.randint(0, 9) * 0.1))
 # #                    if random.randint(1, 3) == 1 else 0)
 # # current_attack = weaken_weapons[player.base_dmg][1] + critical_hit
 
-# # Enemy Damage
-# enemy_damage = 3
-# player_defence = 
-# enemy_attack = int(enemy_damage * (1 + (random.randint(0, 9) * 0.1))/player_defence)
+enemy_attack = (int(enemies_list[enemy].base_dmg * (random.randint(0, 30))/10)
+                if random.randint(1, 2) == 1 else 3)
 
-# print(enemy_attack)
+print(enemy_attack)
 
 
 def battle():
