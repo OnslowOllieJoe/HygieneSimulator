@@ -128,9 +128,9 @@ enemy_attack = 20
 #                    if random.randint(1, 3) == 1 else 0)
 # current_attack = weaken_weapons[player.base_dmg][1] + critical_hit
 
+# Enemy Damage
 enemy_damage = 75
 player_defence = 10
-
 enemy_attack = int(enemy_damage * (1 + (random.randint(0, 9) * 0.1))/player_defence)
 
 print(enemy_attack)
