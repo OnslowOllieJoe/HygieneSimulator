@@ -11,9 +11,9 @@ MAX_HP = 100
 SEPARATOR = "-" * 40
 SPACE_LENGTH = 13
 weaken_weapons = [
-               ["Toothbrush", 15],
-               ["Dental Floss", 15],
-               ["Mouthwash", 15]
+               ["Toothbrush", 20],
+               ["Dental Floss", 20],
+               ["Mouthwash", 20]
                ]
 kill_weapons = [
              ["Dental Scaler", 1],
@@ -119,10 +119,19 @@ current_attack = plaque.base_dmg + enemy_critical_hit
 print(current_attack)
 
 
+enemy_attack = 20
+
 # PLAYER RANDOM DAMAGE MULTIPLIER.
 # critical_hit = int(10 * (random.randint(1, 2) + (random.randint(0, 9) * 0.1))
 #                    if random.randint(1, 3) == 1 else 0)
 # current_attack = weaken_weapons[player.base_dmg][1] + critical_hit
+
+enemy_damage = 75
+player_defence = 10
+
+enemy_attack = int(enemy_damage * (1 + (random.randint(0, 9) * 0.1))/player_defence)
+
+print(enemy_attack)
 
 
 def battle():
