@@ -11,9 +11,9 @@ MAX_HP = 100
 SEPARATOR = "-" * 40
 SPACE_LENGTH = 13
 weaken_weapons = [
-               ["Toothbrush", 20],
-               ["Dental Floss", 20],
-               ["Mouthwash", 20]
+               ["Toothbrush", 25],
+               ["Dental Floss", 25],
+               ["Mouthwash", 25]
                ]
 kill_weapons = [
              ["Dental Scaler", 1],
@@ -51,7 +51,7 @@ def enemy_info():
     print("              Enemies:\n")
     for count, i in enumerate(range(len(enemies_list)), start=1):
         sleep(0.5)
-        print(f"    {count}: {enemies_list[i].type}: " +
+        print(f"    {count}: {enemies_list[i].type} " +
               (" " * (SPACE_LENGTH - (len(enemies_list[i].type)))) +
               f"{str(enemies_list[i].health)}/{MAX_HP} HP")
     sleep(0.5)
@@ -103,9 +103,9 @@ def chosen_enemy():
 
 
 player = characters("Player", 100, 0, 0)
-plaque = characters("Plaque", 100, 5, 0)
-tartar = characters("Tartar", 100, 5, 0)
-tooth_decay = characters("Tooth Decay", 100, 5, 0)
+plaque = characters("Plaque", 100, 3, 0)
+tartar = characters("Tartar", 100, 3, 0)
+tooth_decay = characters("Tooth Decay", 100, 3, 0)
 enemies_list = [plaque,
                 tartar,
                 tooth_decay]
@@ -113,27 +113,27 @@ for i in range(3):
     enemies_list.append(enemies_list[random.randint(0, 2)])
 enemies_list = enemies_list[-3:]
 
-enemy_critical_hit = int(10 * (random.randint(1, 2) +
-                         (random.randint(0, 9) * 0.1))
-                         if random.randint(1, 3) == 1 else 0)
-current_attack = enemies_list[enemy].base_dmg + enemy_critical_hit
+# enemy_critical_hit = int(10 * (random.randint(1, 2) +
+#                          (random.randint(0, 9) * 0.1))
+#                          if random.randint(1, 3) == 1 else 0)
+# current_attack = enemies_list[enemy].base_dmg + enemy_critical_hit
 
-print(current_attack)
+# print(current_attack)
 
 
-enemy_attack = 20
+# enemy_attack = 20
 
-# PLAYER RANDOM DAMAGE MULTIPLIER.
-# critical_hit = int(10 * (random.randint(1, 2) + (random.randint(0, 9) * 0.1))
-#                    if random.randint(1, 3) == 1 else 0)
-# current_attack = weaken_weapons[player.base_dmg][1] + critical_hit
+# # PLAYER RANDOM DAMAGE MULTIPLIER.
+# # critical_hit = int(10 * (random.randint(1, 2) + (random.randint(0, 9) * 0.1))
+# #                    if random.randint(1, 3) == 1 else 0)
+# # current_attack = weaken_weapons[player.base_dmg][1] + critical_hit
 
-# Enemy Damage
-enemy_damage = 75
-player_defence = 10
-enemy_attack = int(enemy_damage * (1 + (random.randint(0, 9) * 0.1))/player_defence)
+# # Enemy Damage
+# enemy_damage = 3
+# player_defence = 
+# enemy_attack = int(enemy_damage * (1 + (random.randint(0, 9) * 0.1))/player_defence)
 
-print(enemy_attack)
+# print(enemy_attack)
 
 
 def battle():
