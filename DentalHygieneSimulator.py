@@ -122,15 +122,14 @@ for i in range(3):
     enemies_list[1].append(enemies_list[0][random.randint(0, 2)])
 # CLEAR THE LIST AT THE END OF EACH ROUND.
 
-player_defense = 0
-enemy = 2
+
 # PLAYER RANDOM DAMAGE MULTIPLIER.
 # critical_hit = int(10 * (random.randint(1, 2) + (random.randint(0, 9) * 0.1))
 #                    if random.randint(1, 3) == 1 else 0)
 # current_attack = weaken_weapons[player.base_dmg][1] + critical_hit
 
-enemy_attack = (int(enemies_list[1][enemy].base_dmg * (random.randint(11, 30))/10)
-                if random.randint(1, 2) == 1 else 3)
+enemy_attack = (int(enemies_list[1][enemy].base_dmg * (random.randint(12, 30))/10)
+                if random.randint(1, 3) == 1 else 3)
 
 print(enemy_attack)
 
