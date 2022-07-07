@@ -49,11 +49,11 @@ def enemy_info():
     print(f"\n{SEPARATOR}\n")
     sleep(1)
     print("              Enemies:\n")
-    for count, i in enumerate(range(len(enemies_list)), start=1):
+    for count, i in enumerate(range(len(enemies_list[1])), start=1):
         sleep(0.5)
-        print(f"    {count}: {enemies_list[i].type} " +
-              (" " * (SPACE_LENGTH - (len(enemies_list[i].type)))) +
-              f"{str(enemies_list[i].health)}/{MAX_HP} HP")
+        print(f"    {count}: {enemies_list[1][i].type} " +
+              (" " * (SPACE_LENGTH - (len(enemies_list[1][i].type)))) +
+              f"{str(enemies_list[1][i].health)}/{MAX_HP} HP")
     sleep(0.5)
     print("\n" + SEPARATOR + "\n")
 
@@ -106,21 +106,30 @@ player = characters("Player", 100, 0, 0)
 plaque = characters("Plaque", 100, 3, 0)
 tartar = characters("Tartar", 100, 3, 0)
 tooth_decay = characters("Tooth Decay", 100, 3, 0)
-enemies_list = [plaque,
+# enemies_list = [plaque,
+#                 tartar,
+#                 tooth_decay]
+# current_enemies_list = []
+# for i in range(3):
+#     current_enemies_list.append(enemies_list[random.randint(0, 2)])
+
+
+enemies_list = [[plaque,
                 tartar,
-                tooth_decay]
+                tooth_decay],
+                []]
 for i in range(3):
-    enemies_list.append(enemies_list[random.randint(0, 2)])
-    enemies_list = enemies_list[-3:]
+    enemies_list[1].append(enemies_list[0][random.randint(0, 2)])
+# CLEAR THE LIST AT THE END OF EACH ROUND.
 
 player_defense = 0
 enemy = 2
-# # PLAYER RANDOM DAMAGE MULTIPLIER.
-# # critical_hit = int(10 * (random.randint(1, 2) + (random.randint(0, 9) * 0.1))
-# #                    if random.randint(1, 3) == 1 else 0)
-# # current_attack = weaken_weapons[player.base_dmg][1] + critical_hit
+# PLAYER RANDOM DAMAGE MULTIPLIER.
+# critical_hit = int(10 * (random.randint(1, 2) + (random.randint(0, 9) * 0.1))
+#                    if random.randint(1, 3) == 1 else 0)
+# current_attack = weaken_weapons[player.base_dmg][1] + critical_hit
 
-enemy_attack = (int(enemies_list[enemy].base_dmg * (random.randint(0, 30))/10)
+enemy_attack = (int(enemies_list[1][enemy].base_dmg * (random.randint(0, 30))/10)
                 if random.randint(1, 2) == 1 else 3)
 
 print(enemy_attack)
