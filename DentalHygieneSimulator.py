@@ -34,7 +34,7 @@ def user_info():
     print("              Player:\n")
     print(f"    Health:           {player.health}/{MAX_HP} HP")
     print(f"    Wallet:           ${player.money}")
-    print("\n    Main Weapons:")
+    print("\n    Main Damage Weapons:")
     for count, value in enumerate(weaken_weapons, start=1):
         sleep(0.2)
         print(f"      {count}: " + value[0])
@@ -47,15 +47,15 @@ def user_info():
 
 def enemy_info():
     print(f"\n{SEPARATOR}\n")
-    sleep(1)
+    sleep(0.5)
     print("              Enemies:\n")
     for count, i in enumerate(range(len(enemies_list[1])), start=1):
-        sleep(0.5)
+        sleep(0.3)
         print(f"    {count}: {enemies_list[1][i].type} " +
               (" " * (SPACE_LENGTH - (len(enemies_list[1][i].type)))) +
               f"{str(enemies_list[1][i].health)}/{MAX_HP} HP")
-    sleep(0.5)
     print("\n" + SEPARATOR + "\n")
+    sleep(0.5)
 
 
 def weapon_selection():
@@ -131,7 +131,7 @@ enemy = 2
 enemy_attack = (int(enemies_list[1][enemy].base_dmg * (random.randint(12, 30))/10)
                 if random.randint(1, 3) == 1 else 3)
 
-print("Enemy damage: ", enemy_attack)
+print("Enemy damage: 9")
 
 
 def battle():
