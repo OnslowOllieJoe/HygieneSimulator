@@ -128,10 +128,16 @@ enemy = 2
 #                    if random.randint(1, 3) == 1 else 0)
 # current_attack = weaken_weapons[player.base_dmg][1] + critical_hit
 
-enemy_attack = (int(enemies_list[1][enemy].base_dmg * (random.randint(12, 30))/10)
-                if random.randint(1, 3) == 1 else 3)
+player_attack = (int(weaken_weapons[player.base_dmg][1] *
+                 (random.randint(12, 30))/10)
+                 if random.randint(1, 3) ==
+                 1 else weaken_weapons[player.base_dmg][1])
 
-print("Enemy damage: 9")
+print(player_attack)
+
+enemy_attack = (int(enemies_list[1][enemy].base_dmg *
+                (random.randint(12, 30))/10)
+                if random.randint(1, 3) == 1 else 3)
 
 
 def battle():
