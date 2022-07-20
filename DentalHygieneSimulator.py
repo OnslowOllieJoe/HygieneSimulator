@@ -119,7 +119,9 @@ enemies_list = [[plaque,
                 tooth_decay],
                 []]
 for i in range(3):
-    enemies_list[1].append(enemies_list[0][random.randint(0, 2)])
+    enemies_list[1].append(enemies_list[0]
+                           [random.randint(0, len(enemies_list))])
+
 # CLEAR THE LIST AT THE END OF EACH ROUND.
 
 enemy = 2
@@ -134,11 +136,14 @@ player_attack = (int(weaken_weapons[player.base_dmg][1] *
                  1 else weaken_weapons[player.base_dmg][1])
 
 print(player_attack)
-print(int(25*1.1))
 
 enemy_attack = (int(enemies_list[1][enemy].base_dmg *
                 (random.randint(12, 30))/10)
                 if random.randint(1, 3) == 1 else 3)
+
+
+def attack(char, min):
+    pass
 
 
 def battle():
