@@ -19,6 +19,7 @@ kill_weapons = [
              ["Dental Scaler", 1],
              ["Filling", 1],
              ]
+MAX_MULTIPLIER = 30
 
 
 class characters():
@@ -135,15 +136,19 @@ player_attack = (int(weaken_weapons[player.base_dmg][1] *
                  if random.randint(1, 3) ==
                  1 else weaken_weapons[player.base_dmg][1])
 
-print(player_attack)
 
 enemy_attack = (int(enemies_list[1][enemy].base_dmg *
                 (random.randint(12, 30))/10)
                 if random.randint(1, 3) == 1 else 3)
 
 
-def attack(char, min):
-    pass
+def attack(damage, min):
+    return (int(damage * random.randint(min, MAX_MULTIPLIER) / 10)
+            if random.randint(1, 3) == 1 else damage)
+
+
+print("PLAYER DMG: ", attack(weaken_weapons[player.base_dmg][1], 11))
+print("ENEMY DMG: ", attack(enemies_list[1][enemy].base_dmg, 12))
 
 
 def battle():
