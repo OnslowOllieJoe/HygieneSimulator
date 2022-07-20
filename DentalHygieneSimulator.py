@@ -129,11 +129,12 @@ enemy = 2
 # current_attack = weaken_weapons[player.base_dmg][1] + critical_hit
 
 player_attack = (int(weaken_weapons[player.base_dmg][1] *
-                 (random.randint(10.2, 30))/10)
+                 (random.randint(11, 30))/10)
                  if random.randint(1, 3) ==
                  1 else weaken_weapons[player.base_dmg][1])
 
 print(player_attack)
+print(int(25*1.1))
 
 enemy_attack = (int(enemies_list[1][enemy].base_dmg *
                 (random.randint(12, 30))/10)
