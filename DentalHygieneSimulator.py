@@ -143,6 +143,22 @@ enemy_attack = (int(enemies_list[1][enemy].base_dmg *
 
 
 def attack(damage, min):
+    if enemies_list[1][enemy].base_dmg == damage and random.randint(1, 1) == 1:
+        while True:
+            try:
+                player_guess = int(input("Guess a number between" +
+                                         " 1 and 5 to dodge the attack: "))
+                random_num = random.randint(1, 5)
+                if player_guess == random_num:
+                    print("Incorrect guess.")
+                    return 0
+                else:
+                    break
+            except ValueError:
+                print("Please enter a number between 1 and 5.")
+    elif (weaken_weapons[player.base_dmg][1] == damage
+          and random.randint(1, 10) == 1):
+        return 0
     return (int(damage * random.randint(min, MAX_MULTIPLIER) / 10)
             if random.randint(1, 3) == 1 else damage)
 
