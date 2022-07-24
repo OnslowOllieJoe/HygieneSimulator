@@ -3,7 +3,7 @@
 # Date: 07/06/022
 # Description: RPG battle simulator which teaches dental hygiene.
 
-import random
+from random import randint
 from time import sleep
 
 # Constants
@@ -20,6 +20,29 @@ kill_weapons = [
              ["Filling", 1],
              ]
 MAX_MULTIPLIER = 30
+
+
+# class enemy():
+#     def __init__(self, health):
+#         self.health = health
+
+
+# one = enemy(100)
+# two = enemy(100)
+# three = enemy(100)
+
+# enemies = [one, two, three]
+# dead = []
+# while len(enemies) > 0:
+#     en = int(input("Enemy: ")) - 1
+#     enemies[en].health -= randint(25, 75)
+#     if enemies[en].health <= 0:
+#         enemies[en].health = 0
+#         dead.append(enemies[en])
+#         if enemies[en] in dead:
+#             print("That enemy has already been defeated.")
+#     for i in range(len(enemies)):
+#         print(enemies[i].health)
 
 
 class characters():
@@ -78,10 +101,10 @@ def weapon_selection():
             else:
                 print("Please enter a number from {} to {}."
                       .format(1, len(weaken_weapons)))
-                print("Sorry, that is not a valid choice.")
+                print("\n" + SEPARATOR)
         except Exception:
             print("Sorry, that is not a valid choice.")
-            print("\n" + SEPARATOR + "\n")
+            print("\n" + SEPARATOR)
 
 
 def chosen_enemy():
@@ -89,17 +112,17 @@ def chosen_enemy():
     while True:
         try:
             target_enemy = int(input("Select an enemy's number to attack: "))
-            if target_enemy in range(1, len(enemies_list) + 1):
+            if target_enemy in range(1, len(enemies_list[1]) + 1):
                 print(f"You have chosen enemy {target_enemy}, " +
-                      f"{enemies_list[target_enemy-1].type}!")
+                      f"{enemies_list[1][target_enemy-1].type}!")
                 return target_enemy - 1
             else:
                 print(f"Please enter a number from {1} to " +
-                      f"{len(enemies_list)}.")
+                      f"{len(enemies_list[1])}.")
                 enemy_info()
         except ValueError:
             print(f"Please enter a number from {1} to " +
-                  f"{len(enemies_list)}.")
+                  f"{len(enemies_list[1])}.")
             enemy_info()
 
 
@@ -121,7 +144,8 @@ enemies_list = [[plaque,
                 []]
 for i in range(3):
     enemies_list[1].append(enemies_list[0]
-                           [random.randint(0, len(enemies_list))])
+                           [randint(0, len(enemies_list))])
+
 
 # CLEAR THE LIST AT THE END OF EACH ROUND.
 
@@ -131,36 +155,41 @@ enemy = 2
 #                    if random.randint(1, 3) == 1 else 0)
 # current_attack = weaken_weapons[player.base_dmg][1] + critical_hit
 
-player_attack = (int(weaken_weapons[player.base_dmg][1] *
-                 (random.randint(11, 30))/10)
-                 if random.randint(1, 3) ==
-                 1 else weaken_weapons[player.base_dmg][1])
+# player_attack = (int(weaken_weapons[player.base_dmg][1] *
+#                  (randint(11, 30))/10)
+#                  if randint(1, 3) ==
+#                  1 else weaken_weapons[player.base_dmg][1])
 
 
-enemy_attack = (int(enemies_list[1][enemy].base_dmg *
-                (random.randint(12, 30))/10)
-                if random.randint(1, 3) == 1 else 3)
+# enemy_attack = (int(enemies_list[1][enemy].base_dmg *
+#                 (randint(12, 30))/10)
+#                 if randint(1, 3) == 1 else 3)
 
 
 def attack(damage, min):
-    if enemies_list[1][enemy].base_dmg == damage and random.randint(1, 1) == 1:
+    if enemies_list[1][enemy].base_dmg == damage and randint(1, 24) == 1:
+        print(f"{enemies_list[1][enemy].type} has missed.")
+        return 0
+    elif weaken_weapons[player.base_dmg][1] == damage and randint(1, 8) == 1:
+        return 0
+    if enemies_list[1][enemy].base_dmg == damage and randint(1, 3) == 1:
         while True:
             try:
                 player_guess = int(input("Guess a number between" +
-                                         " 1 and 5 to dodge the attack: "))
-                random_num = random.randint(1, 5)
+                                         " 1 and 2 to dodge the attack: "))
+                random_num = randint(1, 2)
                 if player_guess == random_num:
-                    print("Incorrect guess.")
+                    print("CORRECT! you have dodged the enemy's attack.")
                     return 0
                 else:
                     break
             except ValueError:
                 print("Please enter a number between 1 and 5.")
     elif (weaken_weapons[player.base_dmg][1] == damage
-          and random.randint(1, 10) == 1):
+          and randint(1, 10) == 1):
         return 0
-    return (int(damage * random.randint(min, MAX_MULTIPLIER) / 10)
-            if random.randint(1, 3) == 1 else damage)
+    return (int(damage * randint(min, MAX_MULTIPLIER) / 10)
+            if randint(1, 3) == 1 else damage)
 
 
 print("PLAYER DMG: ", attack(weaken_weapons[player.base_dmg][1], 11))
