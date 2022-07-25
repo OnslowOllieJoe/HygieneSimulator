@@ -172,19 +172,22 @@ def attack(damage, min):
         return 0
     elif weaken_weapons[player.base_dmg][1] == damage and randint(1, 8) == 1:
         return 0
-    if enemies_list[1][enemy].base_dmg == damage and randint(1, 3) == 1:
+    if enemies_list[1][enemy].base_dmg == damage and randint(1, 1) == 1:
         while True:
             try:
                 player_guess = int(input("Guess a number between" +
                                          " 1 and 2 to dodge the attack: "))
                 random_num = randint(1, 2)
                 if player_guess == random_num:
-                    print("CORRECT! you have dodged the enemy's attack.")
+                    print("CORRECT! You have dodged the enemy's attack.")
                     return 0
-                else:
+                elif player_guess != random_num and player_guess in range(1, 2):
+                    print("INCORRECT! You failed to dodge the attack.")
                     break
+                else:
+                    print("Please enter a number between 1 and 2.")
             except ValueError:
-                print("Please enter a number between 1 and 5.")
+                print("Please enter a number between 1 and 2.")
     elif (weaken_weapons[player.base_dmg][1] == damage
           and randint(1, 10) == 1):
         return 0
@@ -192,8 +195,8 @@ def attack(damage, min):
             if randint(1, 3) == 1 else damage)
 
 
-print("PLAYER DMG: ", attack(weaken_weapons[player.base_dmg][1], 11))
-print("ENEMY DMG: ", attack(enemies_list[1][enemy].base_dmg, 12))
+print(f"Your attack dealt {attack(weaken_weapons[player.base_dmg][1], 11)} damage.")
+print(f"{enemies_list[1][enemy].type} has dealt {attack(enemies_list[1][enemy].base_dmg, 12)} to you.")
 
 
 def battle():
