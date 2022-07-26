@@ -10,7 +10,7 @@ import sys
 
 # Constants
 MAX_HP = 100
-SEPARATOR = "-" * 40
+SEPARATOR = "-" * 55
 SPACE_LENGTH = 13
 weaken_weapons = [
                ["Toothbrush", 25],
@@ -162,8 +162,8 @@ def dodge(enemy):
                 return 0
             elif (player_guess != random_num and
                     player_guess in range(1, 3)):
-                print("INCORRECT! You failed to dodge the attack.\n")
-                break
+                print("INCORRECT! You failed to dodge the attack.")
+                return 1
             else:
                 print("Please enter a number between 1 and 2.")
         except ValueError:
@@ -174,9 +174,11 @@ def counterattack(damage, min, enemy):
     hit = (int(enemies_list[1][enemy].base_dmg *
            randint(min, MAX_MULTIPLIER) / 10)
            if randint(1, 1) == 1 else damage)
-    print(f"""\nThe enemy has performed a counterattack!
-        {enemies_list[1][enemy].type} has dealt {hit} to you!\n""")
+    print(f"""{enemies_list[1][enemy].type} has performed a counterattack!
+        {enemies_list[1][enemy].type} has dealt {hit} damage to you!""")
     player.health -= hit
+    print("\n" + SEPARATOR)
+    sleep(3)
 
 
 def attack(damage, min, enemy):
@@ -188,21 +190,25 @@ def attack(damage, min, enemy):
     # User miss.
     if weaken_weapons[player.base_dmg][1] == damage and randint(1, 6) == 1:
         print("Your attack has missed. You dealt 0 damage.")
+        print("\n" + SEPARATOR)
         return 0
     # User dodge.
     if enemies_list[1][enemy].base_dmg == damage and randint(1, 3) == 1:
-        dodge(enemy)
-        return 0
+        if dodge(enemy) == 1:
+            pass
     # User hit.
     hit = (int(damage * randint(min, MAX_MULTIPLIER) / 10)
            if randint(1, 3) == 1 else damage)
     if weaken_weapons[player.base_dmg][1] == damage:
-        print(f"""Your attack hit!
+        print(f"""\nYour attack hit!
     You dealt {hit} damage to {enemies_list[1][enemy].type}!""")
+        print("\n" + SEPARATOR + "\n")
+        sleep(3)
     elif enemies_list[1][enemy].base_dmg == damage:
-        print(f"{enemies_list[1][enemy].type} has hit!")
+        print(f"\n{enemies_list[1][enemy].type}'s attack has hit you!")
         print(f"        {enemies_list[1][enemy].type}" +
               f" has dealt {hit} damage to you!")
+        sleep(3)
     if weaken_weapons[player.base_dmg][1] == damage and randint(1, 1) == 1:
         counterattack(damage, min, enemy)
     return hit
@@ -236,11 +242,9 @@ def battle():
             enemy = chosen_enemy()
             player.base_dmg = weapon_selection()
             sleep(1)
-            print("\n")
             enemies_list[1][enemy].health -= attack(weaken_weapons[player.base_dmg][1], 11, enemy)
             sleep(1)
             player.health -= attack(enemies_list[1][enemy].base_dmg, 12, enemy)
-            print("\n" + SEPARATOR)
             # sleep(5)
             # fought += 1
             # clear_terminal()
