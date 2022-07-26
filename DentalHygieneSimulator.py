@@ -189,7 +189,8 @@ def attack(damage, min, enemy):
         return 0
     # User miss.
     if weaken_weapons[player.base_dmg][1] == damage and randint(1, 6) == 1:
-        print("Your attack has missed. You dealt 0 damage.")
+        print("Your attack has missed." +
+              "\n        You dealt 0 damage.")
         print("\n" + SEPARATOR)
         return 0
     # User dodge.
@@ -202,11 +203,11 @@ def attack(damage, min, enemy):
     if weaken_weapons[player.base_dmg][1] == damage:
         print(f"""\nYour attack hit!
     You dealt {hit} damage to {enemies_list[1][enemy].type}!""")
-        print("\n" + SEPARATOR + "\n")
+        print("\n" + "\n" + SEPARATOR + "\n" + "\n")
         sleep(3)
     elif enemies_list[1][enemy].base_dmg == damage:
         print(f"\n{enemies_list[1][enemy].type}'s attack has hit you!")
-        print(f"        {enemies_list[1][enemy].type}" +
+        print(f"\n        {enemies_list[1][enemy].type}" +
               f" has dealt {hit} damage to you!")
         sleep(3)
     if weaken_weapons[player.base_dmg][1] == damage and randint(1, 1) == 1:
