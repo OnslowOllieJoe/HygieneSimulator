@@ -158,11 +158,11 @@ def attack(damage, min, enemy):
         print(f"{enemies_list[1][enemy].type} has missed their attack.")
         return 0
     # User miss
-    elif weaken_weapons[player.base_dmg][1] == damage and randint(1, 1) == 1:
+    elif weaken_weapons[player.base_dmg][1] == damage and randint(1, 6) == 1:
         print("Your attack has missed. You dealt 0 damage.")
         return 0
     # Enemy hit
-    if enemies_list[1][enemy].base_dmg == damage and randint(1, 1) == 1:
+    if enemies_list[1][enemy].base_dmg == damage and randint(1, 3) == 1:
         while True:
             random_num = randint(1, 2)
             try:
@@ -170,6 +170,7 @@ def attack(damage, min, enemy):
                                          " 1 and 2 to dodge the attack: "))
                 if player_guess == random_num:
                     print("CORRECT! You have dodged the enemy's attack.")
+                    print(f" {enemies_list[1][enemy]} has dealt 0 damage.")
                     return 0
                 elif (player_guess != random_num and
                       player_guess in range(1, 3)):
@@ -180,17 +181,27 @@ def attack(damage, min, enemy):
             except ValueError:
                 print("Please enter a number between 1 and 2.")
     # User hit
-    return (int(damage * randint(min, MAX_MULTIPLIER) / 10)
-            if randint(1, 3) == 1 else damage)
+    else:
+        damage = (int(damage * randint(min, MAX_MULTIPLIER) / 10)
+                  if randint(1, 3) == 1 else damage)
+        print(f"""Your attack hit!
+        You dealt {damage} damage!""")
+        return damage
 
 
 def battle():
     round = 1
-    if len(enemies_list) != 0 and round <= 5:
-        user_info()
+    fought = 1
+    user_info()
+    while len(enemies_list) != 0 and round <= 5:
+        if fought > 1:
+            sleep(1)
+            print("              Player:\n")
+            print(f"    Health:           {player.health}/{MAX_HP} HP")
+            print(f"    Wallet:           ${player.money}")
         sleep(1)
         print(f"\n{SEPARATOR}\n")
-        print(f"              ROUND {round}!")
+        print(f"              Round {round} Attack {fought}!")
         enemy_info()
         enemy = chosen_enemy()
         player.base_dmg = weapon_selection()
@@ -200,10 +211,10 @@ def battle():
         sleep(1)
         print("\n")
         attack(enemies_list[1][enemy].base_dmg, 12, enemy)
-        print("\n")
-        round += 1
-    elif round == 6:
-        print("")
+        print("\n" + SEPARATOR)
+        fought += 1
+    if enemies_list[1][enemy][0] + enemies_list[1][1] + enemies_list[1][2] == 0:
+        print("The end")
 
 
 battle()
