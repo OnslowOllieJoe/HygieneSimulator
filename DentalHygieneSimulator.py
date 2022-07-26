@@ -16,8 +16,8 @@ weaken_weapons = [
                ["Mouthwash", 25]
                ]
 kill_weapons = [
-             ["Dental Scaler", 1],
-             ["Filling", 1],
+             ["Dental Scaler", 0],
+             ["Filling", 0],
              ]
 MAX_MULTIPLIER = 30
 
@@ -89,7 +89,9 @@ def weapon_selection():
         try:
             print("\n    Main Weapons:")
             for count, value in enumerate(weaken_weapons, start=1):
+                sleep(0.3)
                 print(f"    {count}: " + value[0])
+            sleep(0.1)
             print("\n" + SEPARATOR)
             chosen_weapon = int(input("\nEnter a number " +
                                       "to select a weapon : "))
@@ -149,54 +151,37 @@ for i in range(3):
 
 # CLEAR THE LIST AT THE END OF EACH ROUND.
 
-enemy = 2
-# PLAYER RANDOM DAMAGE MULTIPLIER.
-# critical_hit = int(10 * (random.randint(1, 2) + (random.randint(0, 9) * 0.1))
-#                    if random.randint(1, 3) == 1 else 0)
-# current_attack = weaken_weapons[player.base_dmg][1] + critical_hit
 
-# player_attack = (int(weaken_weapons[player.base_dmg][1] *
-#                  (randint(11, 30))/10)
-#                  if randint(1, 3) ==
-#                  1 else weaken_weapons[player.base_dmg][1])
-
-
-# enemy_attack = (int(enemies_list[1][enemy].base_dmg *
-#                 (randint(12, 30))/10)
-#                 if randint(1, 3) == 1 else 3)
-
-
-def attack(damage, min):
-    if enemies_list[1][enemy].base_dmg == damage and randint(1, 24) == 1:
-        print(f"{enemies_list[1][enemy].type} has missed.")
+def attack(damage, min, enemy):
+    # Enemy miss
+    if enemies_list[1][enemy].base_dmg == damage and randint(1, 18) == 1:
+        print(f"{enemies_list[1][enemy].type} has missed their attack.")
         return 0
-    elif weaken_weapons[player.base_dmg][1] == damage and randint(1, 8) == 1:
+    # User miss
+    elif weaken_weapons[player.base_dmg][1] == damage and randint(1, 1) == 1:
+        print("Your attack has missed. You dealt 0 damage.")
         return 0
+    # Enemy hit
     if enemies_list[1][enemy].base_dmg == damage and randint(1, 1) == 1:
         while True:
+            random_num = randint(1, 2)
             try:
                 player_guess = int(input("Guess a number between" +
                                          " 1 and 2 to dodge the attack: "))
-                random_num = randint(1, 2)
                 if player_guess == random_num:
                     print("CORRECT! You have dodged the enemy's attack.")
                     return 0
-                elif player_guess != random_num and player_guess in range(1, 2):
+                elif (player_guess != random_num and
+                      player_guess in range(1, 3)):
                     print("INCORRECT! You failed to dodge the attack.")
                     break
                 else:
                     print("Please enter a number between 1 and 2.")
             except ValueError:
                 print("Please enter a number between 1 and 2.")
-    elif (weaken_weapons[player.base_dmg][1] == damage
-          and randint(1, 10) == 1):
-        return 0
+    # User hit
     return (int(damage * randint(min, MAX_MULTIPLIER) / 10)
             if randint(1, 3) == 1 else damage)
-
-
-print(f"Your attack dealt {attack(weaken_weapons[player.base_dmg][1], 11)} damage.")
-print(f"{enemies_list[1][enemy].type} has dealt {attack(enemies_list[1][enemy].base_dmg, 12)} to you.")
 
 
 def battle():
@@ -209,6 +194,13 @@ def battle():
         enemy_info()
         enemy = chosen_enemy()
         player.base_dmg = weapon_selection()
+        sleep(1)
+        print("\n")
+        attack(weaken_weapons[player.base_dmg][1], 11, enemy)
+        sleep(1)
+        print("\n")
+        attack(enemies_list[1][enemy].base_dmg, 12, enemy)
+        print("\n")
         round += 1
     elif round == 6:
         print("")
