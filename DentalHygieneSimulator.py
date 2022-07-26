@@ -5,6 +5,8 @@
 
 from random import randint
 from time import sleep
+import os
+import sys
 
 # Constants
 MAX_HP = 100
@@ -53,6 +55,10 @@ class characters():
         self.money = money
 
 
+def clear_terminal():
+    os.system('cls' if os.name == 'nt' else 'clear')
+
+
 def user_info():
     print(f"{SEPARATOR}\n")
     print("              Player:\n")
@@ -96,7 +102,7 @@ def weapon_selection():
             chosen_weapon = int(input("\nEnter a number " +
                                       "to select a weapon : "))
             if chosen_weapon in range(1, len(weaken_weapons) + 1):
-                print(f"You have chosen " +
+                print(f"\nYou have chosen " +
                       f"{weaken_weapons[chosen_weapon - 1][0]}!")
                 print("\n" + SEPARATOR)
                 return chosen_weapon - 1
@@ -115,7 +121,7 @@ def chosen_enemy():
         try:
             target_enemy = int(input("Select an enemy's number to attack: "))
             if target_enemy in range(1, len(enemies_list[1]) + 1):
-                print(f"You have chosen enemy {target_enemy}, " +
+                print(f"\nYou have chosen enemy {target_enemy}, " +
                       f"{enemies_list[1][target_enemy-1].type}!")
                 return target_enemy - 1
             else:
@@ -132,13 +138,6 @@ player = characters("Player", 100, 0, 0)
 plaque = characters("Plaque", 100, 3, 0)
 tartar = characters("Tartar", 100, 3, 0)
 tooth_decay = characters("Tooth Decay", 100, 3, 0)
-# enemies_list = [plaque,
-#                 tartar,
-#                 tooth_decay]
-# current_enemies_list = []
-# for i in range(3):
-#     current_enemies_list.append(enemies_list[random.randint(0, 2)])
-
 
 enemies_list = [[plaque,
                 tartar,
@@ -169,8 +168,9 @@ def attack(damage, min, enemy):
                 player_guess = int(input("Guess a number between" +
                                          " 1 and 2 to dodge the attack: "))
                 if player_guess == random_num:
-                    print("CORRECT! You have dodged the enemy's attack.")
-                    print(f" {enemies_list[1][enemy]} has dealt 0 damage.")
+                    print("\nCORRECT! You have dodged the enemy's attack.")
+                    print(f"        {enemies_list[1][enemy].type}" +
+                          " has dealt 0 damage.")
                     return 0
                 elif (player_guess != random_num and
                       player_guess in range(1, 3)):
@@ -182,39 +182,63 @@ def attack(damage, min, enemy):
                 print("Please enter a number between 1 and 2.")
     # User hit
     else:
-        damage = (int(damage * randint(min, MAX_MULTIPLIER) / 10)
-                  if randint(1, 3) == 1 else damage)
-        print(f"""Your attack hit!
-        You dealt {damage} damage!""")
-        return damage
+        hit = (int(damage * randint(min, MAX_MULTIPLIER) / 10)
+               if randint(1, 3) == 1 else damage)
+        if weaken_weapons[player.base_dmg][1] == damage:
+            print(f"""Your attack hit!
+        You dealt {hit} damage!""")
+        elif enemies_list[1][enemy].base_dmg == damage:
+            print(f"{enemies_list[1][enemy].type} has hit!")
+            print(f"        {enemies_list[1][enemy].type}" +
+                  f" has dealt {hit} to you!")
+        return hit
 
 
 def battle():
     round = 1
     fought = 1
     user_info()
-    while len(enemies_list) != 0 and round <= 5:
-        if fought > 1:
+    print("\n" + SEPARATOR + "\n")
+    print("""    1. Play
+    2. How To Play
+    3. Exit""")
+    print(f"\n{SEPARATOR}\n")
+    proceed = int(input("\n    Select an option's number: "))
+    print(f"\n{SEPARATOR}\n")
+    clear_terminal()
+    if proceed == 1:
+        while len(enemies_list) != 0 and round <= 5:
+            if fought > 1:
+                sleep(1)
+                print(f"\n{SEPARATOR}\n")
+                print("              Player:\n")
+                print(f"\n    Health:           {player.health}/{MAX_HP} HP")
+                print(f"    Wallet:           ${player.money}")
+            print(f"\n{SEPARATOR}\n")
             sleep(1)
-            print("              Player:\n")
-            print(f"    Health:           {player.health}/{MAX_HP} HP")
-            print(f"    Wallet:           ${player.money}")
-        sleep(1)
-        print(f"\n{SEPARATOR}\n")
-        print(f"              Round {round} Attack {fought}!")
-        enemy_info()
-        enemy = chosen_enemy()
-        player.base_dmg = weapon_selection()
-        sleep(1)
-        print("\n")
-        attack(weaken_weapons[player.base_dmg][1], 11, enemy)
-        sleep(1)
-        print("\n")
-        attack(enemies_list[1][enemy].base_dmg, 12, enemy)
-        print("\n" + SEPARATOR)
-        fought += 1
-    if enemies_list[1][enemy][0] + enemies_list[1][1] + enemies_list[1][2] == 0:
-        print("The end")
+            print(f"""    Round {round}
+                          Attack {fought}!""")
+            enemy_info()
+            enemy = chosen_enemy()
+            player.base_dmg = weapon_selection()
+            sleep(1)
+            print("\n")
+            enemies_list[1][enemy].health -= attack(weaken_weapons[player.base_dmg][1], 11, enemy)
+            sleep(1)
+            print("\n")
+            player.health -= attack(enemies_list[1][enemy].base_dmg, 12, enemy)
+            print("\n" + SEPARATOR)
+            sleep(5)
+            fought += 1
+            clear_terminal()
+        if enemies_list[1][enemy][0] + enemies_list[1][1] + enemies_list[1][2] == 0:
+            print("The end")
+    elif proceed == 2:
+        print("Play the game")
+    elif proceed == 3:
+        sys.exit()
+    else:
+        print("Please enter an options number.")
 
 
 battle()
