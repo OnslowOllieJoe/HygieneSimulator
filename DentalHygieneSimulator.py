@@ -209,47 +209,23 @@ def attack(damage, min, enemy):
         print(f"\n        {enemies_list[1][enemy].type}" +
               f" has dealt {hit} damage to you!\n")
         sleep(3)
-    if weaken_weapons[player.base_dmg][1] == damage and randint(1, 1) == 1:
+    if weaken_weapons[player.base_dmg][1] == damage and randint(1, 6) == 1:
         counterattack(damage, min, enemy)
     return hit
 
 
-def battle():
-    round = 1
-    fought = 1
+def menu():
     user_info()
     print("\n" + SEPARATOR + "\n")
     print("""    1. Play
     2. How To Play
     3. Exit""")
     print(f"\n{SEPARATOR}\n")
-    proceed = int(input("\n    Select an option's number: "))
+    proceed = int(input("\nSelect an option's number: "))
     print(f"\n{SEPARATOR}\n")
     clear_terminal()
     if proceed == 1:
-        while len(enemies_list) != 0 and round <= 5:
-            if fought > 1:
-                sleep(1)
-                print(f"\n{SEPARATOR}\n")
-                print("              Player:\n")
-                print(f"\n    Health:           {player.health}/{MAX_HP} HP")
-                print(f"    Wallet:           ${player.money}")
-            print(f"\n{SEPARATOR}\n")
-            sleep(1)
-            print(f"""    Round {round}
-                          Attack {fought}!""")
-            enemy_info()
-            enemy = chosen_enemy()
-            player.base_dmg = weapon_selection()
-            sleep(1)
-            enemies_list[1][enemy].health -= attack(weaken_weapons[player.base_dmg][1], 11, enemy)
-            sleep(1)
-            player.health -= attack(enemies_list[1][enemy].base_dmg, 12, enemy)
-            # sleep(5)
-            # fought += 1
-            # clear_terminal()
-        if enemies_list[1][enemy][0] + enemies_list[1][1] + enemies_list[1][2] == 0:
-            print("The end")
+        battle()
     elif proceed == 2:
         print("Play the game")
     elif proceed == 3:
@@ -258,4 +234,32 @@ def battle():
         print("Please enter an options number.")
 
 
-battle()
+def battle():
+    round = 1
+    fought = 1
+    while len(enemies_list) != 0 and round <= 5:
+        if fought > 1:
+            sleep(1)
+            print(f"\n{SEPARATOR}\n")
+            print("              Player:\n")
+            print(f"\n    Health:           {player.health}/{MAX_HP} HP")
+            print(f"    Wallet:           ${player.money}")
+        print(f"\n{SEPARATOR}\n")
+        sleep(1)
+        print(f"""    Round {round}
+                        Attack {fought}!""")
+        enemy_info()
+        enemy = chosen_enemy()
+        player.base_dmg = weapon_selection()
+        sleep(1)
+        enemies_list[1][enemy].health -= attack(weaken_weapons[player.base_dmg][1], 11, enemy)
+        sleep(1)
+        player.health -= attack(enemies_list[1][enemy].base_dmg, 12, enemy)
+        # sleep(5)
+        # fought += 1
+        # clear_terminal()
+    if enemies_list[1][enemy][0] + enemies_list[1][1] + enemies_list[1][2] == 0:
+        print("The end")
+
+
+menu()
