@@ -116,7 +116,8 @@ def weapon_selection():
                       f"{weaken_weapons[chosen_weapon - 1][0]}!\n")
                 sleep(0.3)
                 print("\n" + SEPARATOR)
-                sleep(0.3)
+                sleep(1.3)
+                clear_terminal()
                 return chosen_weapon - 1
             else:
                 print("Please enter a number from {} to {}."
@@ -139,8 +140,11 @@ def chosen_enemy():
             if target_enemy in range(1, len(enemies_list[1]) + 1):
                 sleep(0.3)
                 print(f"\n    You have chosen enemy {target_enemy}, " +
-                      f"{enemies_list[1][target_enemy-1].type}!\n")
+                      f"{enemies_list[1][target_enemy-1].type}!\n\n")
                 sleep(0.3)
+                print(SEPARATOR)
+                sleep(1.3)
+                clear_terminal()
                 return target_enemy - 1
             else:
                 print(f"Please enter a number from {1} to " +
@@ -220,6 +224,8 @@ def attack(damage, min, enemy):
     # User miss.
     if weaken_weapons[player.base_dmg][1] == damage and randint(1, 6) == 1:
         sleep(0.3)
+        print(SEPARATOR)
+        sleep(0.3)
         print("\n\nYour attack has missed.")
         sleep(0.3)
         print("\n        You dealt 0 damage.")
@@ -235,6 +241,8 @@ def attack(damage, min, enemy):
     hit = (int(damage * randint(min, MAX_MULTIPLIER) / 10)
            if randint(1, 3) == 1 else damage)
     if weaken_weapons[player.base_dmg][1] == damage:
+        sleep(0.3)
+        print(SEPARATOR)
         sleep(0.3)
         print(f"""\n\nYour attack hit!
 \n      You dealt {hit} damage to {enemies_list[1][enemy].type}!""")
@@ -295,9 +303,12 @@ def battle():
             sleep(0.3)
         print(f"\n{SEPARATOR}\n")
         sleep(0.3)
-        print(f"    Round {round}")
+        print(f"\n          Round {round}\n")
         sleep(0.3)
-        print(f"                        Attack {fought}!")
+        print(f"                                  Attack {fought}!\n")
+        print("\n" + SEPARATOR)
+        sleep(1.3)
+        clear_terminal()
         enemy_info()
         enemy = chosen_enemy()
         player.base_dmg = weapon_selection()
