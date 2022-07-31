@@ -87,11 +87,11 @@ def enemy_info():
     sleep(0.3)
     print("              Enemies:\n")
     sleep(0.3)
-    for count, i in enumerate(range(len(enemies_list[1])), start=1):
+    for count, i in enumerate(range(len(enemies_list)), start=1):
         sleep(0.3)
-        print(f"    {count}: {enemies_list[1][i].type} " +
-              (" " * (SPACE_LENGTH - (len(enemies_list[1][i].type)))) +
-              f"{str(enemies_list[1][i].health)}/{MAX_HP} HP")
+        print(f"    {count}: {current[i].type} " +
+              (" " * (SPACE_LENGTH - (len(current[i].type)))) +
+              f"{str(current[i].health)}/{MAX_HP} HP")
     print("\n" + SEPARATOR + "\n")
     sleep(0.5)
 
@@ -137,10 +137,10 @@ def chosen_enemy():
     while True:
         try:
             target_enemy = int(input("\nSelect an enemy's number to attack: "))
-            if target_enemy in range(1, len(enemies_list[1]) + 1):
+            if target_enemy in range(1, len(current) + 1):
                 sleep(0.3)
                 print(f"\n    You have chosen enemy {target_enemy}, " +
-                      f"{enemies_list[1][target_enemy-1].type}!\n\n")
+                      f"{current[target_enemy-1].type}!\n\n")
                 sleep(0.3)
                 print(SEPARATOR)
                 sleep(1.3)
@@ -148,28 +148,25 @@ def chosen_enemy():
                 return target_enemy - 1
             else:
                 print(f"Please enter a number from {1} to " +
-                      f"{len(enemies_list[1])}.")
+                      f"{len(current) - 1}.")
                 sleep(0.3)
                 enemy_info()
         except ValueError:
             print(f"Please enter a number from {1} to " +
-                  f"{len(enemies_list[1])}.")
+                  f"{len(current) - 1}.")
             sleep(0.3)
             enemy_info()
 
 
+enemies_list = ["Plaque", "Tartar", "Tooth Decay"]
 player = characters("Player", 100, 0, 0)
-plaque = characters("Plaque", 100, 3, 0)
-tartar = characters("Tartar", 100, 3, 0)
-tooth_decay = characters("Tooth Decay", 100, 3, 0)
-
-enemies_list = [[plaque,
-                tartar,
-                tooth_decay],
-                []]
-for i in range(3):
-    enemies_list[1].append(enemies_list[0]
-                           [randint(0, len(enemies_list))])
+enemy_one = characters(enemies_list[randint(0,
+                       len(enemies_list) - 1)], 100, 3, 0)
+enemy_two = characters(enemies_list[randint(0,
+                       len(enemies_list) - 1)], 100, 3, 0)
+enemy_three = characters(enemies_list[randint(0,
+                         len(enemies_list) - 1)], 100, 3, 0)
+current = [enemy_one, enemy_two, enemy_three]
 
 
 # CLEAR THE LIST AT THE END OF EACH ROUND.
@@ -184,7 +181,7 @@ def dodge(enemy):
                 sleep(0.3)
                 print("\nCORRECT! You have dodged the enemy's attack.")
                 sleep(0.3)
-                print(f"\n        {enemies_list[1][enemy].type}" +
+                print(f"\n        {enemies_list[enemy].type}" +
                       " has dealt 0 damage.")
                 sleep(0.3)
                 return 0
@@ -202,12 +199,12 @@ def dodge(enemy):
 
 
 def counterattack(damage, min, enemy):
-    hit = (int(enemies_list[1][enemy].base_dmg *
+    hit = (int(enemies_list[enemy].base_dmg *
            randint(min, MAX_MULTIPLIER) / 10)
            if randint(1, 1) == 1 else damage)
     sleep(0.3)
-    print(f"""{enemies_list[1][enemy].type} has performed a counterattack!
-\n        {enemies_list[1][enemy].type} has dealt {hit} damage to you!\n""")
+    print(f"""{enemies_list[enemy].type} has performed a counterattack!
+\n        {enemies_list[enemy].type} has dealt {hit} damage to you!\n""")
     sleep(0.3)
     player.health -= hit
     print("\n" + SEPARATOR)
@@ -216,9 +213,9 @@ def counterattack(damage, min, enemy):
 
 def attack(damage, min, enemy):
     # Enemy miss.
-    if enemies_list[1][enemy].base_dmg == damage and randint(1, 18) == 1:
+    if enemies_list[enemy].base_dmg == damage and randint(1, 18) == 1:
         sleep(0.3)
-        print(f"\n\n{enemies_list[1][enemy].type} has missed their attack.\n")
+        print(f"\n\n{enemies_list[enemy].type} has missed their attack.\n")
         sleep(0.3)
         return 0
     # User miss.
@@ -234,7 +231,7 @@ def attack(damage, min, enemy):
         sleep(0.3)
         return 0
     # User dodge.
-    if enemies_list[1][enemy].base_dmg == damage and randint(1, 3) == 1:
+    if enemies_list[enemy].base_dmg == damage and randint(1, 3) == 1:
         if dodge(enemy) == 0:
             return 0
     # User hit.
@@ -245,15 +242,15 @@ def attack(damage, min, enemy):
         print(SEPARATOR)
         sleep(0.3)
         print(f"""\n\nYour attack hit!
-\n      You dealt {hit} damage to {enemies_list[1][enemy].type}!""")
+\n      You dealt {hit} damage to {enemies_list[enemy].type}!""")
         sleep(0.3)
         print("\n\n" + SEPARATOR + "\n\n")
         sleep(0.3)
-    elif enemies_list[1][enemy].base_dmg == damage:
+    elif enemies_list[enemy].base_dmg == damage:
         sleep(0.3)
-        print(f"\n{enemies_list[1][enemy].type}'s attack has hit you!")
+        print(f"\n{enemies_list[enemy].type}'s attack has hit you!")
         sleep(0.3)
-        print(f"\n        {enemies_list[1][enemy].type}" +
+        print(f"\n        {enemies_list[enemy].type}" +
               f" has dealt {hit} damage to you!\n")
         sleep(0.3)
     if weaken_weapons[player.base_dmg][1] == damage and randint(1, 6) == 1:
@@ -313,13 +310,13 @@ def battle():
         enemy = chosen_enemy()
         player.base_dmg = weapon_selection()
         sleep(0.3)
-        enemies_list[1][enemy].health -= attack(weaken_weapons[player.base_dmg][1], 11, enemy)
+        enemies_list[enemy].health -= attack(weaken_weapons[player.base_dmg][1], 11, enemy)
         sleep(0.3)
-        player.health -= attack(enemies_list[1][enemy].base_dmg, 12, enemy)
+        player.health -= attack(enemies_list[enemy].base_dmg, 12, enemy)
         # sleep(5)
         # fought += 1
         # clear_terminal()
-    if enemies_list[1][enemy][0] + enemies_list[1][1] + enemies_list[1][2] == 0:
+    if enemies_list[enemy][0] + enemies_list[1] + enemies_list[2] == 0:
         print("The end")
 
 
