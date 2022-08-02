@@ -87,7 +87,7 @@ def enemy_info():
     sleep(0.3)
     print("              Enemies:\n")
     sleep(0.3)
-    for count, i in enumerate(range(len(enemies_list)), start=1):
+    for count, i in enumerate(range(len(current)), start=1):
         sleep(0.3)
         print(f"    {count}: {current[i].type} " +
               (" " * (SPACE_LENGTH - (len(current[i].type)))) +
