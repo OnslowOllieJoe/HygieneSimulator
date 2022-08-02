@@ -60,7 +60,9 @@ def clear_terminal():
 
 
 def user_info():
-    print(f"{SEPARATOR}\n")
+    print(SEPARATOR)
+    sleep(0.3)
+    print("\n")
     sleep(0.3)
     print("              Player:\n")
     sleep(0.3)
@@ -68,7 +70,9 @@ def user_info():
     sleep(0.3)
     print(f"    Wallet:           ${player.money}")
     sleep(0.3)
-    print("\n    Main Damage Weapons:")
+    print("\n")
+    sleep(0.3)
+    print("    Main Damage Weapons:")
     sleep(0.3)
     for count, value in enumerate(weaken_weapons, start=1):
         sleep(0.2)
@@ -83,7 +87,11 @@ def user_info():
 
 def enemy_info():
     sleep(0.3)
-    print(f"\n{SEPARATOR}\n")
+    print("\n")
+    sleep(0.3)
+    print(SEPARATOR)
+    sleep(0.3)
+    print("\n")
     sleep(0.3)
     print("              Enemies:\n")
     sleep(0.3)
@@ -93,7 +101,7 @@ def enemy_info():
               (" " * (SPACE_LENGTH - (len(current[i].type)))) +
               f"{str(current[i].health)}/{MAX_HP} HP")
     print("\n" + SEPARATOR + "\n")
-    sleep(0.5)
+    sleep(0.3)
 
 
 def weapon_selection():
@@ -136,7 +144,8 @@ def chosen_enemy():
     sleep(0.5)
     while True:
         try:
-            target_enemy = int(input("\nSelect an enemy's number to attack: "))
+            target_enemy = int(input("\nSelect an enemy to attack by" +
+                                     " entering a number: "))
             if target_enemy in range(1, len(current) + 1):
                 sleep(0.3)
                 print(f"\n    You have chosen enemy {target_enemy}, " +
@@ -175,7 +184,7 @@ def dodge(enemy):
         random_num = randint(1, 2)
         try:
             sleep(0.3)
-            player_guess = int(input("\n\nGuess a number between" +
+            player_guess = int(input("\nGuess a number between" +
                                      " 1 and 2 to dodge the attack: "))
             if player_guess == random_num:
                 sleep(0.3)
@@ -251,8 +260,8 @@ def attack(damage, min, enemy):
         print(f"\n{current[enemy].type}'s attack has hit you!")
         sleep(0.3)
         print(f"\n        {current[enemy].type}" +
-              f" has dealt {hit} damage to you!\n")
-        sleep(2)
+              f" has dealt {hit} damage to you!")
+        sleep(0.3)
     if weaken_weapons[player.base_dmg][1] == damage and randint(1, 6) == 1:
         counterattack(damage, min, enemy)
     return hit
@@ -279,6 +288,13 @@ def menu():
         elif proceed == 2:
             clear_terminal()
             print("Play the game")
+            menu_return = input("Would you like to return" +
+                                "to the menu? (y/n): ").lower().strip()
+            if menu_return == "y" or menu_return == "yes":
+                pass
+            else:
+                #fix this
+                pass
         elif proceed == 3:
             print("Thank you for using Dental Hygiene Simulator.")
             sys.exit()
