@@ -252,7 +252,7 @@ def attack(damage, min, enemy):
         sleep(0.3)
         print(f"\n        {current[enemy].type}" +
               f" has dealt {hit} damage to you!\n")
-        sleep(0.3)
+        sleep(2)
     if weaken_weapons[player.base_dmg][1] == damage and randint(1, 6) == 1:
         counterattack(damage, min, enemy)
     return hit
@@ -273,12 +273,14 @@ def menu():
     while True:
         proceed = int(input("\nSelect an option's number: "))
         print(f"\n{SEPARATOR}\n")
-        clear_terminal()
         if proceed == 1:
+            clear_terminal()
             battle()
         elif proceed == 2:
+            clear_terminal()
             print("Play the game")
         elif proceed == 3:
+            print("Thank you for using Dental Hygiene Simulator.")
             sys.exit()
         else:
             print("Please enter an options number.")
@@ -298,12 +300,22 @@ def battle():
             sleep(0.3)
             print(f"    Wallet:           ${player.money}")
             sleep(0.3)
-        print(f"\n{SEPARATOR}\n")
         sleep(0.3)
-        print(f"\n          Round {round}\n")
+        print("\n")
         sleep(0.3)
-        print(f"                                  Attack {fought}!\n")
-        print("\n" + SEPARATOR)
+        print(SEPARATOR)
+        sleep(0.3)
+        print("\n")
+        sleep(0.3)
+        print(f"          Round {round}")
+        sleep(0.3)
+        print("\n")
+        sleep(0.3)
+        print(f"                                  Attack {fought}!")
+        sleep(0.3)
+        print("\n")
+        sleep(0.3)
+        print(SEPARATOR)
         sleep(1.3)
         clear_terminal()
         enemy_info()
