@@ -3,6 +3,8 @@
 # Date: 07/06/022
 # Description: RPG battle simulator which teaches dental hygiene.
 
+from ast import excepthandler
+from multiprocessing.sharedctypes import Value
 from random import randint
 from time import sleep
 import os
@@ -268,35 +270,44 @@ def attack(damage, min, enemy):
 
 
 def menu():
-    sleep(0.3)
-    print("\n" + SEPARATOR + "\n")
-    sleep(0.3)
-    print("    1. Play")
-    sleep(0.3)
-    print("    2. How To Play")
-    sleep(0.3)
-    print("    3. Exit")
-    sleep(0.3)
-    print(f"\n{SEPARATOR}\n")
-    sleep(0.5)
     while True:
-        proceed = int(input("\nSelect an option's number: "))
+        sleep(0.3)
+        print("\n" + SEPARATOR + "\n")
+        sleep(0.3)
+        print("    1. Play")
+        sleep(0.3)
+        print("    2. How To Play")
+        sleep(0.3)
+        print("    3. Exit")
+        sleep(0.3)
         print(f"\n{SEPARATOR}\n")
-        if proceed == 1:
+        sleep(0.5)
+        proceed = input("\nSelect an option's number: ").strip()
+        if proceed == "1":
             clear_terminal()
             battle()
-        elif proceed == 2:
+        elif proceed == "2":
             clear_terminal()
-            print("Play the game")
-            menu_return = input("Would you like to return" +
-                                "to the menu? (y/n): ").lower().strip()
-            if menu_return == "y" or menu_return == "yes":
-                pass
-            else:
-                #fix this
-                pass
-        elif proceed == 3:
-            print("Thank you for using Dental Hygiene Simulator.")
+            print("\n")
+            sleep(0.3)
+            print(SEPARATOR)
+            sleep(0.3)
+            print("\n")
+            while True:
+                try:
+                    menu_return = int(input("Enter 1 to return to menu: "))
+                    if menu_return == 1:
+                        clear_terminal()
+                        break
+                    else:
+                        print("Please enter 1 if you want to " +
+                              "return to the menu.")
+                except ValueError:
+                    print("Please enter 1 if you want to " +
+                          "return to the menu.")
+        elif proceed == "3":
+            sleep(0.3)
+            print("\nThank you for using Dental Hygiene Simulator.")
             sys.exit()
         else:
             print("Please enter an options number.")
