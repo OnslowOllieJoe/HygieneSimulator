@@ -271,39 +271,50 @@ def attack(damage, min, enemy):
 
 def menu():
     while True:
-        sleep(0.3)
+        sleep(0.15)
         print("\n" + SEPARATOR + "\n")
-        sleep(0.3)
+        sleep(0.15)
         print("    1. Play")
-        sleep(0.3)
+        sleep(0.15)
         print("    2. How To Play")
-        sleep(0.3)
+        sleep(0.15)
         print("    3. Exit")
-        sleep(0.3)
+        sleep(0.15)
         print(f"\n{SEPARATOR}\n")
-        sleep(0.5)
-        proceed = input("\nSelect an option's number: ").strip()
+        sleep(0.15)
+        print("\n")
+        sleep(0.15)
+        proceed = input("Select an option's number: ").strip()
         if proceed == "1":
             clear_terminal()
             battle()
         elif proceed == "2":
             clear_terminal()
+            sleep(0.15)
             print("\n")
-            sleep(0.3)
+            sleep(0.15)
             print(SEPARATOR)
-            sleep(0.3)
+            sleep(0.15)
             print("\n")
+            sleep(0.15)
             while True:
                 try:
                     menu_return = int(input("Enter 1 to return to menu: "))
+                    sleep(0.15)
                     if menu_return == 1:
                         clear_terminal()
                         break
                     else:
-                        print("\nPlease enter 1 if you want to " +
+                        sleep(0.15)
+                        print("\n")
+                        sleep(0.15)
+                        print("Please enter 1 if you want to " +
                               "return to the menu.")
                 except ValueError:
-                    print("\nPlease enter 1 if you want to " +
+                    sleep(0.15)
+                    print("\n")
+                    sleep(0.15)
+                    print("Please enter 1 if you want to " +
                           "return to the menu.")
         elif proceed == "3":
             sleep(0.3)
