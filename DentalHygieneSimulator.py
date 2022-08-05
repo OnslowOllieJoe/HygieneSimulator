@@ -300,17 +300,17 @@ def menu():
                         clear_terminal()
                         break
                     else:
-                        print("Please enter 1 if you want to " +
+                        print("\nPlease enter 1 if you want to " +
                               "return to the menu.")
                 except ValueError:
-                    print("Please enter 1 if you want to " +
+                    print("\nPlease enter 1 if you want to " +
                           "return to the menu.")
         elif proceed == "3":
             sleep(0.3)
             print("\nThank you for using Dental Hygiene Simulator.")
             sys.exit()
         else:
-            print("Please enter an options number.")
+            print("Please enter a valid option's number.")
 
 
 def battle():
