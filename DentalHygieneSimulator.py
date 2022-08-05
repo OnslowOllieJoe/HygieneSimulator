@@ -342,7 +342,9 @@ def battle():
         current[enemy].health -= attack(weaken_weapons[player.base_dmg][1], 11,
                                         enemy)
         sleep(0.15)
-        player.health -= attack(current[enemy].base_dmg, 12, enemy)
+        player.health -= attack(current[enemy].base_dmg, 12, 0)
+        player.health -= attack(current[enemy].base_dmg, 12, 1)
+        player.health -= attack(current[enemy].base_dmg, 12, 2)
         # sleep(5)
         # fought += 1
         # clear_terminal()
