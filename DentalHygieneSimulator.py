@@ -275,9 +275,9 @@ def menu():
             print(SEPARATOR)
             sleep(0.15)
             print("\n")
-            sleep(0.15)
             while True:
                 try:
+                    sleep(0.15)
                     menu_return = int(input("Enter 1 to return to menu: "))
                     sleep(0.15)
                     if menu_return == 1:
@@ -285,16 +285,16 @@ def menu():
                         break
                     else:
                         sleep(0.15)
-                        print("\n")
-                        sleep(0.15)
                         print("Please enter 1 if you want to " +
                               "return to the menu.")
+                        sleep(0.15)
+                        print("\n")
                 except ValueError:
-                    sleep(0.15)
-                    print("\n")
                     sleep(0.15)
                     print("Please enter 1 if you want to " +
                           "return to the menu.")
+                    sleep(0.15)
+                    print("\n")
         elif proceed == "3":
             sleep(0.15)
             print("\nThank you for using Dental Hygiene Simulator.")
