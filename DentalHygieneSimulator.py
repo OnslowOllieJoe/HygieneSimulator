@@ -291,6 +291,10 @@ def menu():
             sleep(0.15)
             print("\n")
             instructions()
+            sleep(0.15)
+            print(SEPARATOR)
+            sleep(0.15)
+            print("\n")
             while True:
                 try:
                     sleep(0.15)
