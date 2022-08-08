@@ -249,6 +249,9 @@ def attack(damage, min, enemy):
 
 
 def instructions():
+    print("\n")
+    print(SEPARATOR)
+    print("\n")
     print("""1) There are five rounds in a game.
 2) Each round has three enemies.
 3) The main weapons are toothbrush, dental floss, and mouthwash.
@@ -259,8 +262,10 @@ def instructions():
 8) The main weapons are weapons which deal damage to the enemies but cannot
 kill the enemies.
 9) The finishing weapons don't deal damage but are used
-when the enemy is on 1 health to kill the enemy.
-""")
+when the enemy is on 1 health to kill the enemy.""")
+    print("\n")
+    print(SEPARATOR)
+    print("\n")
 
 
 def menu():
@@ -282,17 +287,7 @@ def menu():
             battle()
         elif proceed == "2":
             clear_terminal()
-            sleep(0.15)
-            print("\n")
-            sleep(0.15)
-            print(SEPARATOR)
-            sleep(0.15)
-            print("\n")
             instructions()
-            sleep(0.15)
-            print(SEPARATOR)
-            sleep(0.15)
-            print("\n")
             while True:
                 try:
                     sleep(0.15)
