@@ -276,8 +276,6 @@ def menu():
         sleep(0.15)
         print(f"\n{SEPARATOR}\n")
         sleep(0.15)
-        print("\n")
-        sleep(0.15)
         proceed = input("Select an option's number: ").strip()
         if proceed == "1":
             clear_terminal()
