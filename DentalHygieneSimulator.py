@@ -389,6 +389,8 @@ def check_if_dead(enemy):
     if current[enemy].health <= 0:
         dead.append(current[enemy])
         current[enemy].health = 1
+        current[enemy].type = (f"{current[enemy].type} " +
+                               "(Use finishing weapon to kill!)")
 
 
 def battle():
