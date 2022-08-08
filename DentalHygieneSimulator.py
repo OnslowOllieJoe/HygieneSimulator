@@ -127,7 +127,10 @@ def chosen_enemy():
             sleep(0.15)
             target_enemy = int(input("Select an enemy to attack by" +
                                      " entering their number: "))
-            if target_enemy in range(1, len(current) + 1):
+            if current[target_enemy] in dead:
+                for count, value in enumerate(kill_weapons, start=1):
+                    print(f"    {count}: {value[0]}")
+            elif target_enemy in range(1, len(current) + 1):
                 sleep(0.15)
                 print(f"\n    You have chosen enemy {target_enemy}, " +
                       f"{current[target_enemy-1].type}!\n\n")
@@ -151,22 +154,23 @@ def chosen_enemy():
 enemies_list = ["Plaque", "Tartar", "Tooth Decay"]
 player = characters("Player", 100, 0, 0)
 enemy_one = characters(enemies_list[randint(0,
-                       len(enemies_list) - 1)], 100, 3, 0)
+                       len(enemies_list) - 1)], 25, 3, 0)
 enemy_two = characters(enemies_list[randint(0,
                        len(enemies_list) - 1)], 100, 3, 0)
 enemy_three = characters(enemies_list[randint(0,
                          len(enemies_list) - 1)], 100, 3, 0)
 current = [enemy_one, enemy_two, enemy_three]
+dead = []
 
 
 # CLEAR THE LIST AT THE END OF EACH ROUND.
 def dodge(enemy):
     while True:
-        random_num = randint(1, 2)
+        random_num = randint(1, 3)
         try:
             sleep(0.15)
             player_guess = int(input("\nGuess a number between" +
-                                     " 1 and 2 to dodge the attack: "))
+                                     " 1 and 3 to dodge the attack: "))
             if player_guess == random_num:
                 sleep(0.15)
                 print("\nCORRECT! You have dodged the enemy's attack.")
@@ -176,7 +180,7 @@ def dodge(enemy):
                 sleep(0.15)
                 return 0
             elif (player_guess != random_num and
-                    player_guess in range(1, 3)):
+                    player_guess in range(1, 4)):
                 print("INCORRECT! You failed to dodge the attack.")
                 sleep(0.15)
                 return 1
@@ -201,7 +205,9 @@ def counterattack(damage, min, enemy):
     sleep(0.15)
 
 
-def attack(damage, min, enemy):
+def attack(damage, min, enemy, dead):
+    if current[enemy] in dead:
+        return 0
     # Enemy miss.
     if current[enemy].base_dmg == damage and randint(1, 18) == 1:
         sleep(0.15)
@@ -221,7 +227,7 @@ def attack(damage, min, enemy):
         sleep(0.15)
         return 0
     # User dodge.
-    if current[enemy].base_dmg == damage and randint(1, 3) == 1:
+    if current[enemy].base_dmg == damage and randint(1, 6) == 1:
         if dodge(enemy) == 0:
             return 0
     # User hit.
@@ -322,6 +328,18 @@ def menu():
             print("Please enter a valid option's number.")
 
 
+def check_if_dead():
+    if enemy_one.health <= 0:
+        dead.append(current[0])
+        enemy_one.health = 1
+    elif enemy_two.health <= 0:
+        dead.append(current[1])
+        enemy_two.health = 1
+    elif enemy_three.health <= 0:
+        dead.append(current[2])
+        enemy_three.health = 1
+
+
 def battle():
     round = 1
     fought = 1
@@ -354,19 +372,21 @@ def battle():
         print(SEPARATOR)
         sleep(1.3)
         clear_terminal()
+        check_if_dead()
         enemy_info()
         enemy = chosen_enemy()
         player.base_dmg = weapon_selection()
         sleep(0.15)
-        current[enemy].health -= attack(weaken_weapons[player.base_dmg][1], 11,
-                                        enemy)
+        current[enemy].health -= attack(weaken_weapons[player.base_dmg][1],
+                                        11, enemy, dead)
         sleep(0.15)
-        player.health -= attack(current[enemy].base_dmg, 12, 0)
-        player.health -= attack(current[enemy].base_dmg, 12, 1)
-        player.health -= attack(current[enemy].base_dmg, 12, 2)
-        # sleep(5)
+        check_if_dead()
+        player.health -= attack(current[enemy].base_dmg, 12, 0, dead)
+        player.health -= attack(current[enemy].base_dmg, 12, 1, dead)
+        player.health -= attack(current[enemy].base_dmg, 12, 2, dead)
+        sleep(60)
         # fought += 1
-        # clear_terminal()
+        clear_terminal()
     if current[0] + current[1] + current[2] == 0:
         print("The end")
 
