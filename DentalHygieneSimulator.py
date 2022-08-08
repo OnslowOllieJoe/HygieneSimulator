@@ -54,14 +54,32 @@ def user_info():
     print("    Main Damage Weapons:")
     sleep(0.15)
     for count, value in enumerate(weaken_weapons, start=1):
-        sleep(0.2)
+        sleep(0.15)
         print(f"      {count}: " + value[0])
     sleep(0.15)
     print("\n    Finishing Weapons:")
     sleep(0.15)
     for count, value in enumerate(kill_weapons, start=1):
-        sleep(0.2)
+        sleep(0.15)
         print(f"      {count}: " + value[0])
+    sleep(0.15)
+    print("")
+    sleep(0.15)
+    print(SEPARATOR)
+    proceed()
+
+
+def proceed():
+    repeat = True
+    while repeat:
+        sleep(0.15)
+        print("\n")
+        proceed = input("Press Enter to continue: ").strip()
+        if proceed == "":
+            repeat = False
+            clear_terminal()
+        else:
+            print("Please press Enter if you want to continue.")
 
 
 def enemy_info():
@@ -178,11 +196,17 @@ def dodge(enemy):
                 print(f"\n        {current[enemy].type}" +
                       " has dealt 0 damage.")
                 sleep(0.15)
+                print("")
+                sleep(0.15)
+                print(SEPARATOR)
                 return 0
             elif (player_guess != random_num and
                     player_guess in range(1, 4)):
                 print("INCORRECT! You failed to dodge the attack.")
                 sleep(0.15)
+                print("")
+                sleep(0.15)
+                print(SEPARATOR)
                 return 1
             else:
                 print("Please enter a number between 1 and 2.")
@@ -213,18 +237,26 @@ def attack(damage, min, enemy, dead):
         sleep(0.15)
         print(f"\n\n{current[enemy].type} has missed their attack.\n")
         sleep(0.15)
+        print("")
+        sleep(0.15)
+        print(SEPARATOR)
         return 0
     # User miss.
     if weaken_weapons[player.base_dmg][1] == damage and randint(1, 6) == 1:
         sleep(0.15)
         print(SEPARATOR)
         sleep(0.15)
-        print("\n\nYour attack has missed.")
+        print("\n")
         sleep(0.15)
-        print("\n        You dealt 0 damage.")
+        print("Your attack has missed.")
         sleep(0.15)
-        print("\n\n" + SEPARATOR)
+        print("        You dealt 0 damage.")
         sleep(0.15)
+        print("\n")
+        sleep(0.15)
+        print(SEPARATOR)
+        sleep(0.15)
+        proceed()
         return 0
     # User dodge.
     if current[enemy].base_dmg == damage and randint(1, 6) == 1:
@@ -237,18 +269,33 @@ def attack(damage, min, enemy, dead):
         sleep(0.15)
         print(SEPARATOR)
         sleep(0.15)
-        print(f"""\n\nYour attack hit!
-\n      You dealt {hit} damage to {current[enemy].type}!""")
+        print("\n")
         sleep(0.15)
-        print("\n\n" + SEPARATOR + "\n\n")
+        print("Your attack hit!")
         sleep(0.15)
+        print(f"    You dealt {hit} damage to {current[enemy].type}!")
+        if hit >= current[enemy].health:
+            sleep(0.15)
+            print("")
+            sleep(0.15)
+            print(f"You have defeated {current[enemy].type}!")
+        sleep(0.15)
+        print("\n")
+        sleep(0.15)
+        print(SEPARATOR)
+        proceed()
     elif current[enemy].base_dmg == damage:
         sleep(0.15)
-        print(f"\n{current[enemy].type}'s attack has hit you!")
+        print("\n")
         sleep(0.15)
-        print(f"\n        {current[enemy].type}" +
+        print(f"{current[enemy].type}'s attack has hit you!")
+        sleep(0.15)
+        print(f"        {current[enemy].type}" +
               f" has dealt {hit} damage to you!")
         sleep(0.15)
+        print("")
+        sleep(0.15)
+        print(SEPARATOR)
     if weaken_weapons[player.base_dmg][1] == damage and randint(1, 6) == 1:
         counterattack(damage, min, enemy)
     return hit
@@ -328,21 +375,26 @@ def menu():
             print("Please enter a valid option's number.")
 
 
-def check_if_dead():
-    if enemy_one.health <= 0:
-        dead.append(current[0])
-        enemy_one.health = 1
-    elif enemy_two.health <= 0:
-        dead.append(current[1])
-        enemy_two.health = 1
-    elif enemy_three.health <= 0:
-        dead.append(current[2])
-        enemy_three.health = 1
+def check_if_dead(enemy):
+    # if enemy_one.health <= 0:
+    #     print("You have killed ")
+    #     dead.append(current[0])
+    #     enemy_one.health = 1
+    # elif enemy_two.health <= 0:
+    #     dead.append(current[1])
+    #     enemy_two.health = 1
+    # elif enemy_three.health <= 0:
+    #     dead.append(current[2])
+    #     enemy_three.health = 1
+    if current[enemy].health <= 0:
+        dead.append(current[enemy])
+        current[enemy].health = 1
 
 
 def battle():
     round = 1
     fought = 1
+    user_info()
     while len(current) != 0 and round <= 5:
         if fought > 1:
             sleep(1)
@@ -354,6 +406,10 @@ def battle():
             sleep(0.15)
             print(f"    Wallet:           ${player.money}")
             sleep(0.15)
+            print("")
+            sleep(0.15)
+            print(SEPARATOR)
+            proceed()
         sleep(0.15)
         print("\n")
         sleep(0.15)
@@ -372,7 +428,6 @@ def battle():
         print(SEPARATOR)
         sleep(1.3)
         clear_terminal()
-        check_if_dead()
         enemy_info()
         enemy = chosen_enemy()
         player.base_dmg = weapon_selection()
@@ -380,12 +435,13 @@ def battle():
         current[enemy].health -= attack(weaken_weapons[player.base_dmg][1],
                                         11, enemy, dead)
         sleep(0.15)
-        check_if_dead()
+        check_if_dead(enemy)
+        print(SEPARATOR)
         player.health -= attack(current[enemy].base_dmg, 12, 0, dead)
         player.health -= attack(current[enemy].base_dmg, 12, 1, dead)
         player.health -= attack(current[enemy].base_dmg, 12, 2, dead)
-        sleep(60)
-        # fought += 1
+        proceed()
+        fought += 1
         clear_terminal()
     if current[0] + current[1] + current[2] == 0:
         print("The end")
