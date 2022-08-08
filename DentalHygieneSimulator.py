@@ -248,6 +248,21 @@ def attack(damage, min, enemy):
     return hit
 
 
+def instructions():
+    print("""1) There are five rounds in a game.
+2) Each round has three enemies.
+3) The main weapons are toothbrush, dental floss, and mouthwash.
+4) The finishing weapons are filling and dental scaler.
+5) The enemies can be tooth decay, plaque, and tartar.
+6) After winning a round, the player will be rewarded with dollars.
+7) The player can purchase health for their character at the end of each round.
+8) The main weapons are weapons which deal damage to the enemies but cannot
+kill the enemies.
+9) The finishing weapons don't deal damage but are used
+when the enemy is on 1 health to kill the enemy.
+""")
+
+
 def menu():
     while True:
         sleep(0.15)
@@ -275,6 +290,7 @@ def menu():
             print(SEPARATOR)
             sleep(0.15)
             print("\n")
+            instructions()
             while True:
                 try:
                     sleep(0.15)
