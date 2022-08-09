@@ -149,6 +149,11 @@ def finishing_weapons(enemy):
                 print("You chose a super effective weapon!")
                 sleep(0.15)
                 print(f"You have defeated {current[enemy].type}!")
+            else:
+                sleep(0.15)
+                print("You chose a super effective weapon!")
+                sleep(0.15)
+                print(f"You have defeated {current[enemy].type}!")
         except ValueError:
             print("Please enter a valid option.")
 
