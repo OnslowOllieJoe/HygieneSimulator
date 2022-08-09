@@ -142,6 +142,8 @@ def finishing_weapons(enemy):
         try:
             finisher = int(input("Select the correct weapon to use against" +
                                  f" {current[enemy].type}")) - 1
+            sleep(0.15)
+            print("")
             if (kill_weapons[finisher] == kill_weapons[0] and
                 current[enemy].type == "Plaque" or
                 current[enemy].type == "Tartar"):
