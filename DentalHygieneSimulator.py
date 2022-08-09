@@ -137,6 +137,16 @@ def weapon_selection():
             sleep(0.15)
 
 
+def finishing_weapons(enemy):
+    while True:
+        try:
+            finisher = int(input("Select the correct weapon to use against" +
+                                 f" {current[enemy]}"))
+            if 
+        except ValueError:
+            print("Please enter a valid option.")
+
+
 def chosen_enemy():
     sleep(0.15)
     while True:
@@ -145,9 +155,25 @@ def chosen_enemy():
             sleep(0.15)
             target_enemy = int(input("Select an enemy to attack by" +
                                      " entering their number: "))
-            if current[target_enemy] in dead:
+            if current[target_enemy-1] in dead:
+                clear_terminal()
+                print("")
+                sleep(0.15)
+                print(SEPARATOR)
+                sleep(0.15)
+                print("")
+                sleep(0.15)
+                print("")
+                sleep(0.15)
                 for count, value in enumerate(kill_weapons, start=1):
                     print(f"    {count}: {value[0]}")
+                    sleep(0.15)
+                print("")
+                sleep(0.15)
+                print("")
+                sleep(0.15)
+                print(SEPARATOR)
+                finishing_weapons(target_enemy-1)
             elif target_enemy in range(1, len(current) + 1):
                 sleep(0.15)
                 print(f"\n    You have chosen enemy {target_enemy}, " +
@@ -170,7 +196,7 @@ def chosen_enemy():
 
 
 enemies_list = ["Plaque", "Tartar", "Tooth Decay"]
-player = characters("Player", 6, 0, 0)
+player = characters("Player", 100, 0, 0)
 enemy_one = characters(enemies_list[randint(0,
                        len(enemies_list) - 1)], 25, 3, 0)
 enemy_two = characters(enemies_list[randint(0,
