@@ -27,12 +27,11 @@ MAX_MULTIPLIER = 30
 
 
 class characters():
-    def __init__(self, type, health, base_dmg, money, status):
+    def __init__(self, type, health, base_dmg, money):
         self.type = type
         self.health = health
         self.base_dmg = base_dmg
         self.money = money
-        self.status = type
 
 
 def clear_terminal():
@@ -95,8 +94,8 @@ def enemy_info(current):
     sleep(0.15)
     for count, i in enumerate(range(len(current)), start=1):
         sleep(0.15)
-        print(f"    {count}: {current[i].status} " +
-              (" " * (SPACE_LENGTH - (len(current[i].status)))) +
+        print(f"    {count}: {current[i].type} " +
+              (" " * (SPACE_LENGTH - (len(current[i].type)))) +
               f"{str(current[i].health)}/{MAX_HP} HP")
     print("\n" + SEPARATOR + "\n")
     sleep(0.15)
@@ -196,15 +195,21 @@ def finishing_weapons(enemy, current):
             print("Please enter a valid option.")
 
 
-def chosen_enemy(current):
+def chosen_enemy(current, dead):
     sleep(0.15)
     while True:
         try:
             print("")
             sleep(0.15)
             target_enemy = int(input("Select an enemy's number to attack: "))
-            if target_enemy in range(1, len(current) + 1):
+            sleep(0.15)
+            if current[target_enemy - 1].health == 0:
+                print("")
                 sleep(0.15)
+                print("That enemy has already been defeated.")
+                sleep(0.15)
+                enemy_info(current)
+            elif target_enemy in range(1, len(current) + 1):
                 print(f"\n    You have chosen enemy {target_enemy}, " +
                       f"{current[target_enemy-1].type}!\n\n")
                 sleep(0.15)
@@ -434,8 +439,6 @@ def check_if_dead(enemy, dead, current):
     if current[enemy].health <= 0:
         dead.append(current[enemy])
         current[enemy].health = 1
-        current[enemy].status = (f"{current[enemy].type} " +
-                                 "(Use finishing weapon to kill)")
 
 
 def you_lose(round, fought, player):
@@ -464,11 +467,11 @@ def battle():
     enemies_list = ["Plaque", "Tartar", "Tooth Decay"]
     player = characters("Player", 100, 0, 0, "Player")
     enemy_one = characters(enemies_list[randint(0,
-                           len(enemies_list) - 1)], 25, 3, 0, None)
+                           len(enemies_list) - 1)], 25, 3, 0)
     enemy_two = characters(enemies_list[randint(0,
-                           len(enemies_list) - 1)], 100, 3, 0, None)
+                           len(enemies_list) - 1)], 100, 3, 0)
     enemy_three = characters(enemies_list[randint(0,
-                             len(enemies_list) - 1)], 100, 3, 0, None)
+                             len(enemies_list) - 1)], 100, 3, 0)
     current = [enemy_one, enemy_two, enemy_three]
     round = 1
     fought = 1
@@ -508,7 +511,7 @@ def battle():
         sleep(1.3)
         clear_terminal()
         enemy_info(current)
-        enemy = chosen_enemy(current)
+        enemy = chosen_enemy(current, dead)
         if current[enemy] in dead:
             clear_terminal()
             print("")
