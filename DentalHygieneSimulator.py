@@ -39,7 +39,7 @@ def clear_terminal():
     os.system('cls' if os.name == 'nt' else 'clear')
 
 
-def user_info():
+def user_info(player):
     print(SEPARATOR)
     sleep(0.15)
     print("\n")
@@ -83,7 +83,7 @@ def proceed():
             print("Please press Enter if you want to continue.")
 
 
-def enemy_info():
+def enemy_info(current):
     sleep(0.15)
     print("\n")
     sleep(0.15)
@@ -138,41 +138,47 @@ def weapon_selection():
             sleep(0.15)
 
 
-def finishing_weapons(enemy):
+def finishing_weapons(enemy, current):
     while True:
         try:
-            finisher = int(input("Select the correct weapon to use against" +
-                                 f" {current[enemy].type}")) - 1
             sleep(0.15)
             print("")
-            if (kill_weapons[finisher] == kill_weapons[0] and
-                    current[enemy].type == "Plaque" or
-                    current[enemy].type == "Tartar"):
-                sleep(0.15)
-                print("You chose a super effective weapon!")
-                sleep(0.15)
-                print(f"You have defeated {current[enemy].type}!")
-            elif (kill_weapons[finisher] == kill_weapons[1]
-                  and current[enemy].type == "Tooth Decay"):
-                sleep(0.15)
-                print("You chose a super effective weapon!")
-                sleep(0.15)
-                print(f"You have defeated {current[enemy].type}!")
+            sleep(0.15)
+            finisher = int(input("Select the correct weapon to use against" +
+                                 f" {current[enemy].type}: ")) - 1
+            sleep(0.15)
+            print("")
+            if finisher in range(1, 2):
+                if (kill_weapons[finisher] == kill_weapons[0] and
+                        current[enemy].type == "Plaque" or
+                        current[enemy].type == "Tartar"):
+                    sleep(0.15)
+                    print("You chose a super effective weapon!")
+                    sleep(0.15)
+                    print(f"    You have defeated {current[enemy].type}!")
+                    return 1
+                elif (kill_weapons[finisher] == kill_weapons[1]
+                        and current[enemy].type == "Tooth Decay"):
+                    sleep(0.15)
+                    print("You chose a super effective weapon!")
+                    sleep(0.15)
+                    print(f"    You have defeated {current[enemy].type}!")
+                else:
+                    sleep(0.15)
+                    print("You have chosen the incorrect weapon!")
+                    sleep(0.15)
+                    print("    Your attack did 0 damage")
+                    return 0
             else:
-                sleep(0.15)
-                print("You have chosen the incorrect weapon!")
-                sleep(0.15)
-                print("    Your attack did 0 damage")
+                print("Please enter a valid option.")
         except ValueError:
             print("Please enter a valid option.")
 
 
-def chosen_enemy():
+def chosen_enemy(dead, current):
     sleep(0.15)
     while True:
         try:
-            print("\n")
-            sleep(0.15)
             target_enemy = int(input("Select an enemy to attack by" +
                                      " entering their number: "))
             if current[target_enemy-1] in dead:
@@ -215,23 +221,7 @@ def chosen_enemy():
             enemy_info()
 
 
-enemies_list = ["Plaque", "Tartar", "Tooth Decay"]
-player = characters("Player", 100, 0, 0, "Player")
-enemy_one = characters(enemies_list[randint(0,
-                       len(enemies_list) - 1)], 25, 3, 0,
-                       enemies_list[randint(0, len(enemies_list) - 1)])
-enemy_two = characters(enemies_list[randint(0,
-                       len(enemies_list) - 1)], 100, 3, 0,
-                       enemies_list[randint(0, len(enemies_list) - 1)])
-enemy_three = characters(enemies_list[randint(0,
-                         len(enemies_list) - 1)], 100, 3, 0,
-                         enemies_list[randint(0, len(enemies_list) - 1)])
-current = [enemy_one, enemy_two, enemy_three]
-dead = []
-
-
-# CLEAR THE LIST AT THE END OF EACH ROUND.
-def dodge(enemy):
+def dodge(enemy, current):
     while True:
         random_num = randint(1, 3)
         try:
@@ -265,7 +255,7 @@ def dodge(enemy):
             sleep(0.15)
 
 
-def counterattack(damage, min, enemy):
+def counterattack(damage, min, enemy, current, player):
     hit = (int(current[enemy].base_dmg *
            randint(min, MAX_MULTIPLIER) / 10)
            if randint(1, 1) == 1 else damage)
@@ -278,7 +268,7 @@ def counterattack(damage, min, enemy):
     sleep(0.15)
 
 
-def attack(damage, min, enemy, dead, round, fought):
+def attack(damage, min, enemy, dead, round, fought, current, player):
     if current[enemy] in dead:
         return 0
     # Enemy miss.
@@ -428,15 +418,15 @@ def menu():
             print("Please enter a valid option's number.")
 
 
-def check_if_dead(enemy):
+def check_if_dead(enemy, dead, current):
     if current[enemy].health <= 0:
         dead.append(current[enemy])
         current[enemy].health = 1
         current[enemy].status = (f"{current[enemy].type} " +
-                               "(Use finishing weapon to kill!)")
+                                 "(Use finishing weapon to kill!)")
 
 
-def you_lose(round, fought):
+def you_lose(round, fought, player):
     print("")
     sleep(0.15)
     print(SEPARATOR)
@@ -459,9 +449,22 @@ def you_lose(round, fought):
 
 
 def battle():
+    enemies_list = ["Plaque", "Tartar", "Tooth Decay"]
+    player = characters("Player", 100, 0, 0, "Player")
+    enemy_one = characters(enemies_list[randint(0,
+                           len(enemies_list) - 1)], 25, 3, 0,
+                           enemies_list[randint(0, len(enemies_list) - 1)])
+    enemy_two = characters(enemies_list[randint(0,
+                           len(enemies_list) - 1)], 100, 3, 0,
+                           enemies_list[randint(0, len(enemies_list) - 1)])
+    enemy_three = characters(enemies_list[randint(0,
+                             len(enemies_list) - 1)], 100, 3, 0,
+                             enemies_list[randint(0, len(enemies_list) - 1)])
+    current = [enemy_one, enemy_two, enemy_three]
     round = 1
     fought = 1
-    user_info()
+    user_info(player)
+    dead = []
     while len(current) != 0 and round <= 5:
         if fought > 1:
             sleep(1)
@@ -495,21 +498,22 @@ def battle():
         print(SEPARATOR)
         sleep(1.3)
         clear_terminal()
-        enemy_info()
-        enemy = chosen_enemy()
+        enemy_info(current)
+        enemy = chosen_enemy(dead, current)
         player.base_dmg = weapon_selection()
         sleep(0.15)
         current[enemy].health -= attack(weaken_weapons[player.base_dmg][1],
-                                        11, enemy, dead, round, fought)
+                                        11, enemy, dead, round, fought,
+                                        current, player)
         sleep(0.15)
-        check_if_dead(enemy)
+        check_if_dead(enemy, dead, current)
         print(SEPARATOR)
         player.health -= attack(current[enemy].base_dmg, 12, 0, dead,
-                                round, fought)
+                                round, fought, current, player)
         player.health -= attack(current[enemy].base_dmg, 12, 1, dead,
-                                round, fought)
+                                round, fought, current, player)
         player.health -= attack(current[enemy].base_dmg, 12, 2, dead,
-                                round, fought)
+                                round, fought, current, player)
         proceed()
         fought += 1
         clear_terminal()
