@@ -213,7 +213,7 @@ def chosen_enemy(dead, current):
                 print(f"Please enter a number from {1} to " +
                       f"{len(current) - 1}.")
                 sleep(0.15)
-                enemy_info()
+                enemy_info(current)
         except ValueError:
             print(f"Please enter a number from {1} to " +
                   f"{len(current) - 1}.")
@@ -299,7 +299,7 @@ def attack(damage, min, enemy, dead, round, fought, current, player):
         return 0
     # User dodge.
     if current[enemy].base_dmg == damage and randint(1, 6) == 1:
-        if dodge(enemy) == 0:
+        if dodge(enemy, current) == 0:
             return 0
     # User hit.
     hit = (int(damage * randint(min, MAX_MULTIPLIER) / 10)
@@ -338,9 +338,9 @@ def attack(damage, min, enemy, dead, round, fought, current, player):
         if hit >= player.health:
             sleep(15)
             clear_terminal()
-            you_lose(round, fought)
+            you_lose(round, fought, player)
     if weaken_weapons[player.base_dmg][1] == damage and randint(1, 6) == 1:
-        counterattack(damage, min, enemy)
+        counterattack(damage, min, enemy, current, player)
     return hit
 
 
