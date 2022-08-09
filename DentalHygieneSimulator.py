@@ -157,8 +157,8 @@ def finishing_weapons(enemy, current):
                     print("You chose a super effective weapon!")
                     sleep(0.15)
                     print(f"    You have defeated {current[enemy].type}!")
-                    current[enemy].status = (''.join([u'\u0336{}'.format(c)
-                                             for c in current[enemy].type]))
+                    current[enemy].type = (''.join([u'\u0336{}'.format(c)
+                                           for c in current[enemy].type]))
                     current[enemy].health = 0
                     sleep(0.15)
                     print("")
@@ -175,8 +175,8 @@ def finishing_weapons(enemy, current):
                     print("")
                     sleep(0.15)
                     print(SEPARATOR)
-                    current[enemy].status = (''.join([u'\u0336{}'.format(c)
-                                             for c in current[enemy].type]))
+                    current[enemy].type = (''.join([u'\u0336{}'.format(c)
+                                           for c in current[enemy].type]))
                     current[enemy].health = 0
                     return None
                 else:
@@ -465,7 +465,7 @@ def you_lose(round, fought, player):
 
 def battle():
     enemies_list = ["Plaque", "Tartar", "Tooth Decay"]
-    player = characters("Player", 100, 0, 0, "Player")
+    player = characters("Player", 100, 0, 0)
     enemy_one = characters(enemies_list[randint(0,
                            len(enemies_list) - 1)], 25, 3, 0)
     enemy_two = characters(enemies_list[randint(0,
