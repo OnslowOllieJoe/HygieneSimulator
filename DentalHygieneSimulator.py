@@ -199,7 +199,7 @@ def chosen_enemy(dead, current):
                 print("")
                 sleep(0.15)
                 print(SEPARATOR)
-                finishing_weapons(target_enemy-1)
+                finishing_weapons(target_enemy-1, current)
             elif target_enemy in range(1, len(current) + 1):
                 sleep(0.15)
                 print(f"\n    You have chosen enemy {target_enemy}, " +
