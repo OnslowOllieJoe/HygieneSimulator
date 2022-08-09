@@ -27,11 +27,12 @@ MAX_MULTIPLIER = 30
 
 
 class characters():
-    def __init__(self, type, health, base_dmg, money):
+    def __init__(self, type, health, base_dmg, money, status):
         self.type = type
         self.health = health
         self.base_dmg = base_dmg
         self.money = money
+        self.status = status
 
 
 def clear_terminal():
@@ -145,17 +146,23 @@ def finishing_weapons(enemy):
             sleep(0.15)
             print("")
             if (kill_weapons[finisher] == kill_weapons[0] and
-                current[enemy].type == "Plaque" or
-                current[enemy].type == "Tartar"):
+                    current[enemy].type == "Plaque" or
+                    current[enemy].type == "Tartar"):
+                sleep(0.15)
+                print("You chose a super effective weapon!")
+                sleep(0.15)
+                print(f"You have defeated {current[enemy].type}!")
+            elif (kill_weapons[finisher] == kill_weapons[1]
+                  and current[enemy].type == "Tooth Decay"):
                 sleep(0.15)
                 print("You chose a super effective weapon!")
                 sleep(0.15)
                 print(f"You have defeated {current[enemy].type}!")
             else:
                 sleep(0.15)
-                print("You chose a super effective weapon!")
+                print("You have chosen the incorrect weapon!")
                 sleep(0.15)
-                print(f"You have defeated {current[enemy].type}!")
+                print("    Your attack did 0 damage")
         except ValueError:
             print("Please enter a valid option.")
 
@@ -209,13 +216,16 @@ def chosen_enemy():
 
 
 enemies_list = ["Plaque", "Tartar", "Tooth Decay"]
-player = characters("Player", 100, 0, 0)
+player = characters("Player", 100, 0, 0, "Player")
 enemy_one = characters(enemies_list[randint(0,
-                       len(enemies_list) - 1)], 25, 3, 0)
+                       len(enemies_list) - 1)], 25, 3, 0,
+                       enemies_list[randint(0, len(enemies_list) - 1)])
 enemy_two = characters(enemies_list[randint(0,
-                       len(enemies_list) - 1)], 100, 3, 0)
+                       len(enemies_list) - 1)], 100, 3, 0,
+                       enemies_list[randint(0, len(enemies_list) - 1)])
 enemy_three = characters(enemies_list[randint(0,
-                         len(enemies_list) - 1)], 100, 3, 0)
+                         len(enemies_list) - 1)], 100, 3, 0,
+                         enemies_list[randint(0, len(enemies_list) - 1)])
 current = [enemy_one, enemy_two, enemy_three]
 dead = []
 
@@ -422,7 +432,7 @@ def check_if_dead(enemy):
     if current[enemy].health <= 0:
         dead.append(current[enemy])
         current[enemy].health = 1
-        current[enemy].type = (f"{current[enemy].type} " +
+        current[enemy].status = (f"{current[enemy].type} " +
                                "(Use finishing weapon to kill!)")
 
 
