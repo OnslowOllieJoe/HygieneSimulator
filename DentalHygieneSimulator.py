@@ -223,9 +223,25 @@ def finishing_weapons(enemy, current):
                     print(SEPARATOR)
                     return None
             else:
+                print("")
+                sleep(0.15)
                 print("Please enter a valid option.")
+                sleep(0.15)
+                print("")
+                sleep(0.15)
+                print("")
+                sleep(0.15)
+                print(SEPARATOR)
         except ValueError:
+            print("")
+            sleep(0.15)
             print("Please enter a valid option.")
+            sleep(0.15)
+            print("")
+            sleep(0.15)
+            print("")
+            sleep(0.15)
+            print(SEPARATOR)
 
 
 def chosen_enemy(current):
@@ -236,33 +252,38 @@ def chosen_enemy(current):
             sleep(0.15)
             target_enemy = int(input("Select an enemy's number to attack: "))
             sleep(0.15)
-            if current[target_enemy - 1].health == 0:
-                print("")
-                sleep(0.15)
-                print("That enemy has already been defeated.")
-                sleep(0.15)
-                enemy_info(current)
-            elif target_enemy in range(1, len(current) + 1):
-                print("")
-                sleep(0.15)
-                print(f"    You have chosen enemy {target_enemy}, " +
-                      f"{current[target_enemy-1].type}!")
-                sleep(0.15)
-                print("")
-                sleep(0.15)
-                print("")
-                print(SEPARATOR)
-                sleep(1.3)
-                clear_terminal()
-                return target_enemy - 1
+            if target_enemy in range(1, len(current) + 1):
+                if (current[target_enemy - 1].health == 0):
+                    print("")
+                    sleep(0.15)
+                    print("That enemy has already been defeated.")
+                    sleep(0.15)
+                    enemy_info(current)
+                else:
+                    print("")
+                    sleep(0.15)
+                    print(f"    You have chosen enemy {target_enemy}, " +
+                          f"{current[target_enemy-1].type}!")
+                    sleep(0.15)
+                    print("")
+                    sleep(0.15)
+                    print("")
+                    print(SEPARATOR)
+                    sleep(1.3)
+                    clear_terminal()
+                    return target_enemy - 1
             else:
-                print(f"Please enter a number from {1} to " +
-                      f"{len(current) - 1}.")
+                sleep(0.15)
+                print("")
+                sleep(0.15)
+                print("Sorry, that is not a valid option.")
                 sleep(0.15)
                 enemy_info(current)
         except ValueError:
-            print(f"Please enter a number from {1} to " +
-                  f"{len(current) - 1}.")
+            sleep(0.15)
+            print("")
+            sleep(0.15)
+            print("Sorry, that is not a valid option.")
             sleep(0.15)
             enemy_info(current)
 
@@ -271,6 +292,8 @@ def dodge(enemy, current):
     while True:
         random_num = randint(1, 3)
         try:
+            sleep(0.15)
+            print("")
             sleep(0.15)
             print("")
             sleep(0.15)
@@ -612,7 +635,8 @@ def battle():
                                 round, fought, current, player)
         player.health -= attack(current[enemy].base_dmg, 12, 2, dead,
                                 round, fought, current, player)
-        proceed()
+        if len(dead) != 3:
+            proceed()
         fought += 1
         clear_terminal()
     if current[0] + current[1] + current[2] == 0:
