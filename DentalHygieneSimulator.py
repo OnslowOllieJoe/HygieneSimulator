@@ -327,7 +327,7 @@ def attack(damage, min, enemy, dead, round, fought, current, player):
             sleep(0.15)
             print(f"You have knocked out {current[enemy].type}!")
             sleep(0.15)
-            print(f"Attack {current[enemy].type} once more to defeat them.")
+            print(f"Defeat {current[enemy].type} using a finishing weapon.")
         sleep(0.15)
         print("\n")
         sleep(0.15)
