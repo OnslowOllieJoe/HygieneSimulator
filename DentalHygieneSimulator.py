@@ -141,8 +141,14 @@ def finishing_weapons(enemy):
     while True:
         try:
             finisher = int(input("Select the correct weapon to use against" +
-                                 f" {current[enemy]}"))
-            if 
+                                 f" {current[enemy].type}")) - 1
+            if (kill_weapons[finisher] == kill_weapons[0] and
+                current[enemy].type == "Plaque" or
+                current[enemy].type == "Tartar"):
+                sleep(0.15)
+                print("You chose a super effective weapon!")
+                sleep(0.15)
+                print(f"You have defeated {current[enemy].type}!")
         except ValueError:
             print("Please enter a valid option.")
 
