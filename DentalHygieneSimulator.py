@@ -144,6 +144,8 @@ def finishing_weapons(enemy, current):
             sleep(0.15)
             print("")
             sleep(0.15)
+            print("")
+            sleep(0.15)
             finisher = int(input("Select the correct weapon to use against" +
                                  f" {current[enemy].type}: "))
             sleep(0.15)
@@ -158,6 +160,11 @@ def finishing_weapons(enemy, current):
                     print(f"    You have defeated {current[enemy].type}!")
                     current[enemy].status = (''.join([u'\u0336{}'.format(c)
                                              for c in current[enemy].type]))
+                    current[enemy].health = 0
+                    sleep(0.15)
+                    print("")
+                    sleep(0.15)
+                    print(SEPARATOR)
                     return None
                 elif (kill_weapons[finisher - 1] == kill_weapons[1]
                         and current[enemy].type == "Tooth Decay"):
@@ -165,11 +172,23 @@ def finishing_weapons(enemy, current):
                     print("You chose a super effective weapon!")
                     sleep(0.15)
                     print(f"    You have defeated {current[enemy].type}!")
+                    sleep(0.15)
+                    print("")
+                    sleep(0.15)
+                    print(SEPARATOR)
+                    current[enemy].status = (''.join([u'\u0336{}'.format(c)
+                                             for c in current[enemy].type]))
+                    current[enemy].health = 0
+                    return None
                 else:
                     sleep(0.15)
                     print("You have chosen the incorrect weapon!")
                     sleep(0.15)
                     print("    Your attack did 0 damage")
+                    sleep(0.15)
+                    print("")
+                    sleep(0.15)
+                    print(SEPARATOR)
                     return None
             else:
                 print("Please enter a valid option.")
@@ -360,7 +379,11 @@ when the enemy is on 1 health to kill the enemy.""")
 def menu():
     while True:
         sleep(0.15)
-        print("\n" + SEPARATOR + "\n")
+        print("")
+        sleep(0.15)
+        print(SEPARATOR)
+        sleep(0.15)
+        print("")
         sleep(0.15)
         print("                      1. Play")
         sleep(0.15)
@@ -372,7 +395,11 @@ def menu():
         sleep(0.15)
         print("                      3. Exit")
         sleep(0.15)
-        print(f"\n{SEPARATOR}\n")
+        print("")
+        sleep(0.15)
+        print(SEPARATOR)
+        sleep(0.15)
+        print("")
         sleep(0.15)
         proceed = input("Select an option's number: ").strip()
         if proceed == "1":
@@ -512,14 +539,14 @@ def battle():
             if (randint(1, 6) == 1 and current[enemy] not in dead):
                 counterattack(current[enemy].base_dmg, min,
                               enemy, current, player)
-            proceed()
-            print(SEPARATOR)
-            player.health -= attack(current[enemy].base_dmg, 12, 0, dead,
-                                    round, fought, current, player)
-            player.health -= attack(current[enemy].base_dmg, 12, 1, dead,
-                                    round, fought, current, player)
-            player.health -= attack(current[enemy].base_dmg, 12, 2, dead,
-                                    round, fought, current, player)
+        proceed()
+        print(SEPARATOR)
+        player.health -= attack(current[enemy].base_dmg, 12, 0, dead,
+                                round, fought, current, player)
+        player.health -= attack(current[enemy].base_dmg, 12, 1, dead,
+                                round, fought, current, player)
+        player.health -= attack(current[enemy].base_dmg, 12, 2, dead,
+                                round, fought, current, player)
         proceed()
         fought += 1
         clear_terminal()
