@@ -96,6 +96,7 @@ def enemy_info(current):
         sleep(0.15)
         print(f"    {count}: {current[i].type} " +
               (" " * (SPACE_LENGTH - (len(current[i].type)))) +
+              (" " * (3 - len(str(current[i].health)))) +
               f"{str(current[i].health)}/{MAX_HP} HP")
     print("\n" + SEPARATOR + "\n")
     sleep(0.15)
@@ -157,8 +158,10 @@ def finishing_weapons(enemy, current):
                     print("You chose a super effective weapon!")
                     sleep(0.15)
                     print(f"    You have defeated {current[enemy].type}!")
-                    current[enemy].type = (''.join([u'\u0336{}'.format(c)
-                                           for c in current[enemy].type]))
+                    current[enemy].type = ((''.join([u'\u0336{}'.format(c)
+                                           for c in current[enemy].type])) +
+                                           (" " * (SPACE_LENGTH -
+                                            len(current[enemy].type))))
                     current[enemy].health = 0
                     sleep(0.15)
                     print("")
@@ -175,8 +178,10 @@ def finishing_weapons(enemy, current):
                     print("")
                     sleep(0.15)
                     print(SEPARATOR)
-                    current[enemy].type = (''.join([u'\u0336{}'.format(c)
-                                           for c in current[enemy].type]))
+                    current[enemy].type = ((''.join([u'\u0336{}'.format(c)
+                                           for c in current[enemy].type])) +
+                                           (" " * (SPACE_LENGTH -
+                                            len(current[enemy].type))))
                     current[enemy].health = 0
                     return None
                 else:
@@ -195,7 +200,7 @@ def finishing_weapons(enemy, current):
             print("Please enter a valid option.")
 
 
-def chosen_enemy(current, dead):
+def chosen_enemy(current):
     sleep(0.15)
     while True:
         try:
@@ -252,10 +257,10 @@ def dodge(enemy, current):
                 print("INCORRECT! You failed to dodge the attack.")
                 return 1
             else:
-                print("Please enter a number between 1 and 2.")
+                print("Please enter a number between 1 and 3.")
                 sleep(0.15)
         except ValueError:
-            print("Please enter a number between 1 and 2.")
+            print("Please enter a number between 1 and 3.")
             sleep(0.15)
 
 
@@ -469,7 +474,7 @@ def battle():
     enemy_one = characters(enemies_list[randint(0,
                            len(enemies_list) - 1)], 25, 3, 0)
     enemy_two = characters(enemies_list[randint(0,
-                           len(enemies_list) - 1)], 100, 3, 0)
+                           len(enemies_list) - 1)], 25, 3, 0)
     enemy_three = characters(enemies_list[randint(0,
                              len(enemies_list) - 1)], 100, 3, 0)
     current = [enemy_one, enemy_two, enemy_three]
@@ -511,7 +516,7 @@ def battle():
         sleep(1.3)
         clear_terminal()
         enemy_info(current)
-        enemy = chosen_enemy(current, dead)
+        enemy = chosen_enemy(current)
         if current[enemy] in dead:
             clear_terminal()
             print("")
