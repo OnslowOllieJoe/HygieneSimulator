@@ -146,6 +146,8 @@ def weapon_selection():
                 sleep(0.15)
                 print("")
                 sleep(0.15)
+                print("")
+                sleep(0.15)
                 print(SEPARATOR)
                 sleep(1.3)
                 clear_terminal()
@@ -456,7 +458,7 @@ when the enemy is on 1 health to kill the enemy.""")
     print("\n")
 
 
-def menu():
+def menu(round, fought):
     while True:
         sleep(0.15)
         print("")
@@ -484,7 +486,7 @@ def menu():
         proceed = input("Select an option's number: ").strip()
         if proceed == "1":
             clear_terminal()
-            battle()
+            battle(round, fought)
         elif proceed == "2":
             clear_terminal()
             instructions()
@@ -540,7 +542,11 @@ def you_lose(round, fought, player):
     menu()
 
 
-def battle():
+round = 1
+fought = 1
+
+
+def battle(round, fought):
     enemies_list = ["Plaque", "Tartar", "Tooth Decay"]
     player = characters("Player", 100, 0, 0)
     enemy_one = characters(enemies_list[randint(0,
@@ -548,13 +554,11 @@ def battle():
     enemy_two = characters(enemies_list[randint(0,
                            len(enemies_list) - 1)], 25, 3, 0)
     enemy_three = characters(enemies_list[randint(0,
-                             len(enemies_list) - 1)], 100, 3, 0)
+                             len(enemies_list) - 1)], 25, 3, 0)
     current = [enemy_one, enemy_two, enemy_three]
-    round = 1
-    fought = 1
     user_info(player)
     dead = []
-    while len(current) != 0 and round <= 5:
+    while dead != 3 and round <= 5:
         if fought > 1:
             sleep(1)
             print("")
@@ -641,7 +645,7 @@ def battle():
         clear_terminal()
     if current[0] + current[1] + current[2] == 0:
         round += 1
-        print(f"Round {round}")
+        battle(round, fought)
 
 
-menu()
+menu(round, fought)
