@@ -9,6 +9,7 @@ from random import randint
 from time import sleep
 import os
 import sys
+from turtle import clear
 
 # Constants
 MAX_HP = 100
@@ -545,6 +546,40 @@ def you_lose(round, fought, player):
     menu()
 
 
+def buy_health():
+    clear_terminal()
+    sleep(0.15)
+    print("")
+    sleep(0.15)
+    print(SEPARATOR)
+    while True:
+        sleep(0.15)
+        print("")
+        sleep(0.15)
+        print("")
+        sleep(0.15)
+        print("Would you like to purchase a 24 hour energy?")
+        sleep(0.15)
+        print("24 hour energy healt the user 50 health.")
+        sleep(0.15)
+        print("")
+        sleep(0.15)
+        print("    1) Purchase")
+        sleep(0.15)
+        print("    2) Decline")
+        sleep(0.15)
+        health = input("Enter an option's number: ").strip()
+        sleep(0.15)
+        if health == "1":
+            print("")
+        elif health == "2":
+            print("")
+        else:
+            print("")
+            sleep(0.15)
+            print("Sorry, that is not a valid option.")
+
+
 round = 1
 fought = 1
 
@@ -562,6 +597,28 @@ def battle(round, fought):
     user_info(player)
     dead = []
     fought = 1
+    if round > 1:
+        clear_terminal()
+        sleep(0.15)
+        print("")
+        sleep(0.15)
+        print(SEPARATOR)
+        sleep(0.15)
+        print("")
+        sleep(0.15)
+        print("")
+        sleep(0.15)
+        print(f"You have completed round{round}!")
+        sleep(0.15)
+        print("You have been rewarded with 100 dollars!")
+        sleep(0.15)
+        print("")
+        sleep(0.15)
+        print("")
+        sleep(0.15)
+        print(SEPARATOR)
+        proceed()
+        buy_health()
     while dead != 3 and round <= 5:
         if current[0].health + current[1].health + current[2].health == 0:
             round += 1
