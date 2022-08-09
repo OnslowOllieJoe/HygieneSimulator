@@ -56,13 +56,13 @@ def user_info(player):
     print("    Main Damage Weapons:")
     sleep(0.15)
     for count, value in enumerate(weaken_weapons, start=1):
-        sleep(0.15)
+        sleep(0.05)
         print(f"      {count}: " + value[0])
     sleep(0.15)
     print("\n    Finishing Weapons:")
     sleep(0.15)
     for count, value in enumerate(kill_weapons, start=1):
-        sleep(0.15)
+        sleep(0.05)
         print(f"      {count}: " + value[0])
     sleep(0.15)
     print("")
@@ -136,7 +136,7 @@ def weapon_selection():
             sleep(0.15)
             print("")
             chosen_weapon = int(input("Enter a number " +
-                                      "to select a weapon : "))
+                                      "to select a weapon: "))
             if chosen_weapon in range(1, len(weaken_weapons) + 1):
                 sleep(0.15)
                 print("")
@@ -156,6 +156,9 @@ def weapon_selection():
                 print("Please enter a number from {} to {}."
                       .format(1, len(weaken_weapons)))
                 sleep(0.15)
+                print("")
+                sleep(0.15)
+                print("")
                 sleep(0.15)
                 print(SEPARATOR)
                 sleep(0.15)
@@ -348,7 +351,7 @@ def counterattack(damage, min, enemy, current, player):
     sleep(0.15)
 
 
-def attack(damage, min, enemy, dead, round, fought, current, player):
+def attack(damage, min, enemy, dead, round, fought, current, player, chance):
     if current[enemy] in dead:
         return 0
     # Enemy miss.
@@ -388,7 +391,7 @@ def attack(damage, min, enemy, dead, round, fought, current, player):
             return 0
     # User hit.
     hit = (int(damage * randint(min, MAX_MULTIPLIER) / 10)
-           if randint(1, 3) == 1 else damage)
+           if randint(1, chance) == 1 else damage)
     if weaken_weapons[player.base_dmg][1] == damage:
         sleep(0.15)
         print(SEPARATOR)
@@ -558,7 +561,29 @@ def battle(round, fought):
     current = [enemy_one, enemy_two, enemy_three]
     user_info(player)
     dead = []
+    fought = 1
     while dead != 3 and round <= 5:
+        if current[0].health + current[1].health + current[2].health == 0:
+            round += 1
+            battle(round, fought)
+        sleep(0.15)
+        print("\n")
+        sleep(0.15)
+        print(SEPARATOR)
+        sleep(0.15)
+        print("\n")
+        sleep(0.15)
+        print(f"          Round {round}")
+        sleep(0.15)
+        print("\n")
+        sleep(0.15)
+        print(f"                                  Attack {fought}!")
+        sleep(0.15)
+        print("\n")
+        sleep(0.15)
+        print(SEPARATOR)
+        sleep(1.3)
+        clear_terminal()
         if fought > 1:
             sleep(1)
             print("")
@@ -581,24 +606,6 @@ def battle(round, fought):
             sleep(0.15)
             print(SEPARATOR)
             proceed()
-        sleep(0.15)
-        print("\n")
-        sleep(0.15)
-        print(SEPARATOR)
-        sleep(0.15)
-        print("\n")
-        sleep(0.15)
-        print(f"          Round {round}")
-        sleep(0.15)
-        print("\n")
-        sleep(0.15)
-        print(f"                                  Attack {fought}!")
-        sleep(0.15)
-        print("\n")
-        sleep(0.15)
-        print(SEPARATOR)
-        sleep(1.3)
-        clear_terminal()
         enemy_info(current)
         enemy = chosen_enemy(current)
         if current[enemy] in dead:
@@ -625,7 +632,7 @@ def battle(round, fought):
             sleep(0.15)
             current[enemy].health -= attack(weaken_weapons[player.base_dmg][1],
                                             11, enemy, dead, round, fought,
-                                            current, player)
+                                            current, player, 3)
             sleep(0.15)
             check_if_dead(enemy, dead, current)
             if (randint(1, 6) == 1 and current[enemy] not in dead):
@@ -634,18 +641,15 @@ def battle(round, fought):
         proceed()
         print(SEPARATOR)
         player.health -= attack(current[enemy].base_dmg, 12, 0, dead,
-                                round, fought, current, player)
+                                round, fought, current, player, 2)
         player.health -= attack(current[enemy].base_dmg, 12, 1, dead,
-                                round, fought, current, player)
+                                round, fought, current, player, 2)
         player.health -= attack(current[enemy].base_dmg, 12, 2, dead,
-                                round, fought, current, player)
+                                round, fought, current, player, 2)
         if len(dead) != 3:
             proceed()
         fought += 1
         clear_terminal()
-    if current[0] + current[1] + current[2] == 0:
-        round += 1
-        battle(round, fought)
 
 
 menu(round, fought)
