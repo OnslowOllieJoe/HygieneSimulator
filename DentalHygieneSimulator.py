@@ -557,8 +557,28 @@ def you_lose(round, fought, player):
     menu()
 
 
-def buy_health():
+def buy_health(player):
     clear_terminal()
+    sleep(0.1)
+    print("")
+    sleep(0.1)
+    print(SEPARATOR)
+    sleep(0.1)
+    print("")
+    sleep(0.1)
+    print(f"{SEPARATOR}")
+    sleep(0.1)
+    print("")
+    sleep(0.1)
+    print("              Player:")
+    sleep(0.1)
+    print("")
+    sleep(0.1)
+    print("")
+    sleep(0.1)
+    print(f"    Health:           {player.health}/{MAX_HP} HP")
+    sleep(0.1)
+    print(f"    Wallet:           ${player.money}")
     sleep(0.1)
     print("")
     sleep(0.1)
@@ -587,10 +607,20 @@ def buy_health():
             print("")
         elif health == "2":
             print("")
+            sleep(0.1)
+            print("")
+            sleep(0.1)
+            print(SEPARATOR)
+            clear_terminal()
+            return None
         else:
             print("")
             sleep(0.1)
             print("Sorry, that is not a valid option.")
+            sleep(0.1)
+            print("")
+            sleep(0.1)
+            print(SEPARATOR)
 
 
 round = 1
@@ -633,7 +663,7 @@ def battle(round, fought):
         sleep(0.1)
         print(SEPARATOR)
         proceed()
-        buy_health()
+        buy_health(player)
     while dead != 3 and round <= 5:
         if current[0].health + current[1].health + current[2].health == 0:
             round += 1
