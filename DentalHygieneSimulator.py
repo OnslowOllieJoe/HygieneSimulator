@@ -15,7 +15,7 @@ from turtle import clear
 # Constants
 MAX_HP = 100
 SEPARATOR = "-" * 55
-SPACE_LENGTH = 13
+SPACE_LENGTH = 20
 weaken_weapons = [
                ["Toothbrush", 25],
                ["Dental Floss", 25],
@@ -34,6 +34,7 @@ class characters():
         self.health = health
         self.base_dmg = base_dmg
         self.money = money
+        self.status = type
 
 
 def clear_terminal():
@@ -100,8 +101,8 @@ def enemy_info(current):
     sleep(0.1)
     for count, i in enumerate(range(len(current)), start=1):
         sleep(0.1)
-        print(f"    {count}: {current[i].type} " +
-              (" " * (SPACE_LENGTH - (len(current[i].type)))) +
+        print(f"    {count}: {current[i].status} " +
+              (" " * (SPACE_LENGTH - (len(current[i].status)))) +
               (" " * (3 - len(str(current[i].health)))) +
               f"{str(current[i].health)}/{MAX_HP} HP")
     sleep(0.1)
@@ -209,10 +210,10 @@ def finishing_weapons(enemy, current):
                     print("You chose a super effective weapon!")
                     sleep(0.1)
                     print(f"    You have defeated {current[enemy].type}!")
-                    current[enemy].type = ((''.join([u'\u0336{}'.format(c)
-                                           for c in current[enemy].type])) +
-                                           (" " * (SPACE_LENGTH -
-                                            len(current[enemy].type))))
+                    current[enemy].status = ((''.join([u'\u0336{}'.format(c)
+                                             for c in current[enemy].type])) +
+                                             (" " * (SPACE_LENGTH -
+                                              len(current[enemy].type))))
                     current[enemy].health = 0
                     sleep(0.1)
                     print("")
@@ -531,6 +532,7 @@ def check_if_dead(enemy, dead, current):
     if current[enemy].health <= 0:
         dead.append(current[enemy])
         current[enemy].health = 1
+        current[enemy].status = f"{current[enemy].type}[Finish]"
 
 
 def you_lose(round, fought, player):
