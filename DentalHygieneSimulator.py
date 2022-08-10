@@ -152,7 +152,7 @@ def weapon_selection():
                 print("")
                 sleep(0.1)
                 print(SEPARATOR)
-                sleep(1.3)
+                sleep(1)
                 clear_terminal()
                 return chosen_weapon - 1
             else:
@@ -197,10 +197,10 @@ def finishing_weapons(enemy, current):
                     print("")
                     sleep(0.1)
                     print(SEPARATOR)
-                    current[enemy].type = ((''.join([u'\u0336{}'.format(c)
-                                           for c in current[enemy].type])) +
-                                           (" " * (SPACE_LENGTH -
-                                            len(current[enemy].type))))
+                    current[enemy].status = ((''.join([u'\u0336{}'.format(c)
+                                              for c in current[enemy].type]))
+                                             + (" " * (SPACE_LENGTH -
+                                                len(current[enemy].type))))
                     current[enemy].health = 0
                     return None
                 elif (kill_weapons[finisher - 1] == kill_weapons[0] and
@@ -211,9 +211,9 @@ def finishing_weapons(enemy, current):
                     sleep(0.1)
                     print(f"    You have defeated {current[enemy].type}!")
                     current[enemy].status = ((''.join([u'\u0336{}'.format(c)
-                                             for c in current[enemy].type])) +
-                                             (" " * (SPACE_LENGTH -
-                                              len(current[enemy].type))))
+                                             for c in current[enemy].type]))
+                                             + (" " * (SPACE_LENGTH -
+                                                len(current[enemy].type))))
                     current[enemy].health = 0
                     sleep(0.1)
                     print("")
@@ -277,7 +277,7 @@ def chosen_enemy(current):
                     sleep(0.1)
                     print("")
                     print(SEPARATOR)
-                    sleep(1.3)
+                    sleep(1)
                     clear_terminal()
                     return target_enemy - 1
             else:
@@ -579,6 +579,8 @@ def buy_health():
         sleep(0.1)
         print("    2) Decline")
         sleep(0.1)
+        print("")
+        sleep(0.1)
         health = input("Enter an option's number: ").strip()
         sleep(0.1)
         if health == "1":
@@ -621,7 +623,9 @@ def battle(round, fought):
         sleep(0.1)
         print(f"        You have completed round {round}!")
         sleep(0.1)
-        print("You have been rewarded with 100 dollars!")
+        print("")
+        sleep(0.1)
+        print("    You have been rewarded with 100 dollars!")
         sleep(0.1)
         print("")
         sleep(0.1)
@@ -650,10 +654,10 @@ def battle(round, fought):
         print("\n")
         sleep(0.1)
         print(SEPARATOR)
-        sleep(1.3)
+        sleep(1)
         clear_terminal()
         if fought > 1:
-            sleep(1)
+            sleep(0.1)
             print("")
             sleep(0.1)
             print(f"{SEPARATOR}")
