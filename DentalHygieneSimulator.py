@@ -186,24 +186,7 @@ def finishing_weapons(enemy, current):
             sleep(0.15)
             print("")
             if finisher in range(1, 3):
-                if (kill_weapons[finisher - 1] == kill_weapons[0] and
-                        current[enemy].type == "Plaque" or
-                        current[enemy].type == "Tartar"):
-                    sleep(0.15)
-                    print("You chose a super effective weapon!")
-                    sleep(0.15)
-                    print(f"    You have defeated {current[enemy].type}!")
-                    current[enemy].type = ((''.join([u'\u0336{}'.format(c)
-                                           for c in current[enemy].type])) +
-                                           (" " * (SPACE_LENGTH -
-                                            len(current[enemy].type))))
-                    current[enemy].health = 0
-                    sleep(0.15)
-                    print("")
-                    sleep(0.15)
-                    print(SEPARATOR)
-                    return None
-                elif (kill_weapons[finisher - 1] == kill_weapons[1]
+                if (kill_weapons[finisher - 1] == kill_weapons[1]
                         and current[enemy].type == "Tooth Decay"):
                     sleep(0.15)
                     print("You chose a super effective weapon!")
@@ -218,6 +201,23 @@ def finishing_weapons(enemy, current):
                                            (" " * (SPACE_LENGTH -
                                             len(current[enemy].type))))
                     current[enemy].health = 0
+                    return None
+                elif (kill_weapons[finisher - 1] == kill_weapons[0] and
+                        (current[enemy].type == "Plaque" or
+                         current[enemy].type == "Tartar")):
+                    sleep(0.15)
+                    print("You chose a super effective weapon!")
+                    sleep(0.15)
+                    print(f"    You have defeated {current[enemy].type}!")
+                    current[enemy].type = ((''.join([u'\u0336{}'.format(c)
+                                           for c in current[enemy].type])) +
+                                           (" " * (SPACE_LENGTH -
+                                            len(current[enemy].type))))
+                    current[enemy].health = 0
+                    sleep(0.15)
+                    print("")
+                    sleep(0.15)
+                    print(SEPARATOR)
                     return None
                 else:
                     sleep(0.15)
@@ -364,6 +364,8 @@ def attack(damage, min, enemy, dead, round, fought, current, player, chance):
         print("")
         sleep(0.15)
         print(f"{current[enemy].type} has missed their attack.")
+        sleep(0.15)
+        print(f"        {current[enemy].type} has dealt 0 damage.")
         sleep(0.15)
         print("")
         sleep(0.15)
@@ -589,11 +591,11 @@ def battle(round, fought):
     enemies_list = ["Plaque", "Tartar", "Tooth Decay"]
     player = characters("Player", 100, 0, 0)
     enemy_one = characters(enemies_list[randint(0,
-                           len(enemies_list) - 1)], 10, 3, 0)
+                           len(enemies_list) - 1)], 2, 3, 0)
     enemy_two = characters(enemies_list[randint(0,
-                           len(enemies_list) - 1)], 100, 3, 0)
+                           len(enemies_list) - 1)], 2, 3, 0)
     enemy_three = characters(enemies_list[randint(0,
-                             len(enemies_list) - 1)], 100, 3, 0)
+                             len(enemies_list) - 1)], 2, 3, 0)
     current = [enemy_one, enemy_two, enemy_three]
     user_info(player)
     dead = []
