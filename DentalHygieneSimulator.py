@@ -3,14 +3,10 @@
 # Date: 07/06/022
 # Description: RPG battle simulator which teaches dental hygiene.
 
-from ast import excepthandler
-from multiprocessing.sharedctypes import Value
 from random import randint
 from time import sleep
 import os
 import sys
-from tkinter.tix import MAX
-from turtle import clear
 
 # Constants
 MAX_HP = 100
