@@ -9,6 +9,7 @@ from random import randint
 from time import sleep
 import os
 import sys
+from tkinter.tix import MAX
 from turtle import clear
 
 # Constants
@@ -333,8 +334,8 @@ def dodge(enemy, current):
 
 
 def counterattack(damage, min, enemy, current, player):
-    hit = (int(damage * randint(min, MAX_MULTIPLIER) / 10)
-           if randint(1, 3) == 1 else damage)
+    hit = int((damage * randint(min, MAX_MULTIPLIER) / 10)
+              if randint(1, 3) == 1 else damage)
     sleep(0.15)
     print("")
     sleep(0.15)
@@ -588,11 +589,11 @@ def battle(round, fought):
     enemies_list = ["Plaque", "Tartar", "Tooth Decay"]
     player = characters("Player", 100, 0, 0)
     enemy_one = characters(enemies_list[randint(0,
-                           len(enemies_list) - 1)], 25, 3, 0)
+                           len(enemies_list) - 1)], 10, 3, 0)
     enemy_two = characters(enemies_list[randint(0,
-                           len(enemies_list) - 1)], 25, 3, 0)
+                           len(enemies_list) - 1)], 100, 3, 0)
     enemy_three = characters(enemies_list[randint(0,
-                             len(enemies_list) - 1)], 25, 3, 0)
+                             len(enemies_list) - 1)], 100, 3, 0)
     current = [enemy_one, enemy_two, enemy_three]
     user_info(player)
     dead = []
@@ -693,7 +694,7 @@ def battle(round, fought):
             sleep(0.15)
             check_if_dead(enemy, dead, current)
             if (randint(1, 6) == 1 and current[enemy] not in dead):
-                counterattack(current[enemy].base_dmg, min,
+                counterattack(current[enemy].base_dmg, 12,
                               enemy, current, player)
         proceed()
         print(SEPARATOR)
