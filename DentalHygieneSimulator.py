@@ -513,7 +513,7 @@ def menu(round, fought):
             sleep(0.15)
             print("")
             sleep(0.15)
-            print("Thank you for using Dental Hygiene Simulator.")
+            print("Thank you for playing Dental Hygiene Simulator.")
             sys.exit()
         else:
             print("Please enter a valid option's number.")
