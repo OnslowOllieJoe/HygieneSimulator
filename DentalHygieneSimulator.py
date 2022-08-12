@@ -466,7 +466,13 @@ def instructions():
 but cannot kill the enemies.
 
 9) The finishing weapons don't deal damage but are used
-when the enemy is on 1 health to kill the enemy.""")
+when the enemy is on 1 health to kill the enemy.
+
+10) At random the player will have the chance to miss their attack,
+dodge the enemy attack, deal up to 75 damage.
+
+11) At random each enemy will have the chance to miss their attack,
+deal up to 9 damage, and counterattack the player.""")
     print("\n")
     print(SEPARATOR)
     print("\n")
