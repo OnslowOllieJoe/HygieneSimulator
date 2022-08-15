@@ -26,6 +26,9 @@ kill_weapons = [
              ["Filling", 0],
              ]
 MAX_MULTIPLIER = 30
+HEALING_OPTIONS = [[50, "1) Quarter of a glass (Heals 25HP)"],
+                   [100, "2) Half a glass (Heals 50HP)"],
+                   [150, "3) Full glass (Heals to 100HP)"]]
 
 
 class characters():
@@ -563,6 +566,17 @@ def you_lose(round, fought, player):
     menu(round, fought)
 
 
+def health_print(healing):
+    sleep(0.1)
+    print("")
+    sleep(0.1)
+    print(SEPARATOR)
+    sleep(0.1)
+    print("")
+    sleep(0.1)
+    print(f"        You have purchased a {HEALING_OPTIONS[healing]}")
+
+
 def buy_health(player):
     clear_terminal()
     sleep(0.1)
@@ -597,13 +611,13 @@ def buy_health(player):
         sleep(0.1)
         print("")
         sleep(0.1)
-        HEALING_OPTIONS = {50: "1) Quarter of a glass (Heals 25HP)",
-                           100: "2) Half a glass (Heals 50HP)",
-                           150: "3) Full glass (Heals to 100HP)"}
-        for key in HEALING_OPTIONS:
-            print(f"{HEALING_OPTIONS[key]}" +
-                  (" " * (40 - len(HEALING_OPTIONS[key]))) + f"${key}")
+        for i in range(len(HEALING_OPTIONS)):
+            print(f"{HEALING_OPTIONS[i][1]}" +
+                  (" " * (40 - len(HEALING_OPTIONS[i][1]))) +
+                  f"${HEALING_OPTIONS[i][0]}")
             sleep(0.1)
+            print("")
+        sleep(0.1)
         print("")
         sleep(0.1)
         print("9) Decline")
@@ -615,36 +629,20 @@ def buy_health(player):
         print(SEPARATOR)
         sleep(0.1)
         print("")
-        health = input("Enter an option's number: ").strip()
+        healing = input("Enter an option's number: ").strip()
         sleep(0.1)
-        if health == "1":
-            print("")
-            sleep(0.1)
-            print("")
-            sleep(0.1)
-            print(SEPARATOR)
+        if healing == "1":
             clear_terminal()
-        elif health == "2":
-            print("")
-            sleep(0.1)
-            print("")
-            sleep(0.1)
-            print(SEPARATOR)
+            buy_health(healing)
+        elif healing == "2":
             clear_terminal()
-        elif health == "3":
-            print("")
-            sleep(0.1)
-            print("")
-            sleep(0.1)
-            print(SEPARATOR)
+            buy_health(healing)
+        elif healing == "3":
             clear_terminal()
-        elif health == "9":
-            print("")
-            sleep(0.1)
-            print("")
-            sleep(0.1)
-            print(SEPARATOR)
+            buy_health(healing)
+        elif healing == "9":
             clear_terminal()
+            return None
         else:
             print("")
             sleep(0.1)
