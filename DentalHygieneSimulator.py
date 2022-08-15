@@ -587,7 +587,7 @@ def health_print(healing, player):
     sleep(0.1)
     print("")
     sleep(0.1)
-    print("Your Health: {player.health}")
+    print(f"Your Health: {player.health}")
     sleep(0.1)
     print(SEPARATOR)
     proceed()
