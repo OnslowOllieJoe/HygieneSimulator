@@ -593,22 +593,30 @@ def buy_health(player):
         sleep(0.1)
         print("")
         sleep(0.1)
-        print("Would you like to purchase a 24 hour energy?")
-        sleep(0.1)
-        print("24 hour energy heals the user 50 health.")
+        print("                Healing station")
         sleep(0.1)
         print("")
         sleep(0.1)
-        print("    1) Purchase")
-        sleep(0.1)
-        print("    2) Decline")
-        sleep(0.1)
-        print("")
+        HEALING_OPTIONS = {50: "    1) Quarter of a glass of " +
+                               "fluoride water(25HP)",
+                           100: "    2) Half a glass of fluoride water(50HP)",
+                           150: "    3) A glass of fluoride water(100HP)"}
+        SPACE_LENGTH = 20
+        for key in HEALING_OPTIONS:
+            print(f"{HEALING_OPTIONS[key]}" +
+                  ("." * (SPACE_LENGTH - len(str(key)))) + f"${key}")
+            sleep(0.1)
+        print("    9) Decline")
         sleep(0.1)
         health = input("Enter an option's number: ").strip()
         sleep(0.1)
         if health == "1":
             print("")
+            sleep(0.1)
+            print("")
+            sleep(0.1)
+            print(SEPARATOR)
+            clear_terminal()
         elif health == "2":
             print("")
             sleep(0.1)
@@ -616,7 +624,13 @@ def buy_health(player):
             sleep(0.1)
             print(SEPARATOR)
             clear_terminal()
-            return None
+        elif health == "3":
+            print("")
+            sleep(0.1)
+            print("")
+            sleep(0.1)
+            print(SEPARATOR)
+            clear_terminal()
         else:
             print("")
             sleep(0.1)
