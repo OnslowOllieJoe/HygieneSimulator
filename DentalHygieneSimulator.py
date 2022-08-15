@@ -638,6 +638,13 @@ def buy_health(player):
             sleep(0.1)
             print(SEPARATOR)
             clear_terminal()
+        elif health == "9":
+            print("")
+            sleep(0.1)
+            print("")
+            sleep(0.1)
+            print(SEPARATOR)
+            clear_terminal()
         else:
             print("")
             sleep(0.1)
