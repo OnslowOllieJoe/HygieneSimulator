@@ -593,21 +593,28 @@ def buy_health(player):
         sleep(0.1)
         print("")
         sleep(0.1)
-        print("                Healing station")
+        print("           Fluoride Water Healing station")
         sleep(0.1)
         print("")
         sleep(0.1)
-        HEALING_OPTIONS = {50: "    1) Quarter of a glass of " +
-                               "fluoride water(25HP)",
-                           100: "    2) Half a glass of fluoride water(50HP)",
-                           150: "    3) A glass of fluoride water(100HP)"}
-        SPACE_LENGTH = 20
+        HEALING_OPTIONS = {50: "1) Quarter of a glass (Heals 25HP)",
+                           100: "2) Half a glass (Heals 50HP)",
+                           150: "3) Full glass (Heals to 100HP)"}
         for key in HEALING_OPTIONS:
             print(f"{HEALING_OPTIONS[key]}" +
-                  ("." * (SPACE_LENGTH - len(str(key)))) + f"${key}")
+                  (" " * (40 - len(HEALING_OPTIONS[key]))) + f"${key}")
             sleep(0.1)
-        print("    9) Decline")
+        print("")
         sleep(0.1)
+        print("9) Decline")
+        sleep(0.1)
+        print("")
+        sleep(0.1)
+        print("")
+        sleep(0.1)
+        print(SEPARATOR)
+        sleep(0.1)
+        print("")
         health = input("Enter an option's number: ").strip()
         sleep(0.1)
         if health == "1":
@@ -658,6 +665,7 @@ def battle(round, fought):
     user_info(player)
     dead = []
     fought = 1
+    buy_health(player)
     if round > 1:
         clear_terminal()
         sleep(0.1)
