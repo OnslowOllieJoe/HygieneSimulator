@@ -27,11 +27,11 @@ kill_weapons = [
              ]
 MAX_MULTIPLIER = 30
 HEALING_OPTIONS = [[50, "1) Quarter of a glass (Heals 25HP)",
-                    "quarter of a glass of fluoride water"],
+                    "quarter of a glass of fluoride water", 25],
                    [100, "2) Half a glass (Heals 50HP)",
-                    "half a glass of fluoride water"],
+                    "half a glass of fluoride water", 50],
                    [150, "3) Full glass (Heals to 100HP)",
-                   "full glass of fluoride water"]]
+                   "full glass of fluoride water", 100]]
 
 
 class characters():
@@ -579,18 +579,24 @@ def health_print(healing, player):
     sleep(0.1)
     print("")
     sleep(0.1)
-    print(f"You have purchased a {HEALING_OPTIONS[healing][2]}.")
+    print(f"  You have purchased a {HEALING_OPTIONS[healing][2]}.")
     sleep(0.1)
     print("")
     sleep(0.1)
-    print(f"        You have healed {HEALING_OPTIONS[healing][0]} health.")
+    print(f"            You have healed {HEALING_OPTIONS[healing][3]}" +
+          " health.")
     sleep(0.1)
     print("")
     sleep(0.1)
-    print(f"          Your Health: {player.health}")
+    print(f"              Your Health: {player.health}/100 HP")
+    sleep(0.1)
+    print("")
+    sleep(0.1)
+    print("")
     sleep(0.1)
     print(SEPARATOR)
     proceed()
+    buy_health(player)
 
 
 def buy_health(player):
@@ -616,30 +622,30 @@ def buy_health(player):
     print("")
     sleep(0.1)
     print(SEPARATOR)
+    sleep(0.1)
+    print("")
+    sleep(0.1)
+    print("")
+    sleep(0.1)
+    print("           Fluoride Water Healing station")
+    sleep(0.1)
+    print("")
+    sleep(0.1)
+    for i in range(len(HEALING_OPTIONS)):
+        print(f"{HEALING_OPTIONS[i][1]}" +
+              (" " * (40 - len(HEALING_OPTIONS[i][1]))) +
+              f"${HEALING_OPTIONS[i][0]}")
+        sleep(0.1)
+        print("")
+    sleep(0.1)
+    print("")
+    sleep(0.1)
+    print("9) Decline")
+    sleep(0.1)
+    print("")
+    sleep(0.1)
+    print("")
     while True:
-        sleep(0.1)
-        print("")
-        sleep(0.1)
-        print("")
-        sleep(0.1)
-        print("           Fluoride Water Healing station")
-        sleep(0.1)
-        print("")
-        sleep(0.1)
-        for i in range(len(HEALING_OPTIONS)):
-            print(f"{HEALING_OPTIONS[i][1]}" +
-                  (" " * (40 - len(HEALING_OPTIONS[i][1]))) +
-                  f"${HEALING_OPTIONS[i][0]}")
-            sleep(0.1)
-            print("")
-        sleep(0.1)
-        print("")
-        sleep(0.1)
-        print("9) Decline")
-        sleep(0.1)
-        print("")
-        sleep(0.1)
-        print("")
         sleep(0.1)
         print(SEPARATOR)
         sleep(0.1)
@@ -665,7 +671,6 @@ def buy_health(player):
             sleep(0.1)
             print("")
             sleep(0.1)
-            print(SEPARATOR)
 
 
 round = 1
