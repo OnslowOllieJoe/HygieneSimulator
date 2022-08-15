@@ -26,9 +26,12 @@ kill_weapons = [
              ["Filling", 0],
              ]
 MAX_MULTIPLIER = 30
-HEALING_OPTIONS = [[50, "1) Quarter of a glass (Heals 25HP)"],
-                   [100, "2) Half a glass (Heals 50HP)"],
-                   [150, "3) Full glass (Heals to 100HP)"]]
+HEALING_OPTIONS = [[50, "1) Quarter of a glass (Heals 25HP)",
+                    "quarter of a glass of fluoride water"],
+                   [100, "2) Half a glass (Heals 50HP)",
+                    "half a glass of fluoride water"],
+                   [150, "3) Full glass (Heals to 100HP)",
+                   "full glass of fluoride water"]]
 
 
 class characters():
@@ -574,11 +577,10 @@ def health_print(healing):
     sleep(0.1)
     print("")
     sleep(0.1)
-    print(f"        You have purchased a {HEALING_OPTIONS[healing]}")
+    print(f"You have purchased a {HEALING_OPTIONS[healing][2]}")
 
 
 def buy_health(player):
-    clear_terminal()
     sleep(0.1)
     print("")
     sleep(0.1)
@@ -633,13 +635,13 @@ def buy_health(player):
         sleep(0.1)
         if healing == "1":
             clear_terminal()
-            buy_health(healing)
+            health_print(int(healing) - 1)
         elif healing == "2":
             clear_terminal()
-            buy_health(healing)
+            health_print(int(healing) - 1)
         elif healing == "3":
             clear_terminal()
-            buy_health(healing)
+            health_print(int(healing) - 1)
         elif healing == "9":
             clear_terminal()
             return None
