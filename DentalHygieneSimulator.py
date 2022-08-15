@@ -569,7 +569,7 @@ def you_lose(round, fought, player):
     menu(round, fought)
 
 
-def health_print(healing):
+def health_print(healing, player):
     sleep(0.1)
     print("")
     sleep(0.1)
@@ -577,7 +577,20 @@ def health_print(healing):
     sleep(0.1)
     print("")
     sleep(0.1)
+    print("")
+    sleep(0.1)
     print(f"You have purchased a {HEALING_OPTIONS[healing][2]}")
+    sleep(0.1)
+    print("")
+    sleep(0.1)
+    print(f"You have healed {HEALING_OPTIONS[healing][0]}HP")
+    sleep(0.1)
+    print("")
+    sleep(0.1)
+    print("Your Health: {player.health}")
+    sleep(0.1)
+    print(SEPARATOR)
+    proceed()
 
 
 def buy_health(player):
@@ -635,13 +648,13 @@ def buy_health(player):
         sleep(0.1)
         if healing == "1":
             clear_terminal()
-            health_print(int(healing) - 1)
+            health_print(int(healing) - 1, player)
         elif healing == "2":
             clear_terminal()
-            health_print(int(healing) - 1)
+            health_print(int(healing) - 1, player)
         elif healing == "3":
             clear_terminal()
-            health_print(int(healing) - 1)
+            health_print(int(healing) - 1, player)
         elif healing == "9":
             clear_terminal()
             return None
