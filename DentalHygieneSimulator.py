@@ -733,6 +733,7 @@ def buy_health(player):
 
 round = 1
 fought = 1
+total_fought = 0
 
 
 def battle(round, fought):
@@ -759,7 +760,7 @@ def battle(round, fought):
         sleep(0.1)
         print("")
         sleep(0.1)
-        print(f"        You survived to round {round} attack {fought}")
+        print(f"        You survived {fought} attacks.")
         sleep(0.1)
         print("")
         print(f"    Wallet:    ${player.money}")
@@ -883,6 +884,7 @@ def battle(round, fought):
         if len(dead) != 3:
             proceed()
         fought += 1
+        total_fought += 1
         clear_terminal()
 
 
