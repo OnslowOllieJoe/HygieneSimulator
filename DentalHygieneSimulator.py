@@ -760,6 +760,9 @@ def battle(round, fought):
         sleep(0.1)
         print("")
         print(f"    Wallet:    ${player.money}")
+        round = 1
+        fought = 1
+        battle(round, fought)
     if round > 1:
         clear_terminal()
         sleep(0.1)
