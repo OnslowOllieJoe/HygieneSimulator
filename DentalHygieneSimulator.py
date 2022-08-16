@@ -26,12 +26,12 @@ kill_weapons = [
              ["Filling", 0],
              ]
 MAX_MULTIPLIER = 30
-HEALING_OPTIONS = [[50, "1) Quarter of a glass (Heals 25HP)",
-                    "quarter of a glass of fluoride water", 25],
-                   [100, "2) Half a glass (Heals 50HP)",
-                    "half a glass of fluoride water", 50],
-                   [150, "3) Full glass (Heals to 100HP)",
-                   "full glass of fluoride water", 100]]
+HEALING_OPTIONS = [[50, "1) Small glass -  Heals 25HP",
+                    "small glass of fluoride water", 25],
+                   [100, "2) Medium glass - Heals 50HP",
+                    "medium glass of fluoride water", 50],
+                   [150, "3) Large glass -  Heals to 100HP",
+                   "large glass of fluoride water", 100]]
 
 
 class characters():
@@ -41,6 +41,9 @@ class characters():
         self.base_dmg = base_dmg
         self.money = money
         self.status = type
+
+
+player = characters("Player", 100, 0, 0)
 
 
 def clear_terminal():
@@ -599,7 +602,14 @@ def health_print(healing, player):
     buy_health(player)
 
 
+def over_heal(player):
+    if player.health > 100:
+        player.health = 100
+
+
 def buy_health(player):
+    if player.health == 100:
+        return None
     sleep(0.1)
     print("")
     sleep(0.1)
@@ -645,7 +655,7 @@ def buy_health(player):
     print("")
     sleep(0.1)
     print("")
-    while True:
+    while player.health < 100:
         sleep(0.1)
         print(SEPARATOR)
         sleep(0.1)
@@ -654,12 +664,17 @@ def buy_health(player):
         sleep(0.1)
         if healing == "1":
             clear_terminal()
+            player.health += 25
+            over_heal(player)
             health_print(int(healing) - 1, player)
         elif healing == "2":
             clear_terminal()
+            player.health += 50
+            over_heal(player)
             health_print(int(healing) - 1, player)
         elif healing == "3":
             clear_terminal()
+            player.health = 100
             health_print(int(healing) - 1, player)
         elif healing == "9":
             clear_terminal()
@@ -679,7 +694,6 @@ fought = 1
 
 def battle(round, fought):
     enemies_list = ["Plaque", "Tartar", "Tooth Decay"]
-    player = characters("Player", 100, 0, 0)
     enemy_one = characters(enemies_list[randint(0,
                            len(enemies_list) - 1)], 2, 3, 0)
     enemy_two = characters(enemies_list[randint(0,
@@ -690,7 +704,6 @@ def battle(round, fought):
     user_info(player)
     dead = []
     fought = 1
-    buy_health(player)
     if round > 1:
         clear_terminal()
         sleep(0.1)
@@ -702,11 +715,12 @@ def battle(round, fought):
         sleep(0.1)
         print("")
         sleep(0.1)
-        print(f"           You have completed round {round}!")
+        print(f"           You have completed round {round - 1}!")
         sleep(0.1)
         print("")
         sleep(0.1)
         print("       You have been rewarded with 100 dollars!")
+        player.money += 100
         sleep(0.1)
         print("")
         sleep(0.1)
