@@ -748,7 +748,7 @@ def battle(round, fought, total_fought):
                              len(enemies_list) - 1)], 100, 3, 0)
     current = [enemy_one, enemy_two, enemy_three]
     user_info(player)
-    dead = [enemy_one, enemy_two]
+    dead = []
     fought = 1
     if round > 3:
         clear_terminal()
