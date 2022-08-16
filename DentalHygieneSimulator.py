@@ -43,7 +43,7 @@ class characters():
         self.status = type
 
 
-player = characters("Player", 100, 0, 0)
+player = characters("Player", 75, 0, 0)
 
 
 def clear_terminal():
@@ -639,96 +639,96 @@ def money_check(player, healing):
         sleep(0.1)
         print(SEPARATOR)
         proceed()
-        buy_health(player)
     else:
         return None
 
 
 def buy_health(player):
-    if player.health == 100:
-        return None
-    sleep(0.1)
-    print("")
-    sleep(0.1)
-    print(SEPARATOR)
-    sleep(0.1)
-    print("")
-    sleep(0.1)
-    print("")
-    sleep(0.1)
-    print("              Player:")
-    sleep(0.1)
-    print("")
-    sleep(0.1)
-    print("")
-    sleep(0.1)
-    print(f"    Health:           {player.health}/{MAX_HP} HP")
-    sleep(0.1)
-    print(f"    Wallet:           ${player.money}")
-    sleep(0.1)
-    print("")
-    sleep(0.1)
-    print(SEPARATOR)
-    sleep(0.1)
-    print("")
-    sleep(0.1)
-    print("")
-    sleep(0.1)
-    print("           Fluoride Water Healing station")
-    sleep(0.1)
-    print("")
-    sleep(0.1)
-    for i in range(len(HEALING_OPTIONS)):
-        print(f"{HEALING_OPTIONS[i][1]}" +
-              (" " * (40 - len(HEALING_OPTIONS[i][1]))) +
-              f"${HEALING_OPTIONS[i][0]}")
+    while True:
+        if player.health == 100:
+            return None
         sleep(0.1)
         print("")
-    sleep(0.1)
-    print("")
-    sleep(0.1)
-    print("9) Decline")
-    sleep(0.1)
-    print("")
-    sleep(0.1)
-    print("")
-    while player.health < 100:
         sleep(0.1)
         print(SEPARATOR)
         sleep(0.1)
         print("")
-        healing = input("Enter an option's number: ").strip()
         sleep(0.1)
-        if healing in ["1", "2", "3"]:
-            clear_terminal()
-            money_check(player, int(healing) - 1)
-        if healing == "1":
-            clear_terminal()
-            player.health += 25
-            player.money -= 50
-            over_heal(player)
-            health_print(int(healing) - 1, player)
-        elif healing == "2":
-            clear_terminal()
-            player.health += 50
-            player.money -= 100
-            over_heal(player)
-            health_print(int(healing) - 1, player)
-        elif healing == "3":
-            clear_terminal()
-            player.health = 100
-            player.money -= 150
-            health_print(int(healing) - 1, player)
-        elif healing == "9":
-            clear_terminal()
-            return None
-        else:
+        print("")
+        sleep(0.1)
+        print("              Player:")
+        sleep(0.1)
+        print("")
+        sleep(0.1)
+        print("")
+        sleep(0.1)
+        print(f"    Health:           {player.health}/{MAX_HP} HP")
+        sleep(0.1)
+        print(f"    Wallet:           ${player.money}")
+        sleep(0.1)
+        print("")
+        sleep(0.1)
+        print(SEPARATOR)
+        sleep(0.1)
+        print("")
+        sleep(0.1)
+        print("")
+        sleep(0.1)
+        print("           Fluoride Water Healing station")
+        sleep(0.1)
+        print("")
+        sleep(0.1)
+        for i in range(len(HEALING_OPTIONS)):
+            print(f"{HEALING_OPTIONS[i][1]}" +
+                (" " * (40 - len(HEALING_OPTIONS[i][1]))) +
+                f"${HEALING_OPTIONS[i][0]}")
+            sleep(0.1)
             print("")
+        sleep(0.1)
+        print("")
+        sleep(0.1)
+        print("9) Decline")
+        sleep(0.1)
+        print("")
+        sleep(0.1)
+        print("")
+        while player.health < 100:
             sleep(0.1)
-            print("Sorry, that is not a valid option.")
+            print(SEPARATOR)
             sleep(0.1)
             print("")
+            healing = input("Enter an option's number: ").strip()
             sleep(0.1)
+            if healing in ["1", "2", "3"]:
+                clear_terminal()
+                money_check(player, int(healing) - 1)
+            if healing == "1" and player.money >= 50:
+                clear_terminal()
+                player.health += 25
+                player.money -= 50
+                over_heal(player)
+                health_print(int(healing) - 1, player)
+            elif healing == "2" and player.money >= 100:
+                clear_terminal()
+                player.health += 50
+                player.money -= 100
+                over_heal(player)
+                health_print(int(healing) - 1, player)
+            elif healing == "3" and player.money >= 150:
+                clear_terminal()
+                player.health = 100
+                player.money -= 150
+                health_print(int(healing) - 1, player)
+            elif healing == "9":
+                clear_terminal()
+                return None
+            elif healing not in ["1", "2", "3", "9"]:
+                print("")
+                sleep(0.1)
+                print("Sorry, that is not a valid option.")
+                sleep(0.1)
+                print("")
+                sleep(0.1)
 
 
 round = 1
@@ -745,10 +745,10 @@ def battle(round, fought, total_fought):
     enemy_two = characters(enemies_list[randint(0,
                            len(enemies_list) - 1)], 100, 3, 0)
     enemy_three = characters(enemies_list[randint(0,
-                             len(enemies_list) - 1)], 100, 3, 0)
+                             len(enemies_list) - 1)], 2, 3, 0)
     current = [enemy_one, enemy_two, enemy_three]
     user_info(player)
-    dead = []
+    dead = [enemy_one, enemy_two]
     fought = 1
     if round > 3:
         clear_terminal()
