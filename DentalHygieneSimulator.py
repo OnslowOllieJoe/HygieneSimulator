@@ -352,6 +352,12 @@ def counterattack(damage, min, enemy, current, player):
     print("")
     sleep(0.1)
     print(f"{current[enemy].type} has performed a counterattack!")
+    sleep(0.1)
+    if hit > damage:
+        print(f"{current[enemy].type}'s attack was a critical hit!")
+        sleep(0.1)
+    print("")
+    sleep(0.1)
     print(f"        {current[enemy].type} has dealt {hit} damage to you!")
     sleep(0.1)
     print("")
@@ -418,6 +424,11 @@ def attack(damage, min, enemy, dead, round, fought, current, player, chance):
         sleep(0.1)
         print("Your attack hit!")
         sleep(0.1)
+        if hit > damage:
+            print("Your attack was a critical hit!")
+            sleep(0.1)
+        print("")
+        sleep(0.1)
         print(f"    You dealt {hit} damage to {current[enemy].type}!")
         if hit >= current[enemy].health:
             sleep(0.1)
@@ -436,6 +447,9 @@ def attack(damage, min, enemy, dead, round, fought, current, player, chance):
         sleep(0.1)
         print(f"{current[enemy].type}'s attack has hit you!")
         sleep(0.1)
+        if hit > damage:
+            print(f"{current[enemy].type}'s attack was a critical hit!")
+            sleep(0.1)
         print("")
         sleep(0.1)
         print(f"        {current[enemy].type}" +
@@ -607,6 +621,29 @@ def over_heal(player):
         player.health = 100
 
 
+def money_check(player, healing):
+    if player.money < HEALING_OPTIONS[healing][0]:
+        print("")
+        sleep(0.1)
+        print(SEPARATOR)
+        sleep(0.1)
+        print("")
+        sleep(0.1)
+        print("")
+        sleep(0.1)
+        print("  Sorry, you do not have enough to purchase this item.")
+        sleep(0.1)
+        print("")
+        sleep(0.1)
+        print("")
+        sleep(0.1)
+        print(SEPARATOR)
+        proceed()
+        buy_health(player)
+    else:
+        return None
+
+
 def buy_health(player):
     if player.health == 100:
         return None
@@ -662,6 +699,9 @@ def buy_health(player):
         print("")
         healing = input("Enter an option's number: ").strip()
         sleep(0.1)
+        if healing in ["1", "2", "3"]:
+            clear_terminal()
+            money_check(player, int(healing) - 1)
         if healing == "1":
             clear_terminal()
             player.health += 25
@@ -695,14 +735,14 @@ fought = 1
 def battle(round, fought):
     enemies_list = ["Plaque", "Tartar", "Tooth Decay"]
     enemy_one = characters(enemies_list[randint(0,
-                           len(enemies_list) - 1)], 100, 3, 0)
+                           len(enemies_list) - 1)], 2, 3, 0)
     enemy_two = characters(enemies_list[randint(0,
-                           len(enemies_list) - 1)], 100, 3, 0)
+                           len(enemies_list) - 1)], 2, 3, 0)
     enemy_three = characters(enemies_list[randint(0,
-                             len(enemies_list) - 1)], 100, 3, 0)
+                             len(enemies_list) - 1)], 2, 3, 0)
     current = [enemy_one, enemy_two, enemy_three]
     user_info(player)
-    dead = []
+    dead = [enemy_one, enemy_two]
     fought = 1
     if round > 1:
         clear_terminal()
