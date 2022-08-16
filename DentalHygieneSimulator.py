@@ -771,6 +771,7 @@ def battle(round, fought):
         proceed()
         round = 1
         fought = 1
+        total_fought = 0
         battle(round, fought)
     if round > 1:
         clear_terminal()
