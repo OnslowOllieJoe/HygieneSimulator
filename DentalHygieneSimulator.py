@@ -695,11 +695,11 @@ fought = 1
 def battle(round, fought):
     enemies_list = ["Plaque", "Tartar", "Tooth Decay"]
     enemy_one = characters(enemies_list[randint(0,
-                           len(enemies_list) - 1)], 2, 3, 0)
+                           len(enemies_list) - 1)], 100, 3, 0)
     enemy_two = characters(enemies_list[randint(0,
-                           len(enemies_list) - 1)], 2, 3, 0)
+                           len(enemies_list) - 1)], 100, 3, 0)
     enemy_three = characters(enemies_list[randint(0,
-                             len(enemies_list) - 1)], 2, 3, 0)
+                             len(enemies_list) - 1)], 100, 3, 0)
     current = [enemy_one, enemy_two, enemy_three]
     user_info(player)
     dead = []
