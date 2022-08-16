@@ -613,6 +613,7 @@ def health_print(healing, player):
     sleep(0.1)
     print(SEPARATOR)
     proceed()
+    NEED TO FIX
     buy_health(player)
 
 
