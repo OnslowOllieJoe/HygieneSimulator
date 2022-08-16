@@ -529,7 +529,7 @@ def menu(round, fought):
         proceed = input("Select an option's number: ").strip()
         if proceed == "1":
             clear_terminal()
-            battle(round, fought)
+            battle(round, fought, total_fought)
         elif proceed == "2":
             clear_terminal()
             instructions()
@@ -736,7 +736,7 @@ fought = 1
 total_fought = 0
 
 
-def battle(round, fought):
+def battle(round, fought, total_fought):
     if round == 1 and fought == 1:
         total_fought = 0
     enemies_list = ["Plaque", "Tartar", "Tooth Decay"]
@@ -745,7 +745,7 @@ def battle(round, fought):
     enemy_two = characters(enemies_list[randint(0,
                            len(enemies_list) - 1)], 100, 3, 0)
     enemy_three = characters(enemies_list[randint(0,
-                             len(enemies_list) - 1)], 100, 3, 0)
+                             len(enemies_list) - 1)], 2, 3, 0)
     current = [enemy_one, enemy_two, enemy_three]
     user_info(player)
     dead = [enemy_one, enemy_two]
@@ -762,7 +762,7 @@ def battle(round, fought):
         sleep(0.1)
         print("")
         sleep(0.1)
-        print(f"           You survived {fought} attacks.")
+        print(f"             You survived {total_fought} attacks.")
         sleep(0.1)
         print("")
         print(f"    Wallet:    ${player.money}")
@@ -774,7 +774,7 @@ def battle(round, fought):
         round = 1
         fought = 1
         total_fought = 0
-        battle(round, fought)
+        battle(round, fought, total_fought)
     if round > 1:
         clear_terminal()
         sleep(0.1)
@@ -803,7 +803,7 @@ def battle(round, fought):
     while dead != 3 and round <= 5:
         if current[0].health + current[1].health + current[2].health == 0:
             round += 1
-            battle(round, fought)
+            battle(round, fought, total_fought)
         sleep(0.1)
         print("\n")
         sleep(0.1)
