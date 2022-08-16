@@ -680,8 +680,8 @@ def buy_health(player):
         sleep(0.1)
         for i in range(len(HEALING_OPTIONS)):
             print(f"{HEALING_OPTIONS[i][1]}" +
-                (" " * (40 - len(HEALING_OPTIONS[i][1]))) +
-                f"${HEALING_OPTIONS[i][0]}")
+                  (" " * (40 - len(HEALING_OPTIONS[i][1]))) +
+                  f"${HEALING_OPTIONS[i][0]}")
             sleep(0.1)
             print("")
         sleep(0.1)
@@ -729,6 +729,7 @@ def buy_health(player):
                 sleep(0.1)
                 print("")
                 sleep(0.1)
+            break
 
 
 round = 1
