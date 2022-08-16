@@ -137,7 +137,7 @@ def weapon_selection():
             sleep(0.1)
             print("")
             for count, value in enumerate(weaken_weapons, start=1):
-                sleep(0.1)
+                sleep(0.05)
                 print(f"    {count}: " + value[0])
             sleep(0.1)
             sleep(0.1)
