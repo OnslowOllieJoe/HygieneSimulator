@@ -737,18 +737,20 @@ total_fought = 0
 
 
 def battle(round, fought):
+    if round == 1 and fought == 1:
+        total_fought = 0
     enemies_list = ["Plaque", "Tartar", "Tooth Decay"]
     enemy_one = characters(enemies_list[randint(0,
-                           len(enemies_list) - 1)], 2, 3, 0)
+                           len(enemies_list) - 1)], 100, 3, 0)
     enemy_two = characters(enemies_list[randint(0,
-                           len(enemies_list) - 1)], 2, 3, 0)
+                           len(enemies_list) - 1)], 100, 3, 0)
     enemy_three = characters(enemies_list[randint(0,
-                             len(enemies_list) - 1)], 2, 3, 0)
+                             len(enemies_list) - 1)], 100, 3, 0)
     current = [enemy_one, enemy_two, enemy_three]
     user_info(player)
     dead = [enemy_one, enemy_two]
     fought = 1
-    if round > 5:
+    if round > 1:
         clear_terminal()
         print("")
         sleep(0.1)
@@ -760,7 +762,7 @@ def battle(round, fought):
         sleep(0.1)
         print("")
         sleep(0.1)
-        print(f"        You survived {fought} attacks.")
+        print(f"           You survived {fought} attacks.")
         sleep(0.1)
         print("")
         print(f"    Wallet:    ${player.money}")
