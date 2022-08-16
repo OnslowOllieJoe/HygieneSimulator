@@ -461,7 +461,7 @@ def attack(damage, min, enemy, dead, round, fought, current, player, chance):
         sleep(0.1)
         print(SEPARATOR)
         if hit >= player.health:
-            sleep(15)
+            sleep(2)
             clear_terminal()
             you_lose(round, fought, player)
     return hit
