@@ -750,7 +750,7 @@ def battle(round, fought):
     user_info(player)
     dead = [enemy_one, enemy_two]
     fought = 1
-    if round > 1:
+    if round > 3:
         clear_terminal()
         print("")
         sleep(0.1)
