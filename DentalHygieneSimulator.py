@@ -705,16 +705,19 @@ def buy_health(player):
         if healing == "1":
             clear_terminal()
             player.health += 25
+            player.money -= 50
             over_heal(player)
             health_print(int(healing) - 1, player)
         elif healing == "2":
             clear_terminal()
             player.health += 50
+            player.money -= 100
             over_heal(player)
             health_print(int(healing) - 1, player)
         elif healing == "3":
             clear_terminal()
             player.health = 100
+            player.money -= 150
             health_print(int(healing) - 1, player)
         elif healing == "9":
             clear_terminal()
@@ -735,14 +738,14 @@ fought = 1
 def battle(round, fought):
     enemies_list = ["Plaque", "Tartar", "Tooth Decay"]
     enemy_one = characters(enemies_list[randint(0,
-                           len(enemies_list) - 1)], 100, 3, 0)
+                           len(enemies_list) - 1)], 2, 3, 0)
     enemy_two = characters(enemies_list[randint(0,
-                           len(enemies_list) - 1)], 100, 3, 0)
+                           len(enemies_list) - 1)], 2, 3, 0)
     enemy_three = characters(enemies_list[randint(0,
-                             len(enemies_list) - 1)], 100, 3, 0)
+                             len(enemies_list) - 1)], 2, 3, 0)
     current = [enemy_one, enemy_two, enemy_three]
     user_info(player)
-    dead = []
+    dead = [enemy_one, enemy_two]
     fought = 1
     if round > 5:
         clear_terminal()
@@ -760,6 +763,11 @@ def battle(round, fought):
         sleep(0.1)
         print("")
         print(f"    Wallet:    ${player.money}")
+        sleep(0.1)
+        print("")
+        sleep(0.1)
+        print(SEPARATOR)
+        proceed()
         round = 1
         fought = 1
         battle(round, fought)
