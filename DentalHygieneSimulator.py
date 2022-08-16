@@ -471,7 +471,7 @@ def instructions():
     print("\n")
     print(SEPARATOR)
     print("\n")
-    print("""1) There are five rounds in a game.
+    print("""1) There are three rounds in a game.
 
 2) Each round has three enemies.
 
