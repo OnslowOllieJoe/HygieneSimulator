@@ -772,6 +772,7 @@ def battle(round, fought, total_fought):
         round = 1
         fought = 1
         total_fought = 0
+        player = characters("Player", 100, 0, 0)
         battle(round, fought, total_fought)
     if round > 1:
         clear_terminal()
