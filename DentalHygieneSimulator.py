@@ -585,6 +585,8 @@ def you_lose(round, fought, player):
     proceed()
     round = 1
     fought = 1
+    player.health = 100
+    player.money = 0
     menu(round, fought)
 
 
