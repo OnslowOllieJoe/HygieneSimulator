@@ -583,6 +583,8 @@ def you_lose(round, fought, player):
     print(SEPARATOR)
     sleep(0.1)
     proceed()
+    round = 1
+    fought = 1
     menu(round, fought)
 
 
