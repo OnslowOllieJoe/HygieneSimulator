@@ -43,7 +43,7 @@ class characters():
         self.status = type
 
 
-player = characters("Player", 50, 0, 0)
+player = characters("Player", 6, 0, 0)
 
 
 def clear_terminal():
@@ -743,10 +743,10 @@ def battle(round, fought, total_fought):
     enemy_two = characters(enemies_list[randint(0,
                            len(enemies_list) - 1)], 100, 3, 0)
     enemy_three = characters(enemies_list[randint(0,
-                             len(enemies_list) - 1)], 2, 3, 0)
+                             len(enemies_list) - 1)], 100, 3, 0)
     current = [enemy_one, enemy_two, enemy_three]
     user_info(player)
-    dead = [enemy_one, enemy_two]
+    dead = []
     fought = 1
     if round > 3:
         clear_terminal()
