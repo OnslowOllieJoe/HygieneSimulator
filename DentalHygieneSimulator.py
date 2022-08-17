@@ -43,7 +43,7 @@ class characters():
         self.status = type
 
 
-player = characters("Player", 6, 0, 0)
+player = characters("Player", 100, 0, 0)
 
 
 def clear_terminal():
