@@ -929,4 +929,5 @@ def battle(round, fought, total_fought):
         clear_terminal()
 
 
+# Call the menu to start the game.
 menu(round, fought)
