@@ -917,11 +917,11 @@ def battle(round, fought, total_fought):
         print(SEPARATOR)
         # Make the enemies attack the player.
         player.health -= attack(current[enemy].base_dmg, 12, 0, dead,
-                                round, fought, current, player, 2)
+                                round, fought, current, player, 3)
         player.health -= attack(current[enemy].base_dmg, 12, 1, dead,
-                                round, fought, current, player, 2)
+                                round, fought, current, player, 3)
         player.health -= attack(current[enemy].base_dmg, 12, 2, dead,
-                                round, fought, current, player, 2)
+                                round, fought, current, player, 3)
         if len(dead) != 3:
             proceed()
         fought += 1
