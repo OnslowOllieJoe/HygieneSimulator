@@ -34,6 +34,7 @@ HEALING_OPTIONS = [[50, "1) Small glass -  Heals 25HP",
                    "large glass of fluoride water", 100]]
 
 
+# Class for player and enemies.
 class characters():
     def __init__(self, type, health, base_dmg, money):
         self.type = type
@@ -43,13 +44,16 @@ class characters():
         self.status = type
 
 
+# Player class set.
 player = characters("Player", 100, 0, 0)
 
 
+# Function to clear terminal.
 def clear_terminal():
     os.system('cls' if os.name == 'nt' else 'clear')
 
 
+# Function to print the player's information.
 def user_info(player):
     print(SEPARATOR)
     sleep(0.05)
@@ -83,6 +87,7 @@ def user_info(player):
     proceed()
 
 
+# Function to ask the user if they want to continue to the next action.
 def proceed():
     repeat = True
     while repeat:
@@ -96,6 +101,7 @@ def proceed():
             print("Please press Enter if you want to continue.")
 
 
+# Function to print the enemies information.
 def enemy_info(current):
     sleep(0.1)
     print("\n")
@@ -123,6 +129,7 @@ def enemy_info(current):
     sleep(0.1)
 
 
+# Function for the player to select a main wepaon.
 def weapon_selection():
     sleep(0.1)
     print("")
@@ -183,6 +190,7 @@ def weapon_selection():
             sleep(0.1)
 
 
+# Function for the player to select a finishing weapon.
 def finishing_weapons(enemy, current):
     while True:
         try:
@@ -195,6 +203,7 @@ def finishing_weapons(enemy, current):
                                  f" {current[enemy].type}: "))
             sleep(0.1)
             print("")
+            # Check if the weapon is effective against tooth decay.
             if finisher in range(1, 3):
                 if (kill_weapons[finisher - 1] == kill_weapons[1]
                         and current[enemy].type == "Tooth Decay"):
@@ -206,18 +215,21 @@ def finishing_weapons(enemy, current):
                     print("")
                     sleep(0.1)
                     print(SEPARATOR)
+                    # Change the enemy's status
                     current[enemy].status = ((''.join([u'\u0336{}'.format(c)
                                               for c in current[enemy].type]))
                                              + (" " * (SPACE_LENGTH -
                                                 len(current[enemy].type))))
                     current[enemy].health = 0
                     return None
+                # Check if the weapon is effective against tartar and plaque
                 elif (kill_weapons[finisher - 1] == kill_weapons[0] and
                         (current[enemy].type == "Plaque" or
                          current[enemy].type == "Tartar")):
                     sleep(0.1)
                     print("You chose a super effective weapon!")
                     sleep(0.1)
+                    # Change the enemy's status
                     print(f"    You have defeated {current[enemy].type}!")
                     current[enemy].status = ((''.join([u'\u0336{}'.format(c)
                                              for c in current[enemy].type]))
@@ -261,6 +273,7 @@ def finishing_weapons(enemy, current):
             print(SEPARATOR)
 
 
+# Function for the player to select an enemy to attack.
 def chosen_enemy(current):
     sleep(0.1)
     while True:
@@ -269,6 +282,7 @@ def chosen_enemy(current):
             sleep(0.1)
             target_enemy = int(input("Select an enemy's number to attack: "))
             sleep(0.1)
+            # Check if the enemy is already dead.
             if target_enemy in range(1, len(current) + 1):
                 if (current[target_enemy - 1].health == 0):
                     print("")
@@ -305,6 +319,7 @@ def chosen_enemy(current):
             enemy_info(current)
 
 
+# Function for the player to dodge the enemies attacks.
 def dodge(enemy, current):
     while True:
         random_num = randint(1, 3)
@@ -316,6 +331,7 @@ def dodge(enemy, current):
             sleep(0.1)
             player_guess = int(input("Guess a number between" +
                                      " 1 and 3 to dodge the attack: "))
+            # Check if the player's guess is correct.
             if player_guess == random_num:
                 sleep(0.1)
                 print("")
@@ -343,6 +359,7 @@ def dodge(enemy, current):
             sleep(0.1)
 
 
+# Function for the enemies to counterattack the player.
 def counterattack(damage, min, enemy, current, player):
     hit = int((damage * randint(min, MAX_MULTIPLIER) / 10)
               if randint(1, 3) == 1 else damage)
@@ -369,6 +386,7 @@ def counterattack(damage, min, enemy, current, player):
     sleep(0.1)
 
 
+# Function for the player and enemies attacks and missed attacks.
 def attack(damage, min, enemy, dead, round, fought, current, player, chance):
     if current[enemy] in dead:
         return 0
@@ -467,6 +485,7 @@ def attack(damage, min, enemy, dead, round, fought, current, player, chance):
     return hit
 
 
+# Function to print the how to play.
 def instructions():
     print("\n")
     print(SEPARATOR)
@@ -501,6 +520,7 @@ deal up to 9 damage, and counterattack the player.""")
     print("\n")
 
 
+# Function for the player to choose to play, how to play, or exit the game.
 def menu(round, fought):
     while True:
         sleep(0.1)
@@ -557,6 +577,7 @@ def menu(round, fought):
             print("Please enter a valid option's number.")
 
 
+# Function to check if the enemy is dead.
 def check_if_dead(enemy, dead, current):
     if current[enemy].health <= 0:
         dead.append(current[enemy])
@@ -564,6 +585,7 @@ def check_if_dead(enemy, dead, current):
         current[enemy].status = f"{current[enemy].type}[Finish]"
 
 
+# Function to tell the player they lost the gmae and reset character.
 def you_lose(round, fought, player):
     print("")
     sleep(0.1)
@@ -590,6 +612,7 @@ def you_lose(round, fought, player):
     menu(round, fought)
 
 
+# Function to tell the player how much they healed and what heal they are on.
 def health_print(healing, player):
     sleep(0.1)
     print("")
@@ -619,11 +642,13 @@ def health_print(healing, player):
     proceed()
 
 
+# Function to make sure the player does not heal above 100 health.
 def over_heal(player):
     if player.health > 100:
         player.health = 100
 
 
+# Function to tell the player they do not have enough money to buy health.
 def money_check(player, healing):
     if player.money < HEALING_OPTIONS[healing][0]:
         print("")
@@ -646,6 +671,7 @@ def money_check(player, healing):
         return None
 
 
+# Function for the healing station for the player to purchase health.
 def buy_health(player):
     while True:
         if player.health == 100:
@@ -738,10 +764,13 @@ fought = 1
 total_fought = 0
 
 
+# Function for the battle where the player and enemies attack eachother.
 def battle(round, fought, total_fought):
+    # Reset the total attacks fought.
     if round == 1 and fought == 1:
         total_fought = 0
     enemies_list = ["Plaque", "Tartar", "Tooth Decay"]
+    # Set the enemy classes.
     enemy_one = characters(enemies_list[randint(0,
                            len(enemies_list) - 1)], 100, 3, 0)
     enemy_two = characters(enemies_list[randint(0,
@@ -752,6 +781,7 @@ def battle(round, fought, total_fought):
     user_info(player)
     dead = []
     fought = 1
+    # Check if the play has won the game.
     if round > 3:
         clear_terminal()
         print("")
@@ -779,6 +809,7 @@ def battle(round, fought, total_fought):
         player.health = 100
         player.money = 0
         battle(round, fought, total_fought)
+    # Check if the player has beat a round.
     if round > 1:
         clear_terminal()
         sleep(0.1)
@@ -804,6 +835,7 @@ def battle(round, fought, total_fought):
         print(SEPARATOR)
         proceed()
         buy_health(player)
+    # Loop while all the enemies are not dead.
     while dead != 3 and round <= 5:
         if current[0].health + current[1].health + current[2].health == 0:
             round += 1
@@ -870,6 +902,7 @@ def battle(round, fought, total_fought):
             print(SEPARATOR)
             finishing_weapons(enemy, current)
         else:
+            # Let the player attack the enemy.
             player.base_dmg = weapon_selection()
             sleep(0.1)
             current[enemy].health -= attack(weaken_weapons[player.base_dmg][1],
@@ -882,6 +915,7 @@ def battle(round, fought, total_fought):
                               enemy, current, player)
         proceed()
         print(SEPARATOR)
+        # Make the enemies attack the player.
         player.health -= attack(current[enemy].base_dmg, 12, 0, dead,
                                 round, fought, current, player, 2)
         player.health -= attack(current[enemy].base_dmg, 12, 1, dead,
