@@ -28,7 +28,7 @@ kill_weapons = [
 MAX_MULTIPLIER = 30
 HEALING_OPTIONS = [[50, "1) Small glass -  Heals 25HP",
                     "small glass of fluoride water", 25],
-                   [100, "2) Medium glass - Heals 50HP",
+                   [75, "2) Medium glass - Heals 50HP",
                     "medium glass of fluoride water", 50],
                    [150, "3) Large glass -  Heals to 100HP",
                    "large glass of fluoride water", 100]]
@@ -735,10 +735,10 @@ def buy_health(player):
             player.money -= 50
             over_heal(player)
             health_print(int(healing) - 1, player)
-        elif healing == "2" and player.money >= 100:
+        elif healing == "2" and player.money >= 75:
             clear_terminal()
             player.health += 50
-            player.money -= 100
+            player.money -= 75
             over_heal(player)
             health_print(int(healing) - 1, player)
         elif healing == "3" and player.money >= 150:
@@ -824,7 +824,7 @@ def battle(round, fought, total_fought):
         sleep(0.1)
         print("")
         sleep(0.1)
-        print("       You have been rewarded with 100 dollars!")
+        print("       You have been rewarded with 125 dollars!")
         player.money += 125
         sleep(0.1)
         print("")
