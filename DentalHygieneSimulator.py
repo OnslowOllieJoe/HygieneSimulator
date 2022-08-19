@@ -825,7 +825,7 @@ def battle(round, fought, total_fought):
         print("")
         sleep(0.1)
         print("       You have been rewarded with 100 dollars!")
-        player.money += 100
+        player.money += 125
         sleep(0.1)
         print("")
         sleep(0.1)
